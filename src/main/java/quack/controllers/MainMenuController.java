@@ -7,6 +7,8 @@ import quack.QuackApp;
 import quack.views.ConfigScreen;
 import quack.views.MainMenuScreen;
 
+import java.io.FileNotFoundException;
+
 /**
  * Controller for MainMenuScreen
  */

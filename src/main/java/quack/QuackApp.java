@@ -14,8 +14,8 @@ import sun.applet.Main;
 public class QuackApp extends Application {
 
     protected Stage stage;
-    private final int width = 500;
-    private final int height = 500;
+    private final int width = 1200;
+    private final int height = 900;
 
     public static void main(String[] args) {
         launch(args);
@@ -24,6 +24,8 @@ public class QuackApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
+        stage.setWidth(width);
+        stage.setHeight(height);
         stage.setTitle("Quack");
 
 
