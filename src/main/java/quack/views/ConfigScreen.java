@@ -89,6 +89,7 @@ public class ConfigScreen extends VBox {
 
     /**
      * Checks whether or not the config setup entered by the player is valid.
+     * TODO: (Probably) move this logic into a controller...
      * @return A boolean on whether all the fields are valid.
      */
     private boolean checkFields() {

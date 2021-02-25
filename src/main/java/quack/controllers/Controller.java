@@ -1,49 +1,27 @@
 package quack.controllers;
 
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import quack.views.ConfigScreen;
-import quack.views.MainMenuScreen;
 
-public class Controller extends Application {
+/**
+ * Controller super class. This class may not be needed since there is not much to inherit but we will determine that later.
+ */
+public class Controller {
 
-    private Stage stage;
-    private final int width = 500;
-    private final int height = 500;
+    protected Stage stage;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    /**
+     * Default constructor
+     */
+    public Controller() {
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        this.stage = stage;
-        stage.setTitle("Quack");
-
-        //Replace this with main menu screen. Config screen for example purposes...
-        ConfigScreen configScreen = new ConfigScreen();
-        Scene configScene = new Scene(configScreen);
-
-        initMainMenu();
     }
 
     /**
-     * Initializes app to show main menu.
+     * Constructor that initializes the controller with a stage
+     * @param stage the stage initialized in QuackApp.java
      */
-    private void initMainMenu() {
-        MainMenuScreen mainMenuScreen = new MainMenuScreen();
-        stage.setScene(new Scene(mainMenuScreen));
-        Button startButton = mainMenuScreen.getStartButton();
-        startButton.setOnAction(e -> toConfigScreen());
-        stage.show();
-
+    public Controller(Stage stage) {
+        this.stage = stage;
     }
 
-    private void toConfigScreen() {
-        ConfigScreen configScreen = new ConfigScreen();
-        stage.setScene(new Scene(configScreen));
-    }
 }
