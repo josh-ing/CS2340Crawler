@@ -6,19 +6,19 @@ import javafx.scene.layout.VBox;
 
 public class MainMenuScreen extends VBox {
 
-    Button startButton;
+    Button newGameButton;
 
     public MainMenuScreen() {
         super();
 
         Label welcomeLabel = new Label("Welcome to the main menu...");
-        startButton = new Button("Start Game");
+        newGameButton = new Button("Start Game");
 
-        this.getChildren().addAll(welcomeLabel, startButton);
+        this.getChildren().addAll(welcomeLabel, newGameButton);
     }
 
-    public Button getStartButton() {
-        return startButton;
+    public Button getNewGameButton() {
+        return newGameButton;
     }
 
 }
