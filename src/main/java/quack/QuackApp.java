@@ -14,8 +14,8 @@ import sun.applet.Main;
 public class QuackApp extends Application {
 
     protected Stage stage;
-    private final int width = 500;
-    private final int height = 500;
+    private final int width = 1200;
+    private final int height = 900;
 
     public static void main(String[] args) {
         launch(args);
