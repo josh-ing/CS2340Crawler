@@ -74,11 +74,11 @@ public class Room {
     }
 
     public static RoomCellType[][] createMapFromIntArray(int[][] intMap) {
-        RoomCellType[][] map = new RoomCellType[intMap.length][intMap[0].length];
+        RoomCellType[][] map = new RoomCellType[intMap[0].length][intMap.length];
 
         for (int i = 0; i < intMap.length; i++) {
-            for (int j = 0; j < intMap[0].length; j++) {
-                map[i][j] = RoomCellType.values()[intMap[j][i]];
+            for (int j = 0; j < intMap[i].length; j++) {
+                map[j][i] = RoomCellType.values()[intMap[i][j]];
             }
         }
 
