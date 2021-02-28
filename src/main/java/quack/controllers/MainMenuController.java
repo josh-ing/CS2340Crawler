@@ -27,10 +27,9 @@ public class MainMenuController extends Controller {
      */
 
     public void initMainMenu() throws FileNotFoundException {
-        stage.setWidth(1200);
-        stage.setHeight(900);
-
         MainMenuScreen mainMenuScreen = new MainMenuScreen();
+        mainMenuScreen.setMinWidth(1200);
+        mainMenuScreen.setMinHeight(900);
         this.stage.setScene(new Scene(mainMenuScreen));
         Button newGameButton = mainMenuScreen.getNewGameButton();
         newGameButton.setOnAction(e -> {
