@@ -14,13 +14,14 @@ public class PlayerModel {
     private int power;
     private int speed;
 
-    public PlayerModel(String name, PlayableCharacterModel character) {
+    public PlayerModel(String name, PlayableCharacterModel character, int gold) {
         this.name = name;
         this.character = character;
         this.currentHealth = character.getMaxHealth();
         this.currentMana = character.getMaxMana();
         this.power = character.getPower();
         this.speed = character.getSpeed();
+        this.gold = gold;
     }
 
     public WeaponModel getWeapon() {

@@ -9,13 +9,13 @@ import javafx.scene.text.*;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Font;
 
-public class MapScreen extends Pane {
+public class GameScreen extends Pane {
 
     static final int TILE_SIZE = 50;
-
     Text goldText;
+    Font goldFont;
 
-    public MapScreen(Room room) {
+    public GameScreen(Room room) {
         super();
 
         Font goldFont = Font.font("Arial", FontWeight.BOLD, 25.0);
@@ -63,6 +63,7 @@ public class MapScreen extends Pane {
                 elements.add(r);
             }
         }
+
 
         elements.add(goldText);
         this.getChildren().addAll(elements);

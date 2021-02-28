@@ -1,17 +1,8 @@
 package quack;
 
-
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import quack.controllers.Controller;
 import quack.controllers.MainMenuController;
-import quack.controllers.MapController;
-import quack.views.ConfigScreen;
-import quack.views.MainMenuScreen;
-import sun.applet.Main;
-import quack.models.Room;
 
 public class QuackApp extends Application {
 
@@ -26,13 +17,10 @@ public class QuackApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
-        stage.setWidth(width);
-        stage.setHeight(height);
         stage.setTitle("Quack");
         stage.setResizable(false);
 
         MainMenuController mainMenuController = new MainMenuController(stage);
         mainMenuController.initMainMenu();
-
     }
 }
