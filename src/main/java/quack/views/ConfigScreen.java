@@ -6,6 +6,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import quack.views.components.SelectCharacterWrapper;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -68,46 +70,24 @@ public class ConfigScreen extends VBox {
         weaponSelection.setAlignment(Pos.CENTER);
         weaponSelection.setSpacing(15);
 
+        //select character label
+        HBox select = new HBox();
+        Label selection = new Label("Choose your character!");
+        select.getChildren().addAll(selection);
+        select.setAlignment(Pos.CENTER);
+
         //Duck images
-        HBox imageWrapper = new HBox();
-        final ImageView selectedImage1 = new ImageView();
-        final ImageView selectedImage2 = new ImageView();
-        final ImageView selectedImage3 = new ImageView();
-        Image image1 = new Image(new FileInputStream("src/main/resources/assets/quack.png"));
-        Image image2 = new Image(new FileInputStream("src/main/resources/assets/henry.png"));
-        Image image3 = new Image(new FileInputStream("src/main/resources/assets/pelican.png"));
-        selectedImage1.setImage(image1);
-        selectedImage1.setFitHeight(250);
-        selectedImage1.setFitWidth(250);
-        selectedImage2.setImage(image2);
-        selectedImage2.setFitHeight(250);
-        selectedImage2.setFitWidth(250);
-        selectedImage3.setImage(image3);
-        selectedImage3.setFitHeight(250);
-        selectedImage3.setFitWidth(250);
-        imageWrapper.getChildren().addAll(selectedImage1, selectedImage2, selectedImage3);
-        imageWrapper.setAlignment(Pos.CENTER);
-        imageWrapper.setSpacing(30);
-
-        //Choose duck
-        /**
-         * TODO: decide which duck types we want the player to select
-         */
-        HBox duckSelection = new HBox();
-        Label duckLabel = new Label("Choose your character");
+        HBox imageWrapperTotal = new HBox();
         duckGroup = new ToggleGroup();
-        RadioButton quack = new RadioButton("Quack");
-        RadioButton henry = new RadioButton("Henry");
-        RadioButton pelican = new RadioButton("Pelican");
-        quack.setToggleGroup(duckGroup);
-        henry.setToggleGroup(duckGroup);
-        pelican.setToggleGroup(duckGroup);
-        duckSelection.getChildren().addAll(duckLabel, quack, henry, pelican);
-        duckSelection.setAlignment(Pos.CENTER);
-        duckSelection.setSpacing(200);
+        SelectCharacterWrapper quack = new SelectCharacterWrapper("src/main/resources/assets/quack.png", "Quack", duckGroup);
+        SelectCharacterWrapper henry = new SelectCharacterWrapper("src/main/resources/assets/henry.png", "Henry", duckGroup);
+        SelectCharacterWrapper pelican = new SelectCharacterWrapper("src/main/resources/assets/pelican.png", "Pelican", duckGroup);
 
-        this.getChildren().addAll(nameWrapper, difficultySelection, weaponSelection, imageWrapper, duckSelection, startWrapper);
-        this.setSpacing(30);
+        imageWrapperTotal.getChildren().addAll(quack, henry, pelican);
+        imageWrapperTotal.setAlignment(Pos.CENTER);
+
+        this.getChildren().addAll(nameWrapper, difficultySelection, weaponSelection, select, imageWrapperTotal, startWrapper);
+        this.setSpacing(10);
     }
 
     /**
