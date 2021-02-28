@@ -25,7 +25,7 @@ public class MainMenuController extends Controller {
     /**
      * Initializes app to show main menu.
      */
-    public void initMainMenu() {
+    public void initMainMenu() throws FileNotFoundException {
         MainMenuScreen mainMenuScreen = new MainMenuScreen();
         this.stage.setScene(new Scene(mainMenuScreen));
         Button newGameButton = mainMenuScreen.getNewGameButton();
