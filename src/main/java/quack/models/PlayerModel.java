@@ -5,6 +5,7 @@ import quack.models.weapons.WeaponModel;
 
 public class PlayerModel {
 
+    private String name;
     private PlayableCharacterModel character;
     private WeaponModel weapon;
     private int currentHealth;
@@ -12,7 +13,8 @@ public class PlayerModel {
     private int power;
     private int speed;
 
-    public PlayerModel(PlayableCharacterModel character) {
+    public PlayerModel(String name, PlayableCharacterModel character) {
+        this.name = name;
         this.character = character;
         this.currentHealth = character.getMaxHealth();
         this.currentMana = character.getMaxMana();
@@ -58,5 +60,13 @@ public class PlayerModel {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
