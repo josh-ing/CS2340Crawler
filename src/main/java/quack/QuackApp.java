@@ -26,6 +26,8 @@ public class QuackApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
+        stage.setWidth(width);
+        stage.setHeight(height);
         stage.setTitle("Quack");
         stage.setResizable(false);
 
