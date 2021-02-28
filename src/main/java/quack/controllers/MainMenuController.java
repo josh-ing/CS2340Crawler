@@ -7,6 +7,8 @@ import quack.QuackApp;
 import quack.views.ConfigScreen;
 import quack.views.MainMenuScreen;
 
+import java.io.FileNotFoundException;
+
 /**
  * Controller for MainMenuScreen
  */
@@ -29,15 +31,21 @@ public class MainMenuController extends Controller {
         MainMenuScreen mainMenuScreen = new MainMenuScreen();
         this.stage.setScene(new Scene(mainMenuScreen));
         Button newGameButton = mainMenuScreen.getNewGameButton();
-        newGameButton.setOnAction(e -> toConfigScreen());
+        newGameButton.setOnAction(e -> {
+            try {
+                toConfigScreen();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
         stage.show();
     }
 
     /**
      * Goes to the config screen.
      */
-    public void toConfigScreen() {
-        ConfigScreen configScreen = new ConfigScreen();
-        stage.setScene(new Scene(configScreen));
+    public void toConfigScreen() throws FileNotFoundException {
+        ConfigController configControl = new ConfigController(stage);
+        configControl.initConfig();
     }
 }
