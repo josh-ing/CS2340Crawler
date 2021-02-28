@@ -73,9 +73,9 @@ public class ConfigScreen extends VBox {
         final ImageView selectedImage1 = new ImageView();
         final ImageView selectedImage2 = new ImageView();
         final ImageView selectedImage3 = new ImageView();
-        Image image1 = new Image(new FileInputStream("D:\\Documents\\CS2340-Dungeon-Crawler\\src\\main\\resources\\assets\\duck1.png"));
-        Image image2 = new Image(new FileInputStream("D:\\Documents\\CS2340-Dungeon-Crawler\\src\\main\\resources\\assets\\duck2.png"));
-        Image image3 = new Image(new FileInputStream("D:\\Documents\\CS2340-Dungeon-Crawler\\src\\main\\resources\\assets\\duck3.png"));
+        Image image1 = new Image(new FileInputStream("src/main/resources/assets/duck1.png"));
+        Image image2 = new Image(new FileInputStream("src/main/resources/assets/duck2.png"));
+        Image image3 = new Image(new FileInputStream("src/main/resources/assets/duck3.png"));
         selectedImage1.setImage(image1);
         selectedImage1.setFitHeight(250);
         selectedImage1.setFitWidth(250);
