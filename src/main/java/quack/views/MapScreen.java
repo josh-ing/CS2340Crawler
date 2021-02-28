@@ -5,16 +5,26 @@ import quack.models.Room;
 import java.util.ArrayList;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.scene.text.*;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Font;
 
 public class MapScreen extends Pane {
 
     static final int TILE_SIZE = 50;
 
+    Text goldText;
+
     public MapScreen(Room room) {
         super();
 
+        Font goldFont = Font.font("Arial", FontWeight.BOLD, 25.0);
+        goldText = new Text(10, 35, "GOLD: ");
+        goldText.setFill(Color.WHITE);
+        goldText.setFont(goldFont);
+
         Room.RoomCellType[][] map = room.getMap();
-        ArrayList tiles = new ArrayList<>();
+        ArrayList elements = new ArrayList<>();
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -50,10 +60,15 @@ public class MapScreen extends Pane {
                         break;
                 }
 
-                tiles.add(r);
+                elements.add(r);
             }
         }
 
-        this.getChildren().addAll(tiles);
+        elements.add(goldText);
+        this.getChildren().addAll(elements);
+    }
+
+    public Text getGoldText() {
+        return goldText;
     }
 }
