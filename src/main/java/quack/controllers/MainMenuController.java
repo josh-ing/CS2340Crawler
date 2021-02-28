@@ -43,7 +43,7 @@ public class MainMenuController extends Controller {
      * Goes to the config screen.
      */
     public void toConfigScreen() throws FileNotFoundException {
-        ConfigScreen configScreen = new ConfigScreen();
-        stage.setScene(new Scene(configScreen));
+        ConfigController configControl = new ConfigController(stage);
+        configControl.initConfig();
     }
 }
