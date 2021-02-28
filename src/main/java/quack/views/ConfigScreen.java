@@ -73,9 +73,9 @@ public class ConfigScreen extends VBox {
         final ImageView selectedImage1 = new ImageView();
         final ImageView selectedImage2 = new ImageView();
         final ImageView selectedImage3 = new ImageView();
-        Image image1 = new Image(new FileInputStream("src/main/resources/assets/duck1.png"));
-        Image image2 = new Image(new FileInputStream("src/main/resources/assets/duck2.png"));
-        Image image3 = new Image(new FileInputStream("src/main/resources/assets/duck3.png"));
+        Image image1 = new Image(new FileInputStream("src/main/resources/assets/quack.png"));
+        Image image2 = new Image(new FileInputStream("src/main/resources/assets/henry.png"));
+        Image image3 = new Image(new FileInputStream("src/main/resources/assets/pelican.png"));
         selectedImage1.setImage(image1);
         selectedImage1.setFitHeight(250);
         selectedImage1.setFitWidth(250);
@@ -96,13 +96,13 @@ public class ConfigScreen extends VBox {
         HBox duckSelection = new HBox();
         Label duckLabel = new Label("Choose your character");
         duckGroup = new ToggleGroup();
-        RadioButton duck1 = new RadioButton("Duck1");
-        RadioButton duck2 = new RadioButton("Duck2");
-        RadioButton duck3 = new RadioButton("Duck3");
-        duck1.setToggleGroup(duckGroup);
-        duck2.setToggleGroup(duckGroup);
-        duck3.setToggleGroup(duckGroup);
-        duckSelection.getChildren().addAll(duckLabel, duck1, duck2, duck3);
+        RadioButton quack = new RadioButton("Quack");
+        RadioButton henry = new RadioButton("Henry");
+        RadioButton pelican = new RadioButton("Pelican");
+        quack.setToggleGroup(duckGroup);
+        henry.setToggleGroup(duckGroup);
+        pelican.setToggleGroup(duckGroup);
+        duckSelection.getChildren().addAll(duckLabel, quack, henry, pelican);
         duckSelection.setAlignment(Pos.CENTER);
         duckSelection.setSpacing(200);
 
@@ -132,34 +132,24 @@ public class ConfigScreen extends VBox {
      * TODO: Modify this method to have a more intuitive way to return the difficulty.
      * @return Integer value representing the difficulty of the game.
      */
-    public int getDifficulty() {
-        ArrayList<String> difficulties = new ArrayList<>();
-        difficulties.add("Easy");
-        difficulties.add("Medium");
-        difficulties.add("Hard");
+    public String getDifficulty() {
         RadioButton difficulty = (RadioButton)difficultyGroup.getSelectedToggle();
         if (difficulty == null) {
-            return -1;
-        } else {
-            return difficulties.indexOf(difficulty.getText());
+            return null;
         }
+        return difficulty.getText();
     }
 
     /**
      * Returns value of weapon as integer. 1 = Toaster bow, 2 = butter knife, 3 = wand
      * @return Integer value of the corresponding weapon
      */
-    public int getWeapon() {
-        ArrayList<String> weapons = new ArrayList<>();
-        weapons.add("Toaster Bow");
-        weapons.add("Butter knife");
-        weapons.add("Wand");
+    public String getWeapon() {
         RadioButton weapon = (RadioButton)weaponGroup.getSelectedToggle();
         if (weapon == null) {
-            return -1;
-        } else {
-            return weapons.indexOf(weapon.getText());
+            return null;
         }
+        return weapon.getText();
     }
 
     /**
@@ -167,16 +157,12 @@ public class ConfigScreen extends VBox {
      * TODO: change names of ducks
      * @return Integer value of the corresponding duck
      */
-    public int getDuck() {
-        ArrayList<String> duck = new ArrayList<>();
-        duck.add("Duck1");
-        duck.add("Duck2");
-        duck.add("Duck3");
+    public String getDuck() {
         RadioButton ducks = (RadioButton)duckGroup.getSelectedToggle();
-        if (duck == null) {
-            return -1;
+        if (ducks == null) {
+            return null;
         } else {
-            return duck.indexOf(ducks.getText());
+            return ducks.getText().toLowerCase();
         }
     }
 
@@ -193,4 +179,5 @@ public class ConfigScreen extends VBox {
 
 
     }
+
 }
