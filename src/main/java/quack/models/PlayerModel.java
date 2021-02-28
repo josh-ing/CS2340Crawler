@@ -6,6 +6,7 @@ import quack.models.weapons.WeaponModel;
 public class PlayerModel {
 
     private String name;
+    private int gold;
     private PlayableCharacterModel character;
     private WeaponModel weapon;
     private int currentHealth;
@@ -68,5 +69,13 @@ public class PlayerModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 }
