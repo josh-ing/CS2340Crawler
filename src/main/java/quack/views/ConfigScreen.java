@@ -31,6 +31,7 @@ public class ConfigScreen extends VBox {
 
         //Name Field
         nameField = new TextField();
+        nameField.setText("Quacky");
         Label nameLabel = new Label("Enter your name!");
         HBox nameWrapper = new HBox(nameLabel, nameField);
         nameWrapper.setAlignment(Pos.CENTER);

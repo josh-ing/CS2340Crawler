@@ -1,6 +1,7 @@
 package quack.views;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import quack.models.Room;
 import java.util.ArrayList;
 import javafx.scene.shape.Rectangle;
@@ -8,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Font;
+import javafx.scene.control.Label;
 
 public class GameScreen extends Pane {
 
@@ -30,9 +32,19 @@ public class GameScreen extends Pane {
             for (int j = 0; j < map[i].length; j++) {
                 int x = i * TILE_SIZE;
                 int y = j * TILE_SIZE;
-                Rectangle r = new Rectangle(x, y, TILE_SIZE, TILE_SIZE);
+                StackPane stack = new StackPane();
+
+                Rectangle r = new Rectangle(TILE_SIZE, TILE_SIZE);
 
                 Room.RoomCellType cellType = map[i][j];
+
+                Text text = new Text(cellType.name());
+
+                stack.getChildren().addAll(r, text);
+
+                stack.setTranslateX(x);
+                stack.setTranslateY(y);
+
 
                 switch (cellType) {
                     case FLOOR:
@@ -40,7 +52,7 @@ public class GameScreen extends Pane {
                         break;
 
                     case WALL:
-                        r.setFill(Color.BLACK);
+                        r.setFill(Color.GRAY);
                         break;
 
                     case NORTH:
@@ -60,7 +72,7 @@ public class GameScreen extends Pane {
                         break;
                 }
 
-                elements.add(r);
+                elements.add(stack);
             }
         }
 

@@ -2,17 +2,11 @@ import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
-import javafx.scene.control.Alert;
-import quack.controllers.ConfigController;
-import quack.controllers.Controller;
 import quack.controllers.MainMenuController;
-import quack.models.PlayerModel;
-import quack.models.characters.PlayableCharacterModel;
 import quack.views.ConfigScreen;
 
-import java.io.FileNotFoundException;
-
 import static org.testfx.api.FxAssert.verifyThat;
+import java.util.concurrent.TimeUnit;
 
 public class ConfigControllerTest extends ApplicationTest{
     private ConfigScreen configure;
@@ -30,8 +24,9 @@ public class ConfigControllerTest extends ApplicationTest{
     }
 
     @Test
-    public void testEasyConfig() {
+    public void testEasyConfig() throws Exception {
         clickOn("Play");
+        TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
         clickOn("Easy");
         clickOn("Wand");
@@ -41,8 +36,9 @@ public class ConfigControllerTest extends ApplicationTest{
     }
 
     @Test
-    public void testMediumConfig() {
+    public void testMediumConfig() throws Exception {
         clickOn("Play");
+        TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
         clickOn("Medium");
         clickOn("Wand");
@@ -52,8 +48,9 @@ public class ConfigControllerTest extends ApplicationTest{
     }
 
     @Test
-    public void testHardConfig() {
+    public void testHardConfig() throws Exception {
         clickOn("Play");
+        TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
         clickOn("Hard");
         clickOn("Wand");
