@@ -25,8 +25,9 @@ public class GameController extends Controller {
      */
     public void initGame(Room room, PlayerModel player) {
         GameScreen gameScreen = new GameScreen(room);
+        gameScreen.setMinWidth(1200);
+        gameScreen.setMinHeight(900);
         this.stage.setScene(new Scene(gameScreen));
-
         gameScreen.getGoldText().setText("Gold: " + player.getGold());
     }
 }
