@@ -1,55 +1,58 @@
 import javafx.stage.Stage;
 import org.junit.Test;
+import org.junit.Assert;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
-import quack.controllers.ConfigController;
-import quack.controllers.Controller;
-import quack.controllers.GameController;
 import quack.controllers.MainMenuController;
-import quack.models.PlayerModel;
-import quack.models.Room;
-import quack.models.characters.PlayableCharacterModel;
-import quack.views.ConfigScreen;
-
-import java.io.FileNotFoundException;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import javafx.scene.Node;
 
 import static org.testfx.api.FxAssert.verifyThat;
+
 public class GameControllerTest extends ApplicationTest {
 
     private Stage stage;
 
     @Override
     public void start(Stage stage) throws Exception {
-        this.stage = stage;
+        MainMenuController mainMenuController = new MainMenuController(stage);
+        mainMenuController.initMainMenu();
     }
 
     @Test
-    public void testMapRendering() {
-        int[][] intMap = {
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {6, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
-                {6, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        };
+    public void testNorthExitVisible() throws Exception{
+        clickOn("Play");
+        TimeUnit.SECONDS.sleep(1);
+        write("Sample Text");
+        clickOn("Easy");
+        clickOn("Wand");
+        clickOn("Henry");
+        clickOn("Start Game");
+        TimeUnit.SECONDS.sleep(2);
+        Set<Node> tiles = lookup("NORTH").queryAll();
+        Assert.assertEquals(2, tiles.size());
+        for (Node node : tiles) {
+            clickOn(node);
+        }
+        verifyThat("NORTH", NodeMatchers.isNotNull());
+    }
 
-        Room[] neighbors = {null, null, null, null};
-
-        Room room = new Room(intMap, Room.RoomType.MONSTER, neighbors, Room.TileSetType.DUNGEON);
-        GameController gameController = new GameController(stage);
-        gameController.initGame(room, player);
+    @Test
+    public void testWallsVisible() throws Exception{
+        clickOn("Play");
+        TimeUnit.SECONDS.sleep(1);
+        write("Sample Text");
+        clickOn("Easy");
+        clickOn("Wand");
+        clickOn("Henry");
+        clickOn("Start Game");
+        TimeUnit.SECONDS.sleep(2);
+        Set<Node> tiles = lookup("WALL").queryAll();
+        Assert.assertEquals(105, tiles.size());
+        for (Node node : tiles) {
+            clickOn(node);
+        }
+        verifyThat("WALL", NodeMatchers.isNotNull());
     }
 }
