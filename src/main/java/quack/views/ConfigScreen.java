@@ -107,9 +107,9 @@ public class ConfigScreen extends VBox {
     }
 
     /**
-     * Returns the difficulty level as an integer. Ranges from 1 to 3, 1 being the easier and 3 being the most difficult.
+     * Returns the difficulty level as a String
      *
-     * TODO: Modify this method to have a more intuitive way to return the difficulty.
+     *
      * @return Integer value representing the difficulty of the game.
      */
     public String getDifficulty() {
@@ -121,7 +121,7 @@ public class ConfigScreen extends VBox {
     }
 
     /**
-     * Returns value of weapon as integer. 1 = Toaster bow, 2 = butter knife, 3 = wand
+     * Returns value of weapon as String
      * @return Integer value of the corresponding weapon
      */
     public String getWeapon() {
@@ -134,7 +134,6 @@ public class ConfigScreen extends VBox {
 
     /**
      * Returns duck character as integer.
-     * TODO: change names of ducks
      * @return Integer value of the corresponding duck
      */
     public String getDuck() {
@@ -146,18 +145,5 @@ public class ConfigScreen extends VBox {
         }
     }
 
-    /**
-     * Checks whether or not the config setup entered by the player is valid.
-     * TODO: (Probably) move this logic into a controller...
-     * @return A boolean on whether all the fields are valid.
-     */
-    private boolean checkFields() {
-        String nameText = nameField.getText().trim();
-        boolean validName = !(nameText.equals("") || nameText == null);
-        boolean validDifficulty = difficultyGroup.getSelectedToggle() != null;
-        return validName && validDifficulty;
-
-
-    }
 
 }

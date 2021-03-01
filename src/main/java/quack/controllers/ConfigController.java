@@ -43,12 +43,12 @@ public class ConfigController extends Controller {
 
 
     /**
-     * Deal with this later
-     * @return
+     * Field for checking if fields are null
+     * @return Boolean value if any input is null
      */
     private boolean checkFields() {
         String nameText = configure.getPlayerName();
-        boolean validName = !(nameText.equals("") || nameText == null);
+        boolean validName = !(nameText.trim().equals("") || nameText == null);
         boolean validDifficulty = configure.getDifficulty() != null;
         boolean validWeapon = configure.getWeapon() != null;
         boolean validDuck = configure.getDuck() != null;
