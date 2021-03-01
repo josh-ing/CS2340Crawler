@@ -55,4 +55,40 @@ public class GameControllerTest extends ApplicationTest {
         }
         verifyThat("WALL", NodeMatchers.isNotNull());
     }
+
+    @Test
+    public void testEastExitVisible() throws Exception{
+        clickOn("Play");
+        TimeUnit.SECONDS.sleep(1);
+        write("Sample Text");
+        clickOn("Easy");
+        clickOn("Wand");
+        clickOn("Henry");
+        clickOn("Start Game");
+        TimeUnit.SECONDS.sleep(2);
+        Set<Node> tiles = lookup("EAST").queryAll();
+        Assert.assertEquals(2, tiles.size());
+        for (Node node : tiles) {
+            clickOn(node);
+        }
+        verifyThat("EAST", NodeMatchers.isNotNull());
+    }
+
+    @Test
+    public void testWestExitVisible() throws Exception{
+        clickOn("Play");
+        TimeUnit.SECONDS.sleep(1);
+        write("Sample Text");
+        clickOn("Easy");
+        clickOn("Wand");
+        clickOn("Henry");
+        clickOn("Start Game");
+        TimeUnit.SECONDS.sleep(2);
+        Set<Node> tiles = lookup("WEST").queryAll();
+        Assert.assertEquals(2, tiles.size());
+        for (Node node : tiles) {
+            clickOn(node);
+        }
+        verifyThat("WEST", NodeMatchers.isNotNull());
+    }
 }
