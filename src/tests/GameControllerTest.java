@@ -4,8 +4,10 @@ import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 import quack.controllers.ConfigController;
 import quack.controllers.Controller;
+import quack.controllers.GameController;
 import quack.controllers.MainMenuController;
 import quack.models.PlayerModel;
+import quack.models.Room;
 import quack.models.characters.PlayableCharacterModel;
 import quack.views.ConfigScreen;
 
@@ -13,43 +15,41 @@ import java.io.FileNotFoundException;
 
 import static org.testfx.api.FxAssert.verifyThat;
 public class GameControllerTest extends ApplicationTest {
+
+    private Stage stage;
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        MainMenuController mainMenuController = new MainMenuController(primaryStage);
-        mainMenuController.initMainMenu();
+    public void start(Stage stage) throws Exception {
+        this.stage = stage;
     }
 
     @Test
-    public void testEasyConfig() {
-        clickOn("Play");
-        write("Sample Text");
-        clickOn("Easy");
-        clickOn("Wand");
-        clickOn("Henry");
-        clickOn("Start Game");
-        verifyThat("Gold: 100", NodeMatchers.isNotNull());
-    }
+    public void testMapRendering() {
+        int[][] intMap = {
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+                {6, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
+                {6, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        };
 
-    @Test
-    public void testMediumConfig() {
-        clickOn("Play");
-        write("Sample Text");
-        clickOn("Medium");
-        clickOn("Wand");
-        clickOn("Henry");
-        clickOn("Start Game");
-        verifyThat("Gold: 50", NodeMatchers.isNotNull());
-    }
+        Room[] neighbors = {null, null, null, null};
 
-    @Test
-    public void testHardConfig() {
-        clickOn("Play");
-        write("Sample Text");
-        clickOn("Hard");
-        clickOn("Wand");
-        clickOn("Henry");
-        clickOn("Start Game");
-        verifyThat("Gold: 0", NodeMatchers.isNotNull());
+        Room room = new Room(intMap, Room.RoomType.MONSTER, neighbors, Room.TileSetType.DUNGEON);
+        GameController gameController = new GameController(stage);
+        gameController.initGame(room, player);
     }
-
 }

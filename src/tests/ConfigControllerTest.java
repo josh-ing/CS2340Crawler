@@ -85,5 +85,36 @@ public class ConfigControllerTest extends ApplicationTest{
         clickOn("OK");
     }
 
+    @Test
+    public void testEasyConfig() {
+        clickOn("Play");
+        write("Sample Text");
+        clickOn("Easy");
+        clickOn("Wand");
+        clickOn("Henry");
+        clickOn("Start Game");
+        verifyThat("Gold: 100", NodeMatchers.isNotNull());
+    }
 
+    @Test
+    public void testMediumConfig() {
+        clickOn("Play");
+        write("Sample Text");
+        clickOn("Medium");
+        clickOn("Wand");
+        clickOn("Henry");
+        clickOn("Start Game");
+        verifyThat("Gold: 50", NodeMatchers.isNotNull());
+    }
+
+    @Test
+    public void testHardConfig() {
+        clickOn("Play");
+        write("Sample Text");
+        clickOn("Hard");
+        clickOn("Wand");
+        clickOn("Henry");
+        clickOn("Start Game");
+        verifyThat("Gold: 0", NodeMatchers.isNotNull());
+    }
 }
