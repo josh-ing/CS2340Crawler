@@ -9,13 +9,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Font;
-import javafx.scene.control.Label;
 
 public class GameScreen extends Pane {
 
     static final int TILE_SIZE = 50;
-    Text goldText;
-    Font goldFont;
+    private Text goldText;
+    private Font goldFont;
 
     public GameScreen(Room room) {
         super();
@@ -45,33 +44,33 @@ public class GameScreen extends Pane {
                 stack.setTranslateX(x);
                 stack.setTranslateY(y);
 
-
                 switch (cellType) {
-                    case FLOOR:
-                        r.setFill(Color.BEIGE);
-                        break;
+                case FLOOR:
+                    r.setFill(Color.BEIGE);
+                    break;
 
-                    case WALL:
-                        r.setFill(Color.GRAY);
-                        break;
+                case WALL:
+                    r.setFill(Color.GRAY);
+                    break;
 
-                    case NORTH:
-                        r.setFill(Color.BLUE);
-                        break;
+                case NORTH:
+                    r.setFill(Color.BLUE);
+                    break;
 
-                    case SOUTH:
-                        r.setFill(Color.BLUEVIOLET);
-                        break;
+                case SOUTH:
+                    r.setFill(Color.BLUEVIOLET);
+                    break;
 
-                    case EAST:
-                        r.setFill(Color.ALICEBLUE);
-                        break;
+                case EAST:
+                    r.setFill(Color.ALICEBLUE);
+                    break;
 
-                    case WEST:
-                        r.setFill(Color.CORNFLOWERBLUE);
-                        break;
+                case WEST:
+                    r.setFill(Color.CORNFLOWERBLUE);
+                    break;
+                default:
+                    break;
                 }
-
                 elements.add(stack);
             }
         }
@@ -83,5 +82,17 @@ public class GameScreen extends Pane {
 
     public Text getGoldText() {
         return goldText;
+    }
+
+    public void setGoldText(Text goldText) {
+        this.goldText = goldText;
+    }
+
+    public Font getGoldFont() {
+        return goldFont;
+    }
+
+    public void setGoldFont(Font goldFont) {
+        this.goldFont = goldFont;
     }
 }

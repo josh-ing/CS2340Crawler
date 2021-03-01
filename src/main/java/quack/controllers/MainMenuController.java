@@ -3,8 +3,6 @@ package quack.controllers;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import quack.QuackApp;
-import quack.views.ConfigScreen;
 import quack.views.MainMenuScreen;
 
 import java.io.FileNotFoundException;
@@ -16,7 +14,7 @@ public class MainMenuController extends Controller {
 
     /**
      * Initializes the controller with a stage.
-     * @param stage
+     * @param stage The stage involved with the main menu controller.
      */
     public MainMenuController(Stage stage) {
         super(stage);
@@ -24,6 +22,7 @@ public class MainMenuController extends Controller {
 
     /**
      * Initializes app to show main menu.
+     * @throws FileNotFoundException if the file is not found.
      */
 
     public void initMainMenu() throws FileNotFoundException {
@@ -44,6 +43,7 @@ public class MainMenuController extends Controller {
 
     /**
      * Goes to the config screen.
+     * @throws FileNotFoundException if the file is not found.
      */
     public void toConfigScreen() throws FileNotFoundException {
         ConfigController configControl = new ConfigController(stage);

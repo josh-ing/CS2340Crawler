@@ -11,7 +11,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class SelectCharacterWrapper extends VBox {
-    public SelectCharacterWrapper(String path, String name, ToggleGroup toggleGroup) throws FileNotFoundException {
+    public SelectCharacterWrapper(String path, String name,
+                                  ToggleGroup toggleGroup) throws FileNotFoundException {
         super();
         FileInputStream fileInputStream = new FileInputStream(path);
         Image image = new Image(fileInputStream);

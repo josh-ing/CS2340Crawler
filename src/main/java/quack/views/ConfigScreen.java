@@ -4,13 +4,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import quack.views.components.SelectCharacterWrapper;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 /**
  * A class that represents the config screen component. Extends VBox.
@@ -25,6 +20,7 @@ public class ConfigScreen extends VBox {
 
     /**
      * Constructor initializing all the fields for the config screen.
+     * @throws FileNotFoundException if the file is not found.
      */
     public ConfigScreen() throws FileNotFoundException {
         super();
@@ -47,7 +43,8 @@ public class ConfigScreen extends VBox {
         difficultyEasy.setToggleGroup(difficultyGroup);
         difficultyMedium.setToggleGroup(difficultyGroup);
         difficultyHard.setToggleGroup(difficultyGroup);
-        difficultySelection.getChildren().addAll(difficultyLabel, difficultyEasy, difficultyMedium, difficultyHard);
+        difficultySelection.getChildren().addAll(difficultyLabel, difficultyEasy,
+                difficultyMedium, difficultyHard);
         difficultySelection.setAlignment(Pos.CENTER);
         difficultySelection.setSpacing(15);
 
@@ -80,14 +77,18 @@ public class ConfigScreen extends VBox {
         //Duck images
         HBox imageWrapperTotal = new HBox();
         duckGroup = new ToggleGroup();
-        SelectCharacterWrapper quack = new SelectCharacterWrapper("src/main/resources/assets/quack.png", "Quack", duckGroup);
-        SelectCharacterWrapper henry = new SelectCharacterWrapper("src/main/resources/assets/henry.png", "Henry", duckGroup);
-        SelectCharacterWrapper pelican = new SelectCharacterWrapper("src/main/resources/assets/pelican.png", "Pelican", duckGroup);
+        SelectCharacterWrapper quack = new SelectCharacterWrapper(
+                "src/main/resources/assets/quack.png", "Quack", duckGroup);
+        SelectCharacterWrapper henry = new SelectCharacterWrapper(
+                "src/main/resources/assets/henry.png", "Henry", duckGroup);
+        SelectCharacterWrapper pelican = new SelectCharacterWrapper(
+                "src/main/resources/assets/pelican.png", "Pelican", duckGroup);
 
         imageWrapperTotal.getChildren().addAll(quack, henry, pelican);
         imageWrapperTotal.setAlignment(Pos.CENTER);
 
-        this.getChildren().addAll(nameWrapper, difficultySelection, weaponSelection, select, imageWrapperTotal, startWrapper);
+        this.getChildren().addAll(nameWrapper, difficultySelection,
+                weaponSelection, select, imageWrapperTotal, startWrapper);
         this.setSpacing(10);
     }
 
@@ -114,7 +115,7 @@ public class ConfigScreen extends VBox {
      * @return Integer value representing the difficulty of the game.
      */
     public String getDifficulty() {
-        RadioButton difficulty = (RadioButton)difficultyGroup.getSelectedToggle();
+        RadioButton difficulty = (RadioButton) difficultyGroup.getSelectedToggle();
         if (difficulty == null) {
             return null;
         }
@@ -126,7 +127,7 @@ public class ConfigScreen extends VBox {
      * @return Integer value of the corresponding weapon
      */
     public String getWeapon() {
-        RadioButton weapon = (RadioButton)weaponGroup.getSelectedToggle();
+        RadioButton weapon = (RadioButton) weaponGroup.getSelectedToggle();
         if (weapon == null) {
             return null;
         }
@@ -138,7 +139,7 @@ public class ConfigScreen extends VBox {
      * @return Integer value of the corresponding duck
      */
     public String getDuck() {
-        RadioButton ducks = (RadioButton)duckGroup.getSelectedToggle();
+        RadioButton ducks = (RadioButton) duckGroup.getSelectedToggle();
         if (ducks == null) {
             return null;
         } else {

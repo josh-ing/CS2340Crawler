@@ -1,6 +1,5 @@
-import javafx.scene.Node;
+
 import javafx.stage.Stage;
-import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;

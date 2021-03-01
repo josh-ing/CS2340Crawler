@@ -8,9 +8,10 @@ public class PlayableCharacterModel {
     private int speed;
     private String imageAsset;
 
-    public PlayableCharacterModel(int maxHealth, int maxMana, int power, int speed, String imageAsset) {
+    public PlayableCharacterModel(int maxHealth, int maxMana,
+                                  int power, int speed, String imageAsset) {
         this.maxHealth = maxHealth;
-        this. maxMana = maxMana;
+        this.maxMana = maxMana;
         this.power = power;
         this.speed = speed;
         this.imageAsset = imageAsset;
