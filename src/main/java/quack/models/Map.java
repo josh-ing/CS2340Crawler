@@ -50,8 +50,8 @@ public class Map {
         Random rand = new Random();
         int[][] randomRoom = createRoomTemplate();
         for (int i = 0; i < NUM_OBSTACLES; i++) {
-            int row = CLEARANCE + rand.nextInt(mapWidth - 1 - CLEARANCE);
-            int col = CLEARANCE + rand.nextInt(mapHeight - 1 - CLEARANCE);
+            int row = CLEARANCE + rand.nextInt(mapWidth - 1 - 2 * CLEARANCE);
+            int col = CLEARANCE + rand.nextInt(mapHeight - 1 - 2 * CLEARANCE);
             int coinFlip = rand.nextInt(2);
             randomRoom[row][col] = 1;
             if (coinFlip == 0) {
@@ -59,10 +59,21 @@ public class Map {
             } else {
                 randomRoom[row][col - 1] = 1;
             }
-
         }
 
         return randomRoom;
+    }
+
+    private Room createStartRoom() {
+        int[][] startRoomArray = createRoomTemplate();
+        startRoomArray[mapWidth / 2][0] = 3;
+        startRoomArray[mapWidth - 1][mapHeight / 2] = 4;
+        startRoomArray[mapWidth / 2][mapHeight - 1] = 5;
+        startRoomArray[0][mapHeight / 2] = 6;
+        Room[] neighbors = new Room[]{null, null, null, null};
+        Room startRoom = new Room(startRoomArray, Room.RoomType.START, neighbors, Room.TileSetType.DUNGEON);
+        return startRoom;
+
     }
 
     public Room[] generateRooms(){
@@ -70,6 +81,8 @@ public class Map {
         int[] directionsTowardsExit = new int[]{3, 4, 6};
 
         Random rand = new Random();
+
+        Room startRoom = createStartRoom();
 
         for (int i = 0; i < mapSize; i++) {
             int[][] roomArray = createRoomTemplate();
@@ -81,8 +94,6 @@ public class Map {
             } else if (direction == 6) {
                 roomArray[0][mapHeight / 2] = 6;
             }
-
-
             //Room room = new Room(roomArray, Room.RoomType.MONSTER, []);
         }
 
