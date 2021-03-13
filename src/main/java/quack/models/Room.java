@@ -7,12 +7,13 @@ public class Room {
         WALL, //1
         CHEST, //2
         NORTH, //3
-        SOUTH, //4
-        EAST, //5
+        EAST, //4
+        SOUTH, //5
         WEST //6
     }
 
     public enum RoomType {
+        START,
         TREASURE,
         SHOP,
         MONSTER,
@@ -27,7 +28,7 @@ public class Room {
 
     private RoomType type;
     private RoomCellType[][] map;
-    private Room[] neighbors; //[NORTH, SOUTH, EAST, WEST]
+    private Room[] neighbors; //[NORTH, EAST, SOUTH, WEST]
     private TileSetType tileSet;
 
     public Room(RoomCellType[][] map, RoomType type, Room[] neighbors, TileSetType tileSet) {
