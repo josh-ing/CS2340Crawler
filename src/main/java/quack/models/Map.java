@@ -1,13 +1,10 @@
 package quack.models;
-
-import java.util.ArrayList;
-
 import java.util.Random;
 
 
 public class Map {
 
-    private ArrayList<Room> rooms;
+    private Room startRoom;
     private int mapHeight;
     private int mapWidth;
     private int mapSize;
@@ -16,15 +13,12 @@ public class Map {
     private final int NUM_OBSTACLES = 4;
 
     public Map(int mapSize, int mapHeight, int mapWidth) {
-        rooms = new ArrayList();
         this.mapSize = mapSize;
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
+        this.startRoom = generateMap();
     }
 
-    public ArrayList<Room> getRooms() {
-        return rooms;
-    }
 
     /**
      * Creates a int array where the border are all 1s.
@@ -76,16 +70,18 @@ public class Map {
 
     }
 
-    public Room[] generateRooms(){
+    private Room generateMap(){
 
         int[] directionsTowardsExit = new int[]{3, 4, 6};
 
         Random rand = new Random();
 
-        Room startRoom = createStartRoom();
+        Room newStartRoom = createStartRoom();
+
+        Room currentRoom = newStartRoom;
 
         for (int i = 0; i < mapSize; i++) {
-            int[][] roomArray = createRoomTemplate();
+            int[][] roomArray = createRandomRoom();
             int direction = directionsTowardsExit[rand.nextInt(3)];
             if (direction == 3) {
                 roomArray[mapWidth / 2][0] = 3;
@@ -94,13 +90,19 @@ public class Map {
             } else if (direction == 6) {
                 roomArray[0][mapHeight / 2] = 6;
             }
-            //Room room = new Room(roomArray, Room.RoomType.MONSTER, []);
+            Room[] currentRoomNeighbors = new Room[4];
+            Room[] newRoomNeighbors = new Room[4];
+            Room newRoom = new Room(roomArray, Room.RoomType.MONSTER, newRoomNeighbors, Room.TileSetType.DUNGEON);
+            currentRoomNeighbors[direction - 3] = newRoom;
+            currentRoom.setNeighbors(currentRoomNeighbors);
+            currentRoom = newRoom;
         }
 
 
-
-
-        return null;
+        return newStartRoom;
     }
 
+    public Room getStartRoom() {
+        return startRoom;
+    }
 }
