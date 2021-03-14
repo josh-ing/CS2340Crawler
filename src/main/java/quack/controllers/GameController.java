@@ -7,6 +7,9 @@ import quack.models.Room;
 import quack.models.PlayerModel;
 import javafx.scene.text.*;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 /**
  * Controller for MainMenuScreen
  */
@@ -29,5 +32,23 @@ public class GameController extends Controller {
         gameScreen.setMinHeight(900);
         this.stage.setScene(new Scene(gameScreen));
         gameScreen.getGoldText().setText("Gold: " + player.getGold());
+    }
+
+    public void changeRoom(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+            //right room until no more
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_LEFT){
+            //left room until no more
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_UP){
+            //up room until no more
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_DOWN){
+            //down room until no more
+        }
     }
 }

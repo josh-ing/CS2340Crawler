@@ -77,7 +77,9 @@ public class ConfigController extends Controller {
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         };
 
+
         Room[] neighbors = {null, null, null, null};
+
 
         Room room = new Room(intMap, Room.RoomType.MONSTER, neighbors, Room.TileSetType.DUNGEON);
         GameController gameController = new GameController(stage);
