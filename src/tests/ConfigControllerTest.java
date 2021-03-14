@@ -33,6 +33,52 @@ public class ConfigControllerTest extends ApplicationTest {
         clickOn("Start Game");
         verifyThat("You cannot have null values.", NodeMatchers.isVisible());
         clickOn("OK");
+     }
+    public void testEasyConfig() throws Exception {
+        clickOn("Play");
+        TimeUnit.SECONDS.sleep(1);
+        write("Sample Text");
+        clickOn("Easy");
+        clickOn("Wand");
+        clickOn("Henry");
+        clickOn("Start Game");
+        verifyThat("Gold: 100", NodeMatchers.isNotNull());
+    }
+
+    @Test
+    public void testMediumConfig() throws Exception {
+        clickOn("Play");
+        TimeUnit.SECONDS.sleep(1);
+        write("Sample Text");
+        clickOn("Medium");
+        clickOn("Wand");
+        clickOn("Henry");
+        clickOn("Start Game");
+        verifyThat("Gold: 50", NodeMatchers.isNotNull());
+    }
+
+    @Test
+    public void testHardConfig() throws Exception {
+        clickOn("Play");
+        TimeUnit.SECONDS.sleep(1);
+        write("Sample Text");
+        clickOn("Hard");
+        clickOn("Wand");
+        clickOn("Henry");
+        clickOn("Start Game");
+        verifyThat("Gold: 0", NodeMatchers.isNotNull());
+    }
+
+    @Test
+    public void testNameEmptyField() {
+        clickOn("Play");
+        write(" ");
+        clickOn("Easy");
+        clickOn("Toaster Bow");
+        clickOn("Quack");
+        clickOn("Start Game");
+        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
+        clickOn("OK");
     }
 
     @Test
@@ -68,39 +114,4 @@ public class ConfigControllerTest extends ApplicationTest {
         clickOn("OK");
     }
 
-    @Test
-    public void testEasyConfig() throws Exception {
-        clickOn("Play");
-        TimeUnit.SECONDS.sleep(1);
-        write("Sample Text");
-        clickOn("Easy");
-        clickOn("Wand");
-        clickOn("Henry");
-        clickOn("Start Game");
-        verifyThat("Gold: 100", NodeMatchers.isNotNull());
-    }
-
-    @Test
-    public void testMediumConfig() throws Exception {
-        clickOn("Play");
-        TimeUnit.SECONDS.sleep(1);
-        write("Sample Text");
-        clickOn("Medium");
-        clickOn("Wand");
-        clickOn("Henry");
-        clickOn("Start Game");
-        verifyThat("Gold: 50", NodeMatchers.isNotNull());
-    }
-
-    @Test
-    public void testHardConfig() throws Exception {
-        clickOn("Play");
-        TimeUnit.SECONDS.sleep(1);
-        write("Sample Text");
-        clickOn("Hard");
-        clickOn("Wand");
-        clickOn("Henry");
-        clickOn("Start Game");
-        verifyThat("Gold: 0", NodeMatchers.isNotNull());
-    }
 }
