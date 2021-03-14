@@ -16,7 +16,9 @@ import java.io.FileNotFoundException;
 public class ConfigController extends Controller {
     private ConfigScreen configure;
 
-    public ConfigController (Stage stage) {super(stage);}
+    public ConfigController(Stage stage) {
+        super(stage);
+    }
 
     public void initConfig() throws FileNotFoundException {
         configure = new ConfigScreen();
@@ -24,11 +26,13 @@ public class ConfigController extends Controller {
         configure.setMinHeight(900);
         stage.setScene(new Scene(configure));
 
-        PlayableCharacterModel character = new PlayableCharacterModel(3, 3, 3, 3, configure.getDuck());
+        PlayableCharacterModel character = new PlayableCharacterModel(3, 3,
+                3, 3, configure.getDuck());
         Button startGame = configure.getStartButton();
         startGame.setOnAction(e -> {
             if (this.checkFields()) {
-                PlayerModel player = new PlayerModel(configure.getPlayerName(), character, getGold());
+                PlayerModel player = new PlayerModel(configure.getPlayerName(),
+                        character, getGold());
                 toGameScreen(player);
 
             } else {

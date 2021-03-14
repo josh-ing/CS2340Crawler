@@ -14,25 +14,25 @@ import java.io.FileNotFoundException;
 
 public class MainMenuScreen extends VBox {
 
-    Button newGameButton;
-    Font font1;
-    String fontFamily = "Tw Cen MT";
-    FontWeight fontWeight = FontWeight.BOLD;
-    double fontSize = 50;
+    private Button newGameButton;
 
     public MainMenuScreen() throws FileNotFoundException {
         super();
-
+        Font font1;
+        String fontFamily = "Tw Cen MT";
+        FontWeight fontWeight = FontWeight.BOLD;
+        double fontSize = 50;
         Image image = new Image(new FileInputStream("src/main/resources/assets/QuackMove.gif"));
 
         BackgroundSize size = new BackgroundSize(BackgroundSize.AUTO,
-                BackgroundSize.AUTO,false,false,true,false);
+                BackgroundSize.AUTO, false, false, true, false);
         Background background = new Background(new BackgroundImage(image,
-                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,size));
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER, size));
 
 
-        BackgroundFill backgroundFillBut = new BackgroundFill(Color.MOCCASIN, CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill backgroundFillBut = new BackgroundFill(Color.MOCCASIN,
+                CornerRadii.EMPTY, Insets.EMPTY);
         Background background1 = new Background(backgroundFillBut);
 
         font1 = Font.font(fontFamily, fontWeight, fontSize);
@@ -51,4 +51,7 @@ public class MainMenuScreen extends VBox {
         return newGameButton;
     }
 
+    public void setNewGameButton(Button newGameButton) {
+        this.newGameButton = newGameButton;
+    }
 }

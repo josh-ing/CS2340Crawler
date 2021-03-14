@@ -21,7 +21,7 @@ public class GameControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testNorthExitVisible() throws Exception{
+    public void testNorthExitVisible() throws Exception {
         clickOn("Play");
         TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
@@ -38,7 +38,7 @@ public class GameControllerTest extends ApplicationTest {
         verifyThat("NORTH", NodeMatchers.isNotNull());
     }
     @Test
-    public void testSouthExitVisible() throws Exception{
+    public void testSouthExitVisible() throws Exception {
         clickOn("Play");
         TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
@@ -57,7 +57,7 @@ public class GameControllerTest extends ApplicationTest {
 
 
     @Test
-    public void testWallsVisible() throws Exception{
+    public void testWallsVisible() throws Exception {
         clickOn("Play");
         TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
@@ -75,7 +75,7 @@ public class GameControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testEastExitVisible() throws Exception{
+    public void testEastExitVisible() throws Exception {
         clickOn("Play");
         TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
@@ -93,7 +93,7 @@ public class GameControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testWestExitVisible() throws Exception{
+    public void testWestExitVisible() throws Exception {
         clickOn("Play");
         TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
