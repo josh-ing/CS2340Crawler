@@ -7,9 +7,8 @@ import quack.models.PlayerModel;
 import quack.models.Room;
 import quack.models.characters.PlayableCharacterModel;
 import quack.views.ConfigScreen;
-import quack.models.Map;
+import quack.models.RoomGenerator;
 import java.io.FileNotFoundException;
-import java.awt.event.KeyEvent;
 
 /**
  * Controller for ConfigScreen
@@ -87,9 +86,9 @@ public class ConfigController extends Controller {
 
 
         Room room = new Room(intMap, Room.RoomType.MONSTER, neighbors, Room.TileSetType.DUNGEON);
-        Map gameMap = new Map(7, 18, 24);
+        RoomGenerator gameRoomGenerator = new RoomGenerator(7, 24, 18);
         GameController gameController = new GameController(stage);
-        gameController.initGame(gameMap, player);
+        gameController.initGame(gameRoomGenerator, player);
     }
 
     private int getGold() {

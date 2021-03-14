@@ -1,21 +1,24 @@
 package quack.controllers;
 
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import quack.views.GameScreen;
 import quack.models.Room;
 import quack.models.PlayerModel;
-import quack.models.Map;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import quack.models.RoomGenerator;
+import quack.controllers.WinScreenController;
+
+import java.util.Arrays;
 
 /**
  * Controller for MainMenuScreen
  */
 public class GameController extends Controller {
-    private Map gameLayout;
-    GameScreen gameScreen;
-    private Room current;
+    private RoomGenerator roomGenerator;
+    private GameScreen gameScreen;
+    private Room currentRoom;
+    private PlayerModel player;
 
     /**
      * Initializes the controller with a stage.
@@ -27,52 +30,62 @@ public class GameController extends Controller {
 
     /**
      * Initializes app to show map.
-     * @param map The randomly generated map.
+     * @param roomGenerator The randomly generated map.
      * @param player The player model chosen.
      */
-    public void initGame(Map map, PlayerModel player) {
-        gameLayout = map;
-        gameScreen = new GameScreen(gameLayout.generateMap());
+    public void initGame(RoomGenerator roomGenerator, PlayerModel player) {
+        this.roomGenerator = roomGenerator;
+        this.player = player;
+
+        Room start = roomGenerator.generateStartRoom();
+        this.currentRoom = start;
+
+        gameScreen = new GameScreen(start, player);
         gameScreen.setMinWidth(1200);
         gameScreen.setMinHeight(900);
-        this.stage.setScene(new Scene(gameScreen));
         gameScreen.getGoldText().setText("Gold: " + player.getGold());
+
+        this.stage.setScene(new Scene(gameScreen));
+        this.stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> changeRoom(key));
     }
 
-    public void changeRoom(KeyEvent e, Room room) {
-        Room[] values = room.getNeighbors();
-        switch(e.getKeyCode()) {
-            case KeyEvent.VK_UP:
-                if (values[0] != null) {
-                    gameScreen = new GameScreen(values[0]);
-                    this.stage.setScene(new Scene(gameScreen));
-                } else if (values[0].getRoomType() == Room.RoomType.EXIT) {
-                    //victory screen
+    private void setGameScreenRoom(Room room) {
+        if (room.getRoomType() == Room.RoomType.EXIT) {
+            WinScreenController winScreenController = new WinScreenController(stage);
+            winScreenController.initWin();
+        } else {
+            this.currentRoom = room;
+            gameScreen.setRoom(room);
+            gameScreen.getGoldText().setText("Gold: " + player.getGold());
+        }
+    }
+
+    public void changeRoom(KeyEvent key) {
+        Room[] neighbors = currentRoom.getNeighbors();
+        System.out.println(Arrays.toString(neighbors));
+
+        switch(key.getCode()) {
+            case UP:
+                if (neighbors[0] != null) {
+                    setGameScreenRoom(neighbors[0]);
                 }
                 break;
 
-            case KeyEvent.VK_RIGHT:
-                if (values[1] != null) {
-                    gameScreen = new GameScreen(values[1]);
-                    this.stage.setScene(new Scene(gameScreen));
-                } else if (values[1].getRoomType() == Room.RoomType.EXIT) {
-                    //victory screen
+            case RIGHT:
+                if (neighbors[1] != null) {
+                    setGameScreenRoom(neighbors[1]);
                 }
                 break;
 
-            case KeyEvent.VK_DOWN:
-                if (values[2] != null) {
-                    gameScreen = new GameScreen(values[2]);
-                } else if (values[2].getRoomType() == Room.RoomType.BOSS) {
-                    //victory screen
+            case DOWN:
+                if (neighbors[2] != null) {
+                    setGameScreenRoom(neighbors[2]);
                 }
                 break;
 
-            case KeyEvent.VK_LEFT:
-                if (values[3] != null) {
-                    gameScreen = new GameScreen(values[3]);
-                } else if (values[3].getRoomType() == Room.RoomType.BOSS) {
-                    //victory screen
+            case LEFT:
+                if (neighbors[3] != null) {
+                    setGameScreenRoom(neighbors[3]);
                 }
                 break;
         }
