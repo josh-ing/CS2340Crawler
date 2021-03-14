@@ -22,21 +22,29 @@ public class WinScreen extends VBox {
     /**
      * Constructor initializing all the fields for the config screen.
      *
-     * @throws FileNotFoundException if the file is not found.
      */
-    public WinScreen() throws FileNotFoundException {
+    public WinScreen() {
         super();
         Font font1;
         String fontFamily = "Tw Cen MT";
         FontWeight fontWeight = FontWeight.BOLD;
         double fontSize = 40;
-        Image image = new Image(new FileInputStream("src/main/resources/assets/WinScreen.gif"));
 
-        BackgroundSize size = new BackgroundSize(BackgroundSize.AUTO,
-            BackgroundSize.AUTO, false, false, true, false);
-        Background background = new Background(new BackgroundImage(image,
-            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-            BackgroundPosition.CENTER, size));
+
+        try {
+            Image image = new Image(new FileInputStream("src/main/resources/assets/WinScreen.gif"));
+
+            BackgroundSize size = new BackgroundSize(BackgroundSize.AUTO,
+                    BackgroundSize.AUTO, false, false, true, false);
+            Background background = new Background(new BackgroundImage(image,
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.CENTER, size));
+
+            this.setBackground(background);
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
 
 
         BackgroundFill backgroundFillBut = new BackgroundFill(Color.DARKSEAGREEN,
@@ -50,7 +58,7 @@ public class WinScreen extends VBox {
         menuButton.setTranslateY(-100);
         menuButton.setTranslateX(-430);
 
-        this.setBackground(background);
+
         this.setAlignment(Pos.BOTTOM_RIGHT);
         this.getChildren().add(menuButton);
     }

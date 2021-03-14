@@ -42,8 +42,8 @@ public class GameScreen extends Pane {
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                int x = i * TILE_SIZE;
-                int y = j * TILE_SIZE;
+                int y = i * TILE_SIZE;
+                int x = j * TILE_SIZE;
                 StackPane stack = new StackPane();
 
                 Rectangle r = new Rectangle(TILE_SIZE, TILE_SIZE);
