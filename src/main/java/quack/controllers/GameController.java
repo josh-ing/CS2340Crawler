@@ -32,7 +32,7 @@ public class GameController extends Controller {
      */
     public void initGame(Map map, PlayerModel player) {
         gameLayout = map;
-        gameScreen = new GameScreen(gameLayout.getStartRoom());
+        gameScreen = new GameScreen(gameLayout.generateMap());
         gameScreen.setMinWidth(1200);
         gameScreen.setMinHeight(900);
         this.stage.setScene(new Scene(gameScreen));
@@ -46,7 +46,7 @@ public class GameController extends Controller {
                 if (values[0] != null) {
                     gameScreen = new GameScreen(values[0]);
                     this.stage.setScene(new Scene(gameScreen));
-                } else if (values[0].getRoomType() == Room.RoomType.BOSS) {
+                } else if (values[0].getRoomType() == Room.RoomType.EXIT) {
                     //victory screen
                 }
                 break;
@@ -55,7 +55,7 @@ public class GameController extends Controller {
                 if (values[1] != null) {
                     gameScreen = new GameScreen(values[1]);
                     this.stage.setScene(new Scene(gameScreen));
-                } else if (values[1].getRoomType() == Room.RoomType.BOSS) {
+                } else if (values[1].getRoomType() == Room.RoomType.EXIT) {
                     //victory screen
                 }
                 break;

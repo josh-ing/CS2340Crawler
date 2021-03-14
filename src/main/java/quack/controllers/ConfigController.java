@@ -87,7 +87,7 @@ public class ConfigController extends Controller {
 
 
         Room room = new Room(intMap, Room.RoomType.MONSTER, neighbors, Room.TileSetType.DUNGEON);
-        Map gameMap = new Map(7, 24, 18);
+        Map gameMap = new Map(7, 18, 24);
         GameController gameController = new GameController(stage);
         gameController.initGame(gameMap, player);
     }
