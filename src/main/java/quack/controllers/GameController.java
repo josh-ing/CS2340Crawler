@@ -5,17 +5,17 @@ import javafx.stage.Stage;
 import quack.views.GameScreen;
 import quack.models.Room;
 import quack.models.PlayerModel;
-import quack.models.Map;
+import quack.models.RoomGenerator;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /**
  * Controller for MainMenuScreen
  */
 public class GameController extends Controller {
-    private Map gameLayout;
+    private RoomGenerator gameLayout;
     GameScreen gameScreen;
     private Room current;
+    private PlayerModel player;
 
     /**
      * Initializes the controller with a stage.
@@ -27,12 +27,13 @@ public class GameController extends Controller {
 
     /**
      * Initializes app to show map.
-     * @param map The randomly generated map.
+     * @param roomGenerator The randomly generated map.
      * @param player The player model chosen.
      */
-    public void initGame(Map map, PlayerModel player) {
-        gameLayout = map;
-        gameScreen = new GameScreen(gameLayout.generateMap());
+    public void initGame(RoomGenerator roomGenerator, PlayerModel player) {
+        gameLayout = roomGenerator;
+        this.player = player;
+        gameScreen = new GameScreen(gameLayout.generateStartRoom(), player);
         gameScreen.setMinWidth(1200);
         gameScreen.setMinHeight(900);
         this.stage.setScene(new Scene(gameScreen));
@@ -44,7 +45,7 @@ public class GameController extends Controller {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 if (values[0] != null) {
-                    gameScreen = new GameScreen(values[0]);
+                    gameScreen = new GameScreen(values[0], player);
                     this.stage.setScene(new Scene(gameScreen));
                 } else if (values[0].getRoomType() == Room.RoomType.EXIT) {
                     //victory screen
@@ -53,7 +54,7 @@ public class GameController extends Controller {
 
             case KeyEvent.VK_RIGHT:
                 if (values[1] != null) {
-                    gameScreen = new GameScreen(values[1]);
+                    gameScreen = new GameScreen(values[1], player);
                     this.stage.setScene(new Scene(gameScreen));
                 } else if (values[1].getRoomType() == Room.RoomType.EXIT) {
                     //victory screen
@@ -62,7 +63,7 @@ public class GameController extends Controller {
 
             case KeyEvent.VK_DOWN:
                 if (values[2] != null) {
-                    gameScreen = new GameScreen(values[2]);
+                    gameScreen = new GameScreen(values[2], player);
                 } else if (values[2].getRoomType() == Room.RoomType.BOSS) {
                     //victory screen
                 }
@@ -70,7 +71,7 @@ public class GameController extends Controller {
 
             case KeyEvent.VK_LEFT:
                 if (values[3] != null) {
-                    gameScreen = new GameScreen(values[3]);
+                    gameScreen = new GameScreen(values[3], player);
                 } else if (values[3].getRoomType() == Room.RoomType.BOSS) {
                     //victory screen
                 }

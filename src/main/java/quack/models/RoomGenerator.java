@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * A class that represents map creation and generation. mapGeneration should be used to receive a random map.
  */
-public class Map {
+public class RoomGenerator {
 
     private int mapHeight;
     private int mapWidth;
@@ -20,7 +20,7 @@ public class Map {
      * @param mapWidth Width of the map (amount of columns)
      * @param mapHeight Height oft he map (amount of rows)
      */
-    public Map(int mapSize, int mapWidth, int mapHeight) {
+    public RoomGenerator(int mapSize, int mapWidth, int mapHeight) {
         this.mapSize = mapSize;
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
@@ -91,15 +91,13 @@ public class Map {
         }
         startRoom.setNeighbors(startRoomNeighbors);
         return startRoom;
-
     }
 
     /**
      * This method returns the start room for the map. Any navigation should start from the start room.*
      * @return Room object representing the start room.
      */
-    public Room generateMap(){
-
+    public Room generateStartRoom(){
 
         Random rand = new Random();
 

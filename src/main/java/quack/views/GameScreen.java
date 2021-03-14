@@ -3,6 +3,7 @@ package quack.views;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import quack.models.Room;
+import quack.models.PlayerModel;
 import java.util.ArrayList;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
@@ -15,9 +16,21 @@ public class GameScreen extends Pane {
     static final int TILE_SIZE = 50;
     private Text goldText;
     private Font goldFont;
+    private Room room;
+    private PlayerModel player;
 
-    public GameScreen(Room room) {
+    public GameScreen(Room room, PlayerModel player) {
         super();
+
+        this.room = room;
+        this.player = player;
+        this.setRoom(room);
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+
+        this.getChildren().clear();
 
         Font goldFont = Font.font("Arial", FontWeight.BOLD, 25.0);
         goldText = new Text(10, 35, "GOLD: ");
@@ -45,36 +58,35 @@ public class GameScreen extends Pane {
                 stack.setTranslateY(y);
 
                 switch (cellType) {
-                case FLOOR:
-                    r.setFill(Color.BEIGE);
-                    break;
+                    case FLOOR:
+                        r.setFill(Color.BEIGE);
+                        break;
 
-                case WALL:
-                    r.setFill(Color.GRAY);
-                    break;
+                    case WALL:
+                        r.setFill(Color.GRAY);
+                        break;
 
-                case NORTH:
-                    r.setFill(Color.BLUE);
-                    break;
+                    case NORTH:
+                        r.setFill(Color.BLUE);
+                        break;
 
-                case SOUTH:
-                    r.setFill(Color.BLUEVIOLET);
-                    break;
+                    case SOUTH:
+                        r.setFill(Color.BLUEVIOLET);
+                        break;
 
-                case EAST:
-                    r.setFill(Color.ALICEBLUE);
-                    break;
+                    case EAST:
+                        r.setFill(Color.ALICEBLUE);
+                        break;
 
-                case WEST:
-                    r.setFill(Color.CORNFLOWERBLUE);
-                    break;
-                default:
-                    break;
+                    case WEST:
+                        r.setFill(Color.CORNFLOWERBLUE);
+                        break;
+                    default:
+                        break;
                 }
                 elements.add(stack);
             }
         }
-
 
         elements.add(goldText);
         this.getChildren().addAll(elements);

@@ -82,19 +82,6 @@ public class ConfigControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testAllSpacesNameField() {
-        clickOn("Play");
-        write("     ");
-        clickOn("Easy");
-        clickOn("Toaster Bow");
-        clickOn("Quack");
-        clickOn("Start Game");
-        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
-        clickOn("OK");
-    }
-
-
-    @Test
     public void testEmptyDifficultyField() {
         clickOn("Play");
         write("  Joe  ");
