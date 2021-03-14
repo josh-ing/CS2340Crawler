@@ -24,7 +24,6 @@ public class MainMenuController extends Controller {
      * Initializes app to show main menu.
      * @throws FileNotFoundException if the file is not found.
      */
-
     public void initMainMenu() throws FileNotFoundException {
         MainMenuScreen mainMenuScreen = new MainMenuScreen();
         mainMenuScreen.setMinWidth(1200);
@@ -40,6 +39,25 @@ public class MainMenuController extends Controller {
         });
         stage.show();
     }
+    /**
+     * Initializes app to show win screen. Just for testing
+     * @throws FileNotFoundException if the file is not found.
+     */
+    public void initWinMenu() throws FileNotFoundException {
+        MainMenuScreen mainMenuScreen = new MainMenuScreen();
+        mainMenuScreen.setMinWidth(1200);
+        mainMenuScreen.setMinHeight(900);
+        this.stage.setScene(new Scene(mainMenuScreen));
+        Button newGameButton = mainMenuScreen.getNewGameButton();
+        newGameButton.setOnAction(e -> {
+            try {
+                toWinScreen();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
+        stage.show();
+    }
 
     /**
      * Goes to the config screen.
@@ -48,5 +66,13 @@ public class MainMenuController extends Controller {
     public void toConfigScreen() throws FileNotFoundException {
         ConfigController configControl = new ConfigController(stage);
         configControl.initConfig();
+    }
+    /**
+     * Goes to the win screen. Just for testing
+     * @throws FileNotFoundException if the file is not found.
+     */
+    public void toWinScreen() throws FileNotFoundException {
+        WinScreenController winScreen = new WinScreenController(stage);
+        winScreen.initWin();
     }
 }

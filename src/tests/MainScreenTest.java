@@ -13,13 +13,10 @@ public class MainScreenTest extends ApplicationTest {
     public void start(Stage stage) throws Exception {
         MainMenuController controller = new MainMenuController(stage);
         controller.initMainMenu();
-
     }
 
     @Test
     public void testPlayButton() {
         verifyThat("Play", NodeMatchers.isNotNull());
     }
-
-
 }
