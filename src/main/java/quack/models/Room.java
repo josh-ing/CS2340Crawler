@@ -7,16 +7,18 @@ public class Room {
         WALL, //1
         CHEST, //2
         NORTH, //3
-        SOUTH, //4
-        EAST, //5
+        EAST, //4
+        SOUTH, //5
         WEST //6
     }
 
     public enum RoomType {
+        START,
         TREASURE,
         SHOP,
         MONSTER,
-        BOSS
+        BOSS,
+        EXIT,
     }
 
     public enum TileSetType {
@@ -27,7 +29,7 @@ public class Room {
 
     private RoomType type;
     private RoomCellType[][] map;
-    private Room[] neighbors; //[NORTH, SOUTH, EAST, WEST]
+    private Room[] neighbors; //[NORTH, EAST, SOUTH, WEST]
     private TileSetType tileSet;
 
     public Room(RoomCellType[][] map, RoomType type, Room[] neighbors, TileSetType tileSet) {
@@ -37,8 +39,19 @@ public class Room {
         this.tileSet = tileSet;
     }
 
+    public Room(RoomCellType[][] map, RoomType type, TileSetType tileSet) {
+        this.type = type;
+        this.map = map;
+        this.neighbors = new Room[4];
+        this.tileSet = tileSet;
+    }
+
     public Room(int[][] intMap, RoomType type, Room[] neighbors, TileSetType tileSet) {
         this(createMapFromIntArray(intMap), type, neighbors, tileSet);
+    }
+
+    public Room(int[][] intMap, RoomType type, TileSetType tileSet) {
+        this(createMapFromIntArray(intMap), type, tileSet);
     }
 
     public RoomType getRoomType() {
@@ -74,11 +87,11 @@ public class Room {
     }
 
     public static RoomCellType[][] createMapFromIntArray(int[][] intMap) {
-        RoomCellType[][] map = new RoomCellType[intMap[0].length][intMap.length];
+        RoomCellType[][] map = new RoomCellType[intMap.length][intMap[0].length];
 
         for (int i = 0; i < intMap.length; i++) {
             for (int j = 0; j < intMap[i].length; j++) {
-                map[j][i] = RoomCellType.values()[intMap[i][j]];
+                map[i][j] = RoomCellType.values()[intMap[i][j]];
             }
         }
 
