@@ -5,27 +5,26 @@ import java.util.Random;
 /**
  * A class that represents map creation and generation. mapGeneration should be used to receive a random map.
  */
-public class Map {
+public class RoomGenerator {
 
     private int mapHeight;
     private int mapWidth;
-    private int mapSize;
+    private int roomsToBoss;
 
     private final int CLEARANCE = 5;
     private final int NUM_OBSTACLES = 4;
 
     /**
      * Initialize the configuration for map generation.
-     * @param mapSize The length of the shortest path from the start room to the boss room. This does not represent the total amount of rooms.
+     * @param roomsToBoss The length of the shortest path from the start room to the boss room. This does not represent the total amount of rooms.
      * @param mapWidth Width of the map (amount of columns)
-     * @param mapHeight Height oft he map (amount of rows)
+     * @param mapHeight Height of the map (amount of rows)
      */
-    public Map(int mapSize, int mapWidth, int mapHeight) {
-        this.mapSize = mapSize;
+    public RoomGenerator(int roomsToBoss, int mapWidth, int mapHeight) {
+        this.roomsToBoss = roomsToBoss;
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
     }
-
 
     /**
      * Creates a int array where the border are all 1s.
@@ -91,15 +90,13 @@ public class Map {
         }
         startRoom.setNeighbors(startRoomNeighbors);
         return startRoom;
-
     }
 
     /**
      * This method returns the start room for the map. Any navigation should start from the start room.*
      * @return Room object representing the start room.
      */
-    public Room generateMap(){
-
+    public Room generateStartRoom(){
 
         Random rand = new Random();
 
@@ -109,7 +106,7 @@ public class Map {
 
         int lastExit = 2;
 
-        for (int i = 0; i < mapSize; i++) {
+        for (int i = 0; i < roomsToBoss; i++) {
 
             ArrayList<Integer> directionsTowardsExit = new ArrayList<>();
             for (int d = 0; d < 4; d++) {

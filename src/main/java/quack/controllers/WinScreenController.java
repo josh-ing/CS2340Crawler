@@ -20,7 +20,7 @@ public class WinScreenController extends Controller {
      * Initializes app to show Win Screen.
      * @throws FileNotFoundException if the file is not found.
      */
-    public void initWin() throws FileNotFoundException {
+    public void initWin() {
         WinScreen winScreen = new WinScreen();
         winScreen.setMinWidth(1200);
         winScreen.setMinHeight(900);
