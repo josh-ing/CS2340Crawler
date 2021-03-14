@@ -1,12 +1,14 @@
 package quack.controllers;
 
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import quack.views.GameScreen;
 import quack.models.Room;
 import quack.models.PlayerModel;
 import quack.models.Map;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
@@ -31,48 +33,56 @@ public class GameController extends Controller {
      * @param player The player model chosen.
      */
     public void initGame(Map map, PlayerModel player) {
-        gameLayout = map;
-        gameScreen = new GameScreen(gameLayout.generateMap());
+        Room starter = map.generateMap();
+        gameScreen = new GameScreen(starter);
         gameScreen.setMinWidth(1200);
         gameScreen.setMinHeight(900);
         this.stage.setScene(new Scene(gameScreen));
         gameScreen.getGoldText().setText("Gold: " + player.getGold());
+        this.stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, e -> changeRoom(e, starter));
+
     }
 
     public void changeRoom(KeyEvent e, Room room) {
         Room[] values = room.getNeighbors();
-        switch(e.getKeyCode()) {
-            case KeyEvent.VK_UP:
+        switch(e.getCode()) {
+            case UP:
                 if (values[0] != null) {
                     gameScreen = new GameScreen(values[0]);
+                    gameScreen.setMinWidth(1200);
+                    gameScreen.setMinHeight(900);
                     this.stage.setScene(new Scene(gameScreen));
-                } else if (values[0].getRoomType() == Room.RoomType.EXIT) {
-                    //victory screen
+                    this.stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, k -> changeRoom(e, values[0]));
                 }
                 break;
 
-            case KeyEvent.VK_RIGHT:
+            case RIGHT:
                 if (values[1] != null) {
                     gameScreen = new GameScreen(values[1]);
+                    gameScreen.setMinWidth(1200);
+                    gameScreen.setMinHeight(900);
                     this.stage.setScene(new Scene(gameScreen));
-                } else if (values[1].getRoomType() == Room.RoomType.EXIT) {
-                    //victory screen
+                    this.stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, k -> changeRoom(e, values[1]));
                 }
                 break;
 
-            case KeyEvent.VK_DOWN:
+            case DOWN:
                 if (values[2] != null) {
                     gameScreen = new GameScreen(values[2]);
-                } else if (values[2].getRoomType() == Room.RoomType.BOSS) {
-                    //victory screen
+                    gameScreen.setMinWidth(1200);
+                    gameScreen.setMinHeight(900);
+                    this.stage.setScene(new Scene(gameScreen));
+                    this.stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, k -> changeRoom(e, values[2]));
                 }
                 break;
 
-            case KeyEvent.VK_LEFT:
+            case LEFT:
                 if (values[3] != null) {
                     gameScreen = new GameScreen(values[3]);
-                } else if (values[3].getRoomType() == Room.RoomType.BOSS) {
-                    //victory screen
+                    gameScreen.setMinWidth(1200);
+                    gameScreen.setMinHeight(900);
+                    this.stage.setScene(new Scene(gameScreen));
+                    this.stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, k -> changeRoom(e, values[3]));
                 }
                 break;
         }
