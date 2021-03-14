@@ -24,6 +24,16 @@ public class ConfigControllerTest extends ApplicationTest {
     }
 
     @Test
+    public void testAllSpacesNameField() {
+        clickOn("Play");
+        write("     ");
+        clickOn("Easy");
+        clickOn("Toaster Bow");
+        clickOn("Quack");
+        clickOn("Start Game");
+        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
+        clickOn("OK");
+     }
     public void testEasyConfig() throws Exception {
         clickOn("Play");
         TimeUnit.SECONDS.sleep(1);

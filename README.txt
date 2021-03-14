@@ -20,3 +20,4 @@ Current Tests:
 -Test if Main Menu has play button
 -Tests for each player customization options for config screen (ex: difficulty, weapon, etc.)
 -Tests for if generated map rendered correctly with all exits, walls, and floors
+-Tests for Win screen, if it has a play again button, and if button correctly takes player back to main menu
