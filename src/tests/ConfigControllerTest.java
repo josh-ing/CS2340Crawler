@@ -33,42 +33,7 @@ public class ConfigControllerTest extends ApplicationTest {
         clickOn("Start Game");
         verifyThat("You cannot have null values.", NodeMatchers.isVisible());
         clickOn("OK");
-    }
-
-    @Test
-    public void testEmptyDifficultyField() {
-        clickOn("Play");
-        write("  Joe  ");
-        clickOn("Toaster Bow");
-        clickOn("Quack");
-        clickOn("Start Game");
-        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
-        clickOn("OK");
-    }
-
-    @Test
-    public void testEmptyWeaponField() {
-        clickOn("Play");
-        write("  Joe  ");
-        clickOn("Easy");
-        clickOn("Quack");
-        clickOn("Start Game");
-        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
-        clickOn("OK");
-    }
-
-    @Test
-    public void testEmptyCharacterField() {
-        clickOn("Play");
-        write("  Joe  ");
-        clickOn("Easy");
-        clickOn("Toaster Bow");
-        clickOn("Start Game");
-        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
-        clickOn("OK");
-    }
-
-    @Test
+     }
     public void testEasyConfig() throws Exception {
         clickOn("Play");
         TimeUnit.SECONDS.sleep(1);
@@ -103,4 +68,63 @@ public class ConfigControllerTest extends ApplicationTest {
         clickOn("Start Game");
         verifyThat("Gold: 0", NodeMatchers.isNotNull());
     }
+
+    @Test
+    public void testNameEmptyField() {
+        clickOn("Play");
+        write(" ");
+        clickOn("Easy");
+        clickOn("Toaster Bow");
+        clickOn("Quack");
+        clickOn("Start Game");
+        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
+        clickOn("OK");
+    }
+
+    @Test
+    public void testAllSpacesNameField() {
+        clickOn("Play");
+        write("     ");
+        clickOn("Easy");
+        clickOn("Toaster Bow");
+        clickOn("Quack");
+        clickOn("Start Game");
+        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
+        clickOn("OK");
+    }
+
+
+    @Test
+    public void testEmptyDifficultyField() {
+        clickOn("Play");
+        write("  Joe  ");
+        clickOn("Toaster Bow");
+        clickOn("Quack");
+        clickOn("Start Game");
+        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
+        clickOn("OK");
+    }
+
+    @Test
+    public void testEmptyWeaponField() {
+        clickOn("Play");
+        write("  Joe  ");
+        clickOn("Easy");
+        clickOn("Quack");
+        clickOn("Start Game");
+        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
+        clickOn("OK");
+    }
+
+    @Test
+    public void testEmptyCharacterField() {
+        clickOn("Play");
+        write("  Joe  ");
+        clickOn("Easy");
+        clickOn("Toaster Bow");
+        clickOn("Start Game");
+        verifyThat("You cannot have null values.", NodeMatchers.isVisible());
+        clickOn("OK");
+    }
+
 }
