@@ -110,5 +110,4 @@ public class GameControllerTest extends ApplicationTest {
         verifyThat("WEST", NodeMatchers.isNotNull());
     }
 
-    
 }
