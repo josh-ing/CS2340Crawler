@@ -2,7 +2,9 @@ package quack.models;
 import java.util.ArrayList;
 import java.util.Random;
 
-
+/**
+ * A class that represents map creation and generation. mapGeneration should be used to receive a random map.
+ */
 public class Map {
 
     private int mapHeight;
@@ -12,6 +14,12 @@ public class Map {
     private final int CLEARANCE = 5;
     private final int NUM_OBSTACLES = 4;
 
+    /**
+     * Initialize the configuration for map generation.
+     * @param mapSize The length of the shortest path from the start room to the boss room. This does not represent the total amount of rooms.
+     * @param mapWidth Width of the map (amount of columns)
+     * @param mapHeight Height oft he map (amount of rows)
+     */
     public Map(int mapSize, int mapWidth, int mapHeight) {
         this.mapSize = mapSize;
         this.mapHeight = mapHeight;
@@ -40,7 +48,11 @@ public class Map {
         return roomTemplate;
     }
 
-    public int[][] createRandomRoom() {
+    /**
+     * Creates a random room layout with obstacles.
+     * @return A 2d int array representing a random room.
+     */
+    private int[][] createRandomRoom() {
         Random rand = new Random();
         int[][] randomRoom = createRoomTemplate();
         for (int i = 0; i < NUM_OBSTACLES; i++) {
@@ -58,6 +70,11 @@ public class Map {
         return randomRoom;
     }
 
+    /**
+     * Creates a start room with four exits. All exits are defaulted to treasure rooms.
+     * One of these rooms will be overrided in generateMap as the path towards the boss room.
+     * @return Room representing the start room.
+     */
     private Room createStartRoom() {
         int[][] startRoomArray = createRoomTemplate();
         Room startRoom = new Room(startRoomArray, Room.RoomType.START, Room.TileSetType.DUNGEON);
@@ -77,6 +94,10 @@ public class Map {
 
     }
 
+    /**
+     * This method returns the start room for the map. Any navigation should start from the start room.*
+     * @return Room object representing the start room.
+     */
     public Room generateMap(){
 
 
@@ -141,6 +162,11 @@ public class Map {
         return roomArray;
     }
 
+    /**
+     * Adds the boss room.
+     * @param lastRoom The room before the boss room.
+     * @param lastExit The the exit portal connected to the last room.
+     */
     private void addBossRoom(Room lastRoom, int lastExit) {
         Room[] lastRoomNeighbors = lastRoom.getNeighbors();
         Room exitRoom = new Room(createRoomTemplate(), Room.RoomType.EXIT, Room.TileSetType.DUNGEON);
