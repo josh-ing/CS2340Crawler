@@ -33,7 +33,7 @@ public class ConfigControllerTest extends ApplicationTest {
         clickOn("Start Game");
         verifyThat("You cannot have null values.", NodeMatchers.isVisible());
         clickOn("OK");
-     }
+    }
     public void testEasyConfig() throws Exception {
         clickOn("Play");
         TimeUnit.SECONDS.sleep(1);

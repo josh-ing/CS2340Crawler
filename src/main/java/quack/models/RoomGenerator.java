@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * A class that represents map creation and generation. mapGeneration should be used to receive a random map.
+ * A class that represents map creation and generation.
+ * mapGeneration should be used to receive a random map.
  */
 public class RoomGenerator {
 
@@ -11,12 +12,13 @@ public class RoomGenerator {
     private int mapWidth;
     private int roomsToBoss;
 
-    private final int CLEARANCE = 5;
-    private final int NUM_OBSTACLES = 4;
+    static final int CLEARANCE = 5;
+    static final int NUM_OBSTACLES = 4;
 
     /**
      * Initialize the configuration for map generation.
-     * @param roomsToBoss The length of the shortest path from the start room to the boss room. This does not represent the total amount of rooms.
+     * @param roomsToBoss The length of the shortest path from the
+     * start room to the boss room. This does not represent the total amount of rooms.
      * @param mapWidth Width of the map (amount of columns)
      * @param mapHeight Height of the map (amount of rows)
      */
@@ -31,7 +33,7 @@ public class RoomGenerator {
      * @return 2d int array representing the room.
      */
     private int[][] createRoomTemplate() {
-        int [][] roomTemplate = new int[mapHeight][mapWidth];
+        int[][] roomTemplate = new int[mapHeight][mapWidth];
 
         //Initialize vertical wall borders
         for (int i = 0; i < mapHeight; i++) {
@@ -80,10 +82,11 @@ public class RoomGenerator {
         Room[] startRoomNeighbors = new Room[4];
 
         //Note that one of these four rooms will be overrided with the path to the boss room.
-        for (int i = 0; i < 4; i ++) {
+        for (int i = 0; i < 4; i++) {
             Room[] newRoomNeighbors = new Room[4];
             newRoomNeighbors[(i + 2) % 4] = startRoom;
-            Room newRoom = new Room(createRoomTemplate(), Room.RoomType.TREASURE, newRoomNeighbors, Room.TileSetType.DUNGEON);
+            Room newRoom = new Room(createRoomTemplate(), Room.RoomType.TREASURE,
+                    newRoomNeighbors, Room.TileSetType.DUNGEON);
             addExitsToRoomArray(newRoom);
             startRoomNeighbors[i] = newRoom;
 
@@ -93,10 +96,11 @@ public class RoomGenerator {
     }
 
     /**
-     * This method returns the start room for the map. Any navigation should start from the start room.*
+     * This method returns the start room for the map.
+     * Any navigation should start from the start room.
      * @return Room object representing the start room.
      */
-    public Room generateStartRoom(){
+    public Room generateStartRoom() {
 
         Random rand = new Random();
 
@@ -136,7 +140,6 @@ public class RoomGenerator {
     }
 
     /**
-     * TODO: CHECK WHY HEIGHT AND WIDTH SWAPPED. SOLVED: createMapFromIntArray in Room.java
      * @param room The room to add exits to
      * @return 2d RoomCellType array representing room.
      */
@@ -166,11 +169,13 @@ public class RoomGenerator {
      */
     private void addBossRoom(Room lastRoom, int lastExit) {
         Room[] lastRoomNeighbors = lastRoom.getNeighbors();
-        Room exitRoom = new Room(createRoomTemplate(), Room.RoomType.EXIT, Room.TileSetType.DUNGEON);
+        Room exitRoom = new Room(createRoomTemplate(),
+                Room.RoomType.EXIT, Room.TileSetType.DUNGEON);
         Room[] bossRoomNeighbors = new Room[4];
         bossRoomNeighbors[(lastExit + 2) % 4] = lastRoom;
         bossRoomNeighbors[lastExit] = exitRoom;
-        Room bossRoom = new Room(createRoomTemplate(), Room.RoomType.BOSS, bossRoomNeighbors, Room.TileSetType.DUNGEON);
+        Room bossRoom = new Room(createRoomTemplate(),
+                Room.RoomType.BOSS, bossRoomNeighbors, Room.TileSetType.DUNGEON);
         lastRoomNeighbors[lastExit] = bossRoom;
         lastRoom.setNeighbors(lastRoomNeighbors);
         addExitsToRoomArray(lastRoom);
