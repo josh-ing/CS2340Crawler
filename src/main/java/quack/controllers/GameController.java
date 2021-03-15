@@ -7,7 +7,6 @@ import quack.views.GameScreen;
 import quack.models.Room;
 import quack.models.PlayerModel;
 import quack.models.RoomGenerator;
-import quack.controllers.WinScreenController;
 
 import java.util.Arrays;
 
@@ -64,30 +63,33 @@ public class GameController extends Controller {
         Room[] neighbors = currentRoom.getNeighbors();
         System.out.println(Arrays.toString(neighbors));
 
-        switch(key.getCode()) {
-            case UP:
-                if (neighbors[0] != null) {
-                    setGameScreenRoom(neighbors[0]);
-                }
-                break;
+        switch (key.getCode()) {
+        case UP:
+            if (neighbors[0] != null) {
+                setGameScreenRoom(neighbors[0]);
+            }
+            break;
 
-            case RIGHT:
-                if (neighbors[1] != null) {
-                    setGameScreenRoom(neighbors[1]);
-                }
-                break;
+        case RIGHT:
+            if (neighbors[1] != null) {
+                setGameScreenRoom(neighbors[1]);
+            }
+            break;
 
-            case DOWN:
-                if (neighbors[2] != null) {
-                    setGameScreenRoom(neighbors[2]);
-                }
-                break;
+        case DOWN:
+            if (neighbors[2] != null) {
+                setGameScreenRoom(neighbors[2]);
+            }
+            break;
 
-            case LEFT:
-                if (neighbors[3] != null) {
-                    setGameScreenRoom(neighbors[3]);
-                }
-                break;
+        case LEFT:
+            if (neighbors[3] != null) {
+                setGameScreenRoom(neighbors[3]);
+            }
+            break;
+
+        default:
+            break;
         }
     }
 
