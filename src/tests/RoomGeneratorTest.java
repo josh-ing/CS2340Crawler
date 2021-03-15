@@ -2,10 +2,12 @@ import org.junit.jupiter.api.Test;
 import quack.models.Room;
 import quack.models.RoomGenerator;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RoomGeneratorTest {
 
@@ -67,7 +69,32 @@ public class RoomGeneratorTest {
         roomGenerator = new RoomGenerator(7, 24, 17);
         startRoom = roomGenerator.generateStartRoom();
         assertEquals(4, startRoom.getNeighbors().length);
+    }
 
+    @Test
+    public void testReturnToStartFromNeighbors() {
+        roomGenerator = new RoomGenerator(2, 24, 17);
+        Room startRoom = roomGenerator.generateStartRoom();
+
+        Room[] neighbors = startRoom.getNeighbors();
+
+        for (Room neighbor : neighbors) {
+            HashSet<Room> neighborSet = new HashSet<>(Arrays.asList(neighbor.getNeighbors()));
+
+            assertTrue(neighborSet.contains(startRoom));
+        }
+    }
+
+    @Test
+    public void testNeighborsHaveNewMaps() {
+        roomGenerator = new RoomGenerator(2, 24, 17);
+        Room startRoom = roomGenerator.generateStartRoom();
+
+        Room[] neighbors = startRoom.getNeighbors();
+
+        for (Room neighbor : neighbors) {
+            assertTrue(!Arrays.deepEquals(startRoom.getMap(), neighbor.getMap()));
+        }
     }
 
 }

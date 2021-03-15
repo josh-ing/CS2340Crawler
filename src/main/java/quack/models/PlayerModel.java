@@ -26,6 +26,10 @@ public class PlayerModel {
         this.gold = gold;
     }
 
+    public PlayerModel() {
+        this("Quack", new PlayableCharacterModel(), 0);
+    }
+
     public WeaponModel getWeapon() {
         return weapon;
     }
