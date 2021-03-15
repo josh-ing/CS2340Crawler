@@ -17,6 +17,10 @@ public class PlayableCharacterModel {
         this.imageAsset = imageAsset;
     }
 
+    public PlayableCharacterModel() {
+        this(10, 10, 10, 10, "");
+    }
+
     public int getMaxHealth() {
         return maxHealth;
     }

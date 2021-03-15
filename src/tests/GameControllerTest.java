@@ -1,3 +1,4 @@
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.Assert;
@@ -7,7 +8,8 @@ import quack.controllers.MainMenuController;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javafx.scene.Node;
-
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testfx.api.FxAssert.verifyThat;
 
 public class GameControllerTest extends ApplicationTest {
@@ -31,7 +33,7 @@ public class GameControllerTest extends ApplicationTest {
         clickOn("Start Game");
         TimeUnit.SECONDS.sleep(2);
         Set<Node> tiles = lookup("NORTH").queryAll();
-        Assert.assertEquals(2, tiles.size());
+        Assert.assertEquals(1, tiles.size());
         for (Node node : tiles) {
             clickOn(node);
         }
@@ -48,7 +50,7 @@ public class GameControllerTest extends ApplicationTest {
         clickOn("Start Game");
         TimeUnit.SECONDS.sleep(2);
         Set<Node> tiles = lookup("SOUTH").queryAll();
-        Assert.assertEquals(2, tiles.size());
+        Assert.assertEquals(1, tiles.size());
         for (Node node : tiles) {
             clickOn(node);
         }
@@ -67,7 +69,7 @@ public class GameControllerTest extends ApplicationTest {
         clickOn("Start Game");
         TimeUnit.SECONDS.sleep(2);
         Set<Node> tiles = lookup("WALL").queryAll();
-        Assert.assertEquals(105, tiles.size());
+        Assert.assertEquals(76, tiles.size());
         for (Node node : tiles) {
             clickOn(node);
         }
@@ -85,7 +87,7 @@ public class GameControllerTest extends ApplicationTest {
         clickOn("Start Game");
         TimeUnit.SECONDS.sleep(2);
         Set<Node> tiles = lookup("EAST").queryAll();
-        Assert.assertEquals(2, tiles.size());
+        Assert.assertEquals(1, tiles.size());
         for (Node node : tiles) {
             clickOn(node);
         }
@@ -103,12 +105,21 @@ public class GameControllerTest extends ApplicationTest {
         clickOn("Start Game");
         TimeUnit.SECONDS.sleep(2);
         Set<Node> tiles = lookup("WEST").queryAll();
-        Assert.assertEquals(2, tiles.size());
+        Assert.assertEquals(1, tiles.size());
         for (Node node : tiles) {
             clickOn(node);
         }
         verifyThat("WEST", NodeMatchers.isNotNull());
     }
 
-    
+    @Test
+    public void KeysNotPressed() {
+        assertThat(robotContext().getKeyboardRobot().getPressedKeys().isEmpty(), is(true));
+    }
+
+    @Test
+    public void ForgetsReleaseKeys() {
+        press(KeyCode.CONTROL, KeyCode.SHIFT, KeyCode.ALT);
+    }
+
 }

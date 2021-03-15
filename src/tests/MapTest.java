@@ -12,6 +12,10 @@ import javafx.scene.Node;
 import quack.models.RoomGenerator;
 
 
+
+import static org.testfx.api.FxAssert.verifyThat;
+
+
 public class MapTest extends ApplicationTest{
     private RoomGenerator layout;
     private Room test;

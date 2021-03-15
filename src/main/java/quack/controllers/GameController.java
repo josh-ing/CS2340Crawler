@@ -90,4 +90,8 @@ public class GameController extends Controller {
                 break;
         }
     }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
 }
