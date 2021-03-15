@@ -1,22 +1,11 @@
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.junit.Assert;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.matcher.base.NodeMatchers;
-import quack.controllers.MainMenuController;
 import quack.models.Room;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import javafx.scene.Node;
 import quack.models.RoomGenerator;
 
-
-
-import static org.testfx.api.FxAssert.verifyThat;
-
-
-public class MapTest extends ApplicationTest{
+public class MapTest extends ApplicationTest {
     private RoomGenerator layout;
     private Room test;
 
@@ -45,6 +34,4 @@ public class MapTest extends ApplicationTest{
         }
         Assert.assertEquals(1, size);
     }
-
-
 }
