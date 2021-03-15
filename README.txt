@@ -1,4 +1,4 @@
-Project M2
+Project M3
 Collaborators: 
 -Justin Chau
 -Joshua Ng
@@ -14,6 +14,8 @@ select a weapon, and select a difficulty. The player must input a name and choos
 Once you've selected your options, you press the "play" button. This will lead to the initial game screen which displays the
 roomGenerator and your starting gold based on the difficulty you selected. In the roomGenerator, currently we wanted to make sure it rendered
 correctly, so each tile is labeled with either "NORTH" "SOUTH" "EAST" "WEST" "FLOOR" "WALL".
+For M3, we added new implementation to room generation and added a win screen. The user can move through different rooms and
+will show the win screen once they've passed the boss room
 
 Current Tests:
 
@@ -21,4 +23,5 @@ Current Tests:
 -Tests for each player customization options for config screen (ex: difficulty, weapon, etc.)
 -Tests for if generated map rendered correctly with all exits, walls, and floors
 -Tests for Win screen, if it has a play again button, and if button correctly takes player back to main menu
+-Tests for room generation and validity of rooms
 
