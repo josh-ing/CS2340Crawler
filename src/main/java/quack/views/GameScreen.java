@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Font;
+import javafx.scene.Node;
 
 public class GameScreen extends Pane {
 
@@ -18,6 +19,7 @@ public class GameScreen extends Pane {
     private Font goldFont;
     private Room room;
     private PlayerModel player;
+    private Node playerNode;
 
     public GameScreen(Room room, PlayerModel player) {
         super();
@@ -25,11 +27,14 @@ public class GameScreen extends Pane {
         this.room = room;
         this.player = player;
         this.setRoom(room);
+        this.render();
     }
 
     public void setRoom(Room room) {
         this.room = room;
+    }
 
+    public void render() {
         this.getChildren().clear();
 
         Font goldFont = Font.font("Arial", FontWeight.BOLD, 25.0);
@@ -39,6 +44,17 @@ public class GameScreen extends Pane {
 
         Room.RoomCellType[][] map = room.getMap();
         ArrayList elements = new ArrayList<>();
+
+        double playerWidth = 10;
+        double playerHeight = 10;
+
+        playerNode = new Rectangle(10, 10);
+        double playerX = player.getX() * TILE_SIZE + ((TILE_SIZE - playerWidth))/2;
+        double playerY = player.getY() * TILE_SIZE + ((TILE_SIZE - playerHeight))/2;
+
+
+        playerNode.setTranslateX(playerX);
+        playerNode.setTranslateY(playerY);
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -88,6 +104,7 @@ public class GameScreen extends Pane {
             }
         }
 
+        elements.add(playerNode);
         elements.add(goldText);
         this.getChildren().addAll(elements);
     }
