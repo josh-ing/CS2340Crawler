@@ -18,6 +18,8 @@ public class GameController extends Controller {
     private GameScreen gameScreen;
     private Room currentRoom;
     private PlayerModel player;
+    public static int WIDTH = 1200;
+    public static int HEIGHT = 900;
 
     /**
      * Initializes the controller with a stage.
@@ -40,8 +42,8 @@ public class GameController extends Controller {
         this.currentRoom = start;
 
         gameScreen = new GameScreen(start, player);
-        gameScreen.setMinWidth(1200);
-        gameScreen.setMinHeight(900);
+        gameScreen.setMinWidth(WIDTH);
+        gameScreen.setMinHeight(HEIGHT);
         gameScreen.getGoldText().setText("Gold: " + player.getGold());
 
         this.stage.setScene(new Scene(gameScreen));
