@@ -74,31 +74,31 @@ public class GameScreen extends Pane {
                 stack.setTranslateY(y);
 
                 switch (cellType) {
-                    case FLOOR:
-                        r.setFill(Color.BEIGE);
-                        break;
+                case FLOOR:
+                    r.setFill(Color.BEIGE);
+                    break;
 
-                    case WALL:
-                        r.setFill(Color.GRAY);
-                        break;
+                case WALL:
+                    r.setFill(Color.GRAY);
+                    break;
 
-                    case NORTH:
-                        r.setFill(Color.BLUE);
-                        break;
+                case NORTH:
+                    r.setFill(Color.BLUE);
+                    break;
 
-                    case SOUTH:
-                        r.setFill(Color.BLUEVIOLET);
-                        break;
+                case SOUTH:
+                    r.setFill(Color.BLUEVIOLET);
+                    break;
 
-                    case EAST:
-                        r.setFill(Color.ALICEBLUE);
-                        break;
+                case EAST:
+                    r.setFill(Color.ALICEBLUE);
+                    break;
 
-                    case WEST:
-                        r.setFill(Color.CORNFLOWERBLUE);
-                        break;
-                    default:
-                        break;
+                case WEST:
+                    r.setFill(Color.CORNFLOWERBLUE);
+                    break;
+                default:
+                    break;
                 }
                 elements.add(stack);
             }

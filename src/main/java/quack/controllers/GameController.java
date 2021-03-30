@@ -1,8 +1,4 @@
 package quack.controllers;
-
-import javafx.animation.KeyFrame;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -10,9 +6,6 @@ import quack.views.GameScreen;
 import quack.models.Room;
 import quack.models.PlayerModel;
 import quack.models.RoomGenerator;
-import javafx.concurrent.Task;
-
-import java.time.Duration;
 
 /**
  * Controller for MainMenuScreen
@@ -104,6 +97,7 @@ public class GameController extends Controller {
             }
 
             this.currentAction = null;
+
         }
     }
 
@@ -113,37 +107,6 @@ public class GameController extends Controller {
 
     private void render() {
         gameScreen.render();
-    }
-
-    public void changeRoom(KeyEvent key) {
-//        Room[] neighbors = currentRoom.getNeighbors();
-//        System.out.println(Arrays.toString(neighbors));
-//
-//        switch(key.getCode()) {
-//            case UP:
-//                if (neighbors[0] != null) {
-//                    setGameScreenRoom(neighbors[0]);
-//                }
-//                break;
-//
-//            case RIGHT:
-//                if (neighbors[1] != null) {
-//                    setGameScreenRoom(neighbors[1]);
-//                }
-//                break;
-//
-//            case DOWN:
-//                if (neighbors[2] != null) {
-//                    setGameScreenRoom(neighbors[2]);
-//                }
-//                break;
-//
-//            case LEFT:
-//                if (neighbors[3] != null) {
-//                    setGameScreenRoom(neighbors[3]);
-//                }
-//                break;
-//        }
     }
 
     public Room getCurrentRoom() {
