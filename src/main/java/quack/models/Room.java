@@ -1,5 +1,7 @@
 package quack.models;
 
+import java.util.ArrayList;
+
 public class Room {
 
     public enum RoomCellType {
@@ -21,18 +23,13 @@ public class Room {
         EXIT,
     }
 
-    public enum TileSetType {
-        GRASSY,
-        FOREST,
-        DUNGEON
-    }
-
     private RoomType type;
     private RoomCellType[][] map;
     private Room[] neighbors; //[NORTH, EAST, SOUTH, WEST]
-    private TileSetType tileSet;
+    private TileSet tileSet;
+    private ArrayList<GameObject> gameObjects;
 
-    public Room(RoomCellType[][] map, RoomType type, Room[] neighbors, TileSetType tileSet) {
+    public Room(RoomCellType[][] map, RoomType type, Room[] neighbors, TileSet tileSet) {
         this.type = type;
         this.map = map;
         this.neighbors = neighbors;
@@ -96,5 +93,13 @@ public class Room {
         }
 
         return map;
+    }
+
+    public ArrayList<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
+    public void setGameObjects(ArrayList<GameObject> gameObjects) {
+        this.gameObjects = gameObjects;
     }
 }

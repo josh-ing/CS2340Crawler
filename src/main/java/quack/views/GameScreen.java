@@ -3,7 +3,7 @@ package quack.views;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import quack.models.Room;
-import quack.models.PlayerModel;
+import quack.models.Player;
 import java.util.ArrayList;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
@@ -18,10 +18,10 @@ public class GameScreen extends Pane {
     private Text goldText;
     private Font goldFont;
     private Room room;
-    private PlayerModel player;
+    private Player player;
     private Node playerNode;
 
-    public GameScreen(Room room, PlayerModel player) {
+    public GameScreen(Room room, Player player) {
         super();
 
         this.room = room;

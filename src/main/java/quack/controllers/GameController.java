@@ -1,13 +1,11 @@
 package quack.controllers;
-
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import quack.views.GameScreen;
 import quack.models.Room;
-import quack.models.PlayerModel;
+import quack.models.Player;
 import quack.models.RoomGenerator;
-import javafx.concurrent.Task;
 
 /**
  * Controller for MainMenuScreen
@@ -16,10 +14,8 @@ public class GameController extends Controller {
     private RoomGenerator roomGenerator;
     private GameScreen gameScreen;
     private Room currentRoom;
-    private PlayerModel player;
+    private Player player;
     private KeyEvent currentAction;
-    private long lastTimeStep;
-    private static final long TIME_STEP = 1000; //millis
 
     /**
      * Initializes the controller with a stage.
@@ -34,7 +30,7 @@ public class GameController extends Controller {
      * @param roomGenerator The randomly generated map.
      * @param player The player model chosen.
      */
-    public void initGame(RoomGenerator roomGenerator, PlayerModel player) {
+    public void initGame(RoomGenerator roomGenerator, Player player) {
         this.roomGenerator = roomGenerator;
         this.player = player;
 
@@ -47,23 +43,6 @@ public class GameController extends Controller {
         gameScreen.getGoldText().setText("Gold: " + player.getGold());
 
         this.stage.setScene(new Scene(gameScreen));
-
-        Task gameLoop = new Task<Void>() {
-            @Override public Void call() {
-
-                while(true) {
-                    if (System.currentTimeMillis() > lastTimeStep + TIME_STEP) {
-
-//                        update();
-//                        render();
-
-                        lastTimeStep = System.currentTimeMillis();
-                    }
-                }
-            }
-        };
-
-        new Thread(gameLoop).start();
 
         this.stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> processInput(key));
     }
@@ -83,41 +62,43 @@ public class GameController extends Controller {
     private void processInput(KeyEvent key) {
         this.currentAction = key;
         update();
+        render();
     }
 
     private void update() {
-        System.out.println(this.currentAction);
+        if (this.currentAction != null) {
 
-        switch(this.currentAction.getCode()) {
-            case UP:
-                if (isValidPosition(player.getX(), player.getY() - 1)) {
-                    player.setY(player.getY() - 1);
-                }
-                break;
+            System.out.println(this.currentAction);
 
-            case DOWN:
-                if (isValidPosition(player.getX(), player.getY() + 1)) {
-                    player.setY(player.getY() + 1);
-                }
-                break;
+            switch (this.currentAction.getCode()) {
+                case UP:
+                    if (isValidPosition(player.getX(), player.getY() - 1)) {
+                        player.setY(player.getY() - 1);
+                    }
+                    break;
 
-            case LEFT:
-                if (isValidPosition(player.getX() - 1, player.getY())) {
-                    player.setX(player.getX() - 1);
-                }
-                break;
+                case DOWN:
+                    if (isValidPosition(player.getX(), player.getY() + 1)) {
+                        player.setY(player.getY() + 1);
+                    }
+                    break;
 
-            case RIGHT:
-                if (isValidPosition(player.getX() + 1, player.getY())) {
-                    player.setX(player.getX() + 1);
-                }
-                break;
+                case LEFT:
+                    if (isValidPosition(player.getX() - 1, player.getY())) {
+                        player.setX(player.getX() - 1);
+                    }
+                    break;
+
+                case RIGHT:
+                    if (isValidPosition(player.getX() + 1, player.getY())) {
+                        player.setX(player.getX() + 1);
+                    }
+                    break;
+            }
+
+            this.currentAction = null;
+
         }
-
-        this.currentAction = null;
-
-        System.out.println();
-        render();
     }
 
     private boolean isValidPosition(int x, int y) {
@@ -126,37 +107,6 @@ public class GameController extends Controller {
 
     private void render() {
         gameScreen.render();
-    }
-
-    public void changeRoom(KeyEvent key) {
-//        Room[] neighbors = currentRoom.getNeighbors();
-//        System.out.println(Arrays.toString(neighbors));
-//
-//        switch(key.getCode()) {
-//            case UP:
-//                if (neighbors[0] != null) {
-//                    setGameScreenRoom(neighbors[0]);
-//                }
-//                break;
-//
-//            case RIGHT:
-//                if (neighbors[1] != null) {
-//                    setGameScreenRoom(neighbors[1]);
-//                }
-//                break;
-//
-//            case DOWN:
-//                if (neighbors[2] != null) {
-//                    setGameScreenRoom(neighbors[2]);
-//                }
-//                break;
-//
-//            case LEFT:
-//                if (neighbors[3] != null) {
-//                    setGameScreenRoom(neighbors[3]);
-//                }
-//                break;
-//        }
     }
 
     public Room getCurrentRoom() {
