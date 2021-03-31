@@ -1,4 +1,4 @@
 package quack.models;
 
-public class GameModel {
+public class TileSet {
 }

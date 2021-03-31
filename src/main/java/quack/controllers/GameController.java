@@ -4,7 +4,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import quack.views.GameScreen;
 import quack.models.Room;
-import quack.models.PlayerModel;
+import quack.models.Player;
 import quack.models.RoomGenerator;
 
 /**
@@ -14,7 +14,7 @@ public class GameController extends Controller {
     private RoomGenerator roomGenerator;
     private GameScreen gameScreen;
     private Room currentRoom;
-    private PlayerModel player;
+    private Player player;
     private KeyEvent currentAction;
 
     /**
@@ -30,7 +30,7 @@ public class GameController extends Controller {
      * @param roomGenerator The randomly generated map.
      * @param player The player model chosen.
      */
-    public void initGame(RoomGenerator roomGenerator, PlayerModel player) {
+    public void initGame(RoomGenerator roomGenerator, Player player) {
         this.roomGenerator = roomGenerator;
         this.player = player;
 
