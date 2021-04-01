@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 import quack.models.*;
 import quack.views.GameScreen;
 
+import java.util.ConcurrentModificationException;
+
 /**
  * Controller for MainMenuScreen
  */
@@ -34,6 +36,7 @@ public class GameController extends Controller {
 
         this.stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> processInput(key));
 
+
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -54,8 +57,13 @@ public class GameController extends Controller {
     }
 
     private void updateGameObjects(long l) {
-        for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
-            go.update(l);
+        try {
+            for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
+                go.update(l);
+            }
+        } catch(ConcurrentModificationException e) {
+
         }
+
     }
 }

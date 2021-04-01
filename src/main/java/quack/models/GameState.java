@@ -41,6 +41,10 @@ public class GameState {
         currentInputs = new ArrayList<KeyEvent>();
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public Room getCurrentRoom() {
         return currentRoom;
     }

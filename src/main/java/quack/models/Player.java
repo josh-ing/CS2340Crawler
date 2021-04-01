@@ -2,6 +2,7 @@ package quack.models;
 
 import javafx.scene.input.KeyEvent;
 import quack.models.characters.Character;
+import quack.models.monsters.Monster;
 import quack.models.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class Player extends GameObject {
     private int currHealth;
 
     public Player(String name, Character character, int gold) {
-        super("", 20000);
+        super("src/main/resources/assets/characters/quackchar.png", 20000);
         this.name = name;
         this.character = character;
         this.currHealth = character.getMaxHealth();
@@ -70,22 +71,22 @@ public class Player extends GameObject {
         switch (currentCellType) {
             case NORTH:
                 nextRoom = currentRoom.getNeighbors()[0];
-                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.SOUTH);
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.SOUTH).translateUp();
                 break;
 
             case EAST:
                 nextRoom = currentRoom.getNeighbors()[1];
-                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.WEST);
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.WEST).translateRight();
                 break;
 
             case SOUTH:
                 nextRoom = currentRoom.getNeighbors()[2];
-                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.NORTH);
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.NORTH).translateDown();
                 break;
 
             case WEST:
                 nextRoom = currentRoom.getNeighbors()[3];
-                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.EAST);
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.EAST).translateLeft();
                 break;
 
             default:
@@ -129,5 +130,30 @@ public class Player extends GameObject {
 
     public void setGold(int gold) {
         this.gold = gold;
+    }
+
+    public void attack() {
+        Position attackPosition;
+        if (getRotation() == Rotation.RIGHT) {
+            attackPosition = getPosition().translateRight();
+        } else if(getRotation() == Rotation.UP) {
+            attackPosition = getPosition().translateUp();
+        } else if(getRotation() == Rotation.LEFT) {
+            attackPosition = getPosition().translateLeft();
+        } else {
+            attackPosition = getPosition().translateDown();
+        }
+        Monster monster = null;
+        for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
+            if (go.getPosition() == attackPosition && go instanceof Monster) {
+                monster = (Monster) go;
+            }
+        }
+        if (monster != null) {
+            monster.setHealth(monster.getHealth() - character.getAttack());
+            if (monster.getHealth() <= 0) {
+                GameState.getInstance().getCurrentRoom().getGameObjects().remove(monster);
+            }
+        }
     }
 }

@@ -1,5 +1,8 @@
 package quack.models.monsters;
 import quack.models.GameObject;
+import quack.models.GameState;
+import quack.models.Player;
+import quack.models.Position;
 
 public abstract class Monster extends GameObject {
     private int health;
@@ -21,6 +24,10 @@ public abstract class Monster extends GameObject {
         return health;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public void setAttack(int attack) {
         this.attack = attack;
     }
@@ -31,5 +38,22 @@ public abstract class Monster extends GameObject {
 
     public int getSpeed() {
         return speed;
+    }
+
+    public void attack() {
+        Position attackPosition;
+        if (getRotation() == Rotation.RIGHT) {
+            attackPosition = getPosition().translateRight();
+        } else if(getRotation() == Rotation.UP) {
+            attackPosition = getPosition().translateUp();
+        } else if(getRotation() == Rotation.LEFT) {
+            attackPosition = getPosition().translateLeft();
+        } else {
+            attackPosition = getPosition().translateDown();
+        }
+        Player player = GameState.getInstance().getPlayer();
+        if (player.getPosition() == attackPosition) {
+            player.setCurrHealth(player.getCurrHealth() - attack);
+        }
     }
 }
