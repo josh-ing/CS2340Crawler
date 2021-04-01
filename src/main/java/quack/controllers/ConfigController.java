@@ -30,7 +30,7 @@ public class ConfigController extends Controller {
         configure.setMinHeight(900);
         stage.setScene(new Scene(configure));
 
-
+        Button startGame = configure.getStartButton();
         String playerType = configure.getDuck();
         Character character;
         if (playerType.equals("Quack")) {
@@ -40,8 +40,6 @@ public class ConfigController extends Controller {
         } else {
             character = new PelicanCharacter();
         }
-
-        Button startGame = configure.getStartButton();
         startGame.setOnAction(e -> {
             if (this.checkFields()) {
                 Player player = new Player(configure.getPlayerName(),
