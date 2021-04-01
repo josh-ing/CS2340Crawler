@@ -49,7 +49,7 @@ public class GameScreen extends StackPane {
             }
         }
         for (GameObject go: gameObjects) {
-            gameObjectGrid.setImage(go.getImageAsset(), go.getRow(), go.getCol());
+            gameObjectGrid.setImage(go.getImageAsset(), go.getPosition().getRow(), go.getPosition().getCol());
         }
     }
 

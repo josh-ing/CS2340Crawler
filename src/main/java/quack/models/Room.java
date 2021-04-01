@@ -102,18 +102,34 @@ public class Room {
         gameObjects.add(gameObject);
     }
 
-    public boolean isValidPosition(int row, int col) {
+    public boolean isValidPosition(Position position) {
         for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
-            if (row == go.getRow() && col == go.getCol()) {
+            if (position.getRow() == go.getPosition().getRow() && position.getCol() == go.getPosition().getCol()) {
                 return false;
             }
         }
-        if (row > map.length - 1 || col > map[0].length - 1 || row < 0 || col < 0) {
+        if (position.getRow() > map.length - 1 || position.getCol() > map[0].length - 1 || position.getRow() < 0 || position.getCol() < 0) {
             return false;
         }
-        if (map[row][col] == RoomCellType.WALL) {
+        if (map[position.getRow()][position.getCol()] == RoomCellType.WALL) {
             return false;
         }
+
         return true;
+    }
+
+    public Position getExitPosition(RoomCellType exit) {
+        Position position = null;
+
+        for (int r = 0; r < map.length; r++) {
+            for (int c = 0; c < map[0].length; c++) {
+                if (map[r][c] == exit) {
+                    position = new Position(r, c);
+                    break;
+                }
+            }
+        }
+
+        return position;
     }
 }

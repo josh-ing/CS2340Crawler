@@ -11,27 +11,19 @@ public abstract class GameObject {
         DOWN
     }
 
-    private int row;
-    private int col;
+    private Position position;
     private Rotation rotation;
     private Image imageAsset;
+    private long lastUpdate = 0;
 
     public abstract void update(long l);
 
-    public int getRow() {
-        return row;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public Image getImageAsset() {
@@ -48,5 +40,13 @@ public abstract class GameObject {
 
     public void setRotation(Rotation rotation) {
         this.rotation = rotation;
+    }
+
+    public void setLastUpdate(long lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public long getLastUpdate() {
+        return lastUpdate;
     }
 }

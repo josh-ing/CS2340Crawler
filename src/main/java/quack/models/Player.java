@@ -19,47 +19,83 @@ public class Player extends GameObject {
         this.character = character;
         this.currHealth = character.getMaxHealth();
         this.gold = gold;
-        setRow(9);
-        setCol(12);
+        setPosition(new Position(9, 12));
     }
 
     public void update(long l) {
         ArrayList<KeyEvent> inputs = GameState.getInstance().getCurrentInputs();
         Room currentRoom = GameState.getInstance().getCurrentRoom();
 
-        for (KeyEvent keyEvent: inputs) {
+        for (KeyEvent keyEvent : inputs) {
             if (keyEvent != null) {
 
                 switch (keyEvent.getCode()) {
                     case LEFT:
-                        if (currentRoom.isValidPosition(getRow(), getCol() - 1)) {
-                            setCol(getCol() - 1);
+                        if (currentRoom.isValidPosition(getPosition().translateLeft())) {
+                            setPosition(getPosition().translateLeft());
                         }
                         break;
 
                     case RIGHT:
-                        if (currentRoom.isValidPosition(getRow(), getCol() + 1)) {
-                            setCol(getCol() + 1);
+                        if (currentRoom.isValidPosition(getPosition().translateRight())) {
+                            setPosition(getPosition().translateRight());
                         }
                         break;
 
                     case UP:
-                        if (currentRoom.isValidPosition(getRow() - 1, getCol())) {
-                            setRow(getRow() - 1);
+                        if (currentRoom.isValidPosition(getPosition().translateUp())) {
+                            setPosition(getPosition().translateUp());
                         }
                         break;
 
                     case DOWN:
-                        if (currentRoom.isValidPosition(getRow() + 1, getCol())) {
-                            setRow(getRow() + 1);
+                        if (currentRoom.isValidPosition(getPosition().translateDown())) {
+                            setPosition(getPosition().translateDown());
                         }
                         break;
                 }
-
             }
         }
 
+        checkCellEvent();
+    }
 
+    public void checkCellEvent() {
+        Room currentRoom = GameState.getInstance().getCurrentRoom();
+        Room.RoomCellType currentCellType = currentRoom.getMap()[getPosition().getRow()][getPosition().getCol()];
+        Room nextRoom;
+        Position nextPosition;
+
+        switch (currentCellType) {
+            case NORTH:
+                nextRoom = currentRoom.getNeighbors()[0];
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.SOUTH);
+                break;
+
+            case EAST:
+                nextRoom = currentRoom.getNeighbors()[1];
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.WEST);
+                break;
+
+            case SOUTH:
+                nextRoom = currentRoom.getNeighbors()[2];
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.NORTH);
+                break;
+
+            case WEST:
+                nextRoom = currentRoom.getNeighbors()[3];
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.EAST);
+                break;
+
+            default:
+                nextRoom = null;
+                nextPosition = null;
+        }
+
+        if (nextRoom != null) {
+            GameState.getInstance().setCurrentRoom(nextRoom);
+            setPosition(nextPosition);
+        }
     }
 
     public Weapon getWeapon() {

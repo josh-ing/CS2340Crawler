@@ -10,7 +10,6 @@ import quack.views.GameScreen;
  * Controller for MainMenuScreen
  */
 public class GameController extends Controller {
-    private RoomGenerator roomGenerator;
     private GameScreen gameScreen;
 
     /**
@@ -35,8 +34,6 @@ public class GameController extends Controller {
 
         this.stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> processInput(key));
 
-
-
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -46,12 +43,10 @@ public class GameController extends Controller {
                 gameScreen.updateRoomGrid(GameState.getInstance().getCurrentRoom().getMap());
 
                 GameState.getInstance().clearInputs();
-
             }
         };
+
         gameLoop.start();
-
-
     }
 
     private void processInput(KeyEvent key) {
