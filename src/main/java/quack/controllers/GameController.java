@@ -37,12 +37,13 @@ public class GameController extends Controller {
         Room start = roomGenerator.generateStartRoom();
         this.currentRoom = start;
 
-        gameScreen = new GameScreen(start, player);
+        gameScreen = new GameScreen();
         gameScreen.setMinWidth(1200);
         gameScreen.setMinHeight(900);
-        gameScreen.getGoldText().setText("Gold: " + player.getGold());
+        //gameScreen.getGoldText().setText("Gold: " + player.getGold());
 
         this.stage.setScene(new Scene(gameScreen));
+        gameScreen.updateRoomGrid(currentRoom.getMap());
 
         this.stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> processInput(key));
     }
@@ -53,8 +54,7 @@ public class GameController extends Controller {
             winScreenController.initWin();
         } else {
             this.currentRoom = room;
-            gameScreen.setRoom(room);
-            gameScreen.render();
+            gameScreen.updateRoomGrid(currentRoom.getMap());
             gameScreen.getGoldText().setText("Gold: " + player.getGold());
         }
     }
@@ -62,7 +62,7 @@ public class GameController extends Controller {
     private void processInput(KeyEvent key) {
         this.currentAction = key;
         update();
-        render();
+        gameScreen.updateRoomGrid(currentRoom.getMap());
     }
 
     private void update() {
@@ -103,10 +103,6 @@ public class GameController extends Controller {
 
     private boolean isValidPosition(int x, int y) {
         return (currentRoom.getMap()[y][x] != Room.RoomCellType.WALL);
-    }
-
-    private void render() {
-        gameScreen.render();
     }
 
     public Room getCurrentRoom() {

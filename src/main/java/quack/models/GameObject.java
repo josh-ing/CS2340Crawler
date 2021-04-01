@@ -1,5 +1,5 @@
 package quack.models;
-import
+
 import javafx.scene.image.Image;
 
 public abstract class GameObject {
@@ -32,6 +32,10 @@ public abstract class GameObject {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Image getImageAsset() {
+        return imageAsset;
     }
 
     public Rotation getRotation() {

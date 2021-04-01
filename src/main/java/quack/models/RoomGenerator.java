@@ -78,7 +78,7 @@ public class RoomGenerator {
      */
     private Room createStartRoom() {
         int[][] startRoomArray = createRoomTemplate();
-        Room startRoom = new Room(startRoomArray, Room.RoomType.START, Room.TileSetType.DUNGEON);
+        Room startRoom = new Room(startRoomArray, Room.RoomType.START, null);
         Room[] startRoomNeighbors = new Room[4];
 
         //Note that one of these four rooms will be overrided with the path to the boss room.
@@ -86,7 +86,7 @@ public class RoomGenerator {
             Room[] newRoomNeighbors = new Room[4];
             newRoomNeighbors[(i + 2) % 4] = startRoom;
             Room newRoom = new Room(createRoomTemplate(), Room.RoomType.TREASURE,
-                    newRoomNeighbors, Room.TileSetType.DUNGEON);
+                    newRoomNeighbors);
             addExitsToRoomArray(newRoom);
             startRoomNeighbors[i] = newRoom;
 
@@ -124,7 +124,7 @@ public class RoomGenerator {
 
             Room[] currentRoomNeighbors = currentRoom.getNeighbors();
             Room[] newRoomNeighbors = new Room[4];
-            Room newRoom = new Room(roomArray, Room.RoomType.MONSTER, Room.TileSetType.DUNGEON);
+            Room newRoom = new Room(roomArray, Room.RoomType.MONSTER);
             currentRoomNeighbors[direction] = newRoom;
             newRoomNeighbors[(direction + 2) % 4] = currentRoom;
             currentRoom.setNeighbors(currentRoomNeighbors);
@@ -170,12 +170,12 @@ public class RoomGenerator {
     private void addBossRoom(Room lastRoom, int lastExit) {
         Room[] lastRoomNeighbors = lastRoom.getNeighbors();
         Room exitRoom = new Room(createRoomTemplate(),
-                Room.RoomType.EXIT, Room.TileSetType.DUNGEON);
+                Room.RoomType.EXIT);
         Room[] bossRoomNeighbors = new Room[4];
         bossRoomNeighbors[(lastExit + 2) % 4] = lastRoom;
         bossRoomNeighbors[lastExit] = exitRoom;
         Room bossRoom = new Room(createRoomTemplate(),
-                Room.RoomType.BOSS, bossRoomNeighbors, Room.TileSetType.DUNGEON);
+                Room.RoomType.BOSS, bossRoomNeighbors);
         lastRoomNeighbors[lastExit] = bossRoom;
         lastRoom.setNeighbors(lastRoomNeighbors);
         addExitsToRoomArray(lastRoom);

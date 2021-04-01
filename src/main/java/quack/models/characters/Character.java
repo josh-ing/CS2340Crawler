@@ -42,7 +42,4 @@ public class Character {
         this.speed = speed;
     }
 
-    public String getImageAsset() {
-        return imageAsset;
-    }
 }
