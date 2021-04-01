@@ -27,7 +27,7 @@ public class ConfigController extends Controller {
         stage.setScene(new Scene(configure));
 
         Character character = new Character(3, 3,
-                3, 3, configure.getDuck());
+                3);
         Button startGame = configure.getStartButton();
         startGame.setOnAction(e -> {
             if (this.checkFields()) {
@@ -85,7 +85,7 @@ public class ConfigController extends Controller {
         Room[] neighbors = {null, null, null, null};
 
 
-        Room room = new Room(intMap, Room.RoomType.MONSTER, neighbors, Room.TileSetType.DUNGEON);
+        Room room = new Room(intMap, Room.RoomType.MONSTER, neighbors);
         RoomGenerator gameRoomGenerator = new RoomGenerator(7, 24, 18);
         GameController gameController = new GameController(stage);
         gameController.initGame(gameRoomGenerator, player);

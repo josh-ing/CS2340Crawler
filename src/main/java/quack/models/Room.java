@@ -36,19 +36,18 @@ public class Room {
         this.tileSet = tileSet;
     }
 
-    public Room(RoomCellType[][] map, RoomType type, TileSetType tileSet) {
+    public Room(RoomCellType[][] map, RoomType type) {
         this.type = type;
         this.map = map;
         this.neighbors = new Room[4];
-        this.tileSet = tileSet;
     }
 
-    public Room(int[][] intMap, RoomType type, Room[] neighbors, TileSetType tileSet) {
-        this(createMapFromIntArray(intMap), type, neighbors, tileSet);
+    public Room(int[][] intMap, RoomType type, Room[] neighbors) {
+        this(createMapFromIntArray(intMap), type, neighbors, null);
     }
 
-    public Room(int[][] intMap, RoomType type, TileSetType tileSet) {
-        this(createMapFromIntArray(intMap), type, tileSet);
+    public Room(int[][] intMap, RoomType type) {
+        this(createMapFromIntArray(intMap), type);
     }
 
     public RoomType getRoomType() {
@@ -63,10 +62,6 @@ public class Room {
         return neighbors;
     }
 
-    public TileSetType getTileSet() {
-        return tileSet;
-    }
-
     public void setType(RoomType type) {
         this.type = type;
     }
@@ -79,9 +74,6 @@ public class Room {
         this.neighbors = neighbors;
     }
 
-    public void setTileSet(TileSetType tileSet) {
-        this.tileSet = tileSet;
-    }
 
     public static RoomCellType[][] createMapFromIntArray(int[][] intMap) {
         RoomCellType[][] map = new RoomCellType[intMap.length][intMap[0].length];
