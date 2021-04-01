@@ -7,6 +7,8 @@ import quack.models.GameState;
 import quack.models.Player;
 import quack.models.Room;
 import quack.models.characters.Character;
+import quack.models.characters.HenryCharacter;
+import quack.models.characters.PelicanCharacter;
 import quack.models.characters.QuackCharacter;
 import quack.views.ConfigScreen;
 import quack.models.RoomGenerator;
@@ -28,8 +30,16 @@ public class ConfigController extends Controller {
         configure.setMinHeight(900);
         stage.setScene(new Scene(configure));
 
-        // Implement logic for creating different character types.
-        Character character = new QuackCharacter();
+
+        String playerType = configure.getDuck();
+        Character character;
+        if (playerType.equals("Quack")) {
+            character = new QuackCharacter();
+        } else if (playerType.equals("Henry")) {
+            character = new HenryCharacter();
+        } else {
+            character = new PelicanCharacter();
+        }
 
         Button startGame = configure.getStartButton();
         startGame.setOnAction(e -> {
