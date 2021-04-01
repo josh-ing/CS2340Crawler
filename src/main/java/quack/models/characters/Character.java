@@ -3,6 +3,9 @@ package quack.models.characters;
 import javafx.scene.image.Image;
 import quack.models.GameObject;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public abstract class Character {
 
     private int maxHealth;
@@ -14,6 +17,11 @@ public abstract class Character {
         this.maxHealth = maxHealth;
         this.attack = attack;
         this.speed = speed;
+        try {
+            this.spriteAsset = new Image(new FileInputStream(sprite));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         // Load image
     }
 
