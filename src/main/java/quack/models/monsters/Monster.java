@@ -40,20 +40,5 @@ public abstract class Monster extends GameObject {
         return speed;
     }
 
-    public void attack() {
-        Position attackPosition;
-        if (getRotation() == Rotation.RIGHT) {
-            attackPosition = getPosition().translateRight();
-        } else if(getRotation() == Rotation.UP) {
-            attackPosition = getPosition().translateUp();
-        } else if(getRotation() == Rotation.LEFT) {
-            attackPosition = getPosition().translateLeft();
-        } else {
-            attackPosition = getPosition().translateDown();
-        }
-        Player player = GameState.getInstance().getPlayer();
-        if (player.getPosition() == attackPosition) {
-            player.setCurrHealth(player.getCurrHealth() - attack);
-        }
-    }
+
 }
