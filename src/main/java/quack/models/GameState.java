@@ -9,11 +9,11 @@ public class GameState {
 
     private Player player;
     private Room currentRoom;
-    private ArrayList<KeyEvent> currentInputs;
+    private ArrayList<KeyEvent> currentInputs = new ArrayList<>();
 
     private GameState() {
         RoomGenerator roomGenerator = new RoomGenerator(7, 24, 18);
-        currentRoom = roomGenerator.generateStartRoom();
+        setCurrentRoom(roomGenerator.generateStartRoom());
     }
 
     public static GameState getInstance() {
@@ -26,6 +26,7 @@ public class GameState {
 
     public void setPlayer(Player player) {
         this.player = player;
+        this.currentRoom.addGameObject(player);
     }
 
     public void appendInput(KeyEvent input) {

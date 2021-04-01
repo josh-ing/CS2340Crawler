@@ -11,27 +11,27 @@ public abstract class GameObject {
         DOWN
     }
 
-    private int x;
-    private int y;
+    private int row;
+    private int col;
     private Rotation rotation;
     private Image imageAsset;
 
-    public abstract void update();
+    public abstract void update(long l);
 
-    public int getX() {
-        return x;
+    public int getRow() {
+        return row;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setRow(int row) {
+        this.row = row;
     }
 
-    public int getY() {
-        return y;
+    public int getCol() {
+        return col;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setCol(int col) {
+        this.col = col;
     }
 
     public Image getImageAsset() {

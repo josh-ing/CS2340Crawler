@@ -12,7 +12,7 @@ public abstract class Monster extends GameObject {
         this.speed = speed;
     }
 
-    public void update() {
+    public void update(long l) {
 
     }
 

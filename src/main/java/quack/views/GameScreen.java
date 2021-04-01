@@ -10,6 +10,8 @@ import quack.models.tilesets.TileSet;
 import quack.models.tilesets.OutsideTileSet;
 import quack.views.components.ImageViewGrid;
 
+import java.util.ArrayList;
+
 public class GameScreen extends StackPane {
 
     private Text goldText;
@@ -40,14 +42,14 @@ public class GameScreen extends StackPane {
         }
     }
 
-    public void updateGameObjectGrid(GameObject[] gameObjects) {
+    public void updateGameObjectGrid(ArrayList<GameObject> gameObjects) {
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLUMNS; c++) {
-                roomGrid.setImage(null, r, c);
+                gameObjectGrid.setImage(null, r, c);
             }
         }
         for (GameObject go: gameObjects) {
-            roomGrid.setImage(go.getImageAsset(), go.getX(), go.getY());
+            gameObjectGrid.setImage(go.getImageAsset(), go.getRow(), go.getCol());
         }
     }
 

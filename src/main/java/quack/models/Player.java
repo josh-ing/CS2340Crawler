@@ -1,7 +1,10 @@
 package quack.models;
 
+import javafx.scene.input.KeyEvent;
 import quack.models.characters.Character;
 import quack.models.weapons.Weapon;
+
+import java.util.ArrayList;
 
 public class Player extends GameObject {
 
@@ -16,42 +19,47 @@ public class Player extends GameObject {
         this.character = character;
         this.currHealth = character.getMaxHealth();
         this.gold = gold;
+        setRow(9);
+        setCol(12);
     }
 
-    public void update() {
-       // if (this.currentAction != null) {
-//
-//            System.out.println(this.currentAction);
-//
-//            switch (this.currentAction.getCode()) {
-//                case UP:
-//                    if (isValidPosition(player.getX(), player.getY() - 1)) {
-//                        player.setY(player.getY() - 1);
-//                    }
-//                    break;
-//
-//                case DOWN:
-//                    if (isValidPosition(player.getX(), player.getY() + 1)) {
-//                        player.setY(player.getY() + 1);
-//                    }
-//                    break;
-//
-//                case LEFT:
-//                    if (isValidPosition(player.getX() - 1, player.getY())) {
-//                        player.setX(player.getX() - 1);
-//                    }
-//                    break;
-//
-//                case RIGHT:
-//                    if (isValidPosition(player.getX() + 1, player.getY())) {
-//                        player.setX(player.getX() + 1);
-//                    }
-//                    break;
-//            }
-//
-//            this.currentAction = null;
-//
-//        }
+    public void update(long l) {
+        ArrayList<KeyEvent> inputs = GameState.getInstance().getCurrentInputs();
+        Room currentRoom = GameState.getInstance().getCurrentRoom();
+
+        for (KeyEvent keyEvent: inputs) {
+            if (keyEvent != null) {
+
+                switch (keyEvent.getCode()) {
+                    case LEFT:
+                        if (currentRoom.isValidPosition(getRow(), getCol() - 1)) {
+                            setCol(getCol() - 1);
+                        }
+                        break;
+
+                    case RIGHT:
+                        if (currentRoom.isValidPosition(getRow(), getCol() + 1)) {
+                            setCol(getCol() + 1);
+                        }
+                        break;
+
+                    case UP:
+                        if (currentRoom.isValidPosition(getRow() - 1, getCol())) {
+                            setRow(getRow() - 1);
+                        }
+                        break;
+
+                    case DOWN:
+                        if (currentRoom.isValidPosition(getRow() + 1, getCol())) {
+                            setRow(getRow() + 1);
+                        }
+                        break;
+                }
+
+            }
+        }
+
+
     }
 
     public Weapon getWeapon() {

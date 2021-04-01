@@ -1,12 +1,10 @@
 package quack.controllers;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import quack.models.GameState;
+import quack.models.*;
 import quack.views.GameScreen;
-import quack.models.Room;
-import quack.models.Player;
-import quack.models.RoomGenerator;
 
 /**
  * Controller for MainMenuScreen
@@ -25,8 +23,6 @@ public class GameController extends Controller {
 
     /**
      * Initializes app to show map.
-     * @param roomGenerator The randomly generated map.
-     * @param player The player model chosen.
      */
     public void initGame() {
         gameScreen = new GameScreen();
@@ -40,13 +36,31 @@ public class GameController extends Controller {
         this.stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> processInput(key));
 
 
+
+        AnimationTimer gameLoop = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                updateGameObjects(l);
+
+                gameScreen.updateGameObjectGrid(GameState.getInstance().getCurrentRoom().getGameObjects());
+                gameScreen.updateRoomGrid(GameState.getInstance().getCurrentRoom().getMap());
+
+                GameState.getInstance().clearInputs();
+
+            }
+        };
+        gameLoop.start();
+
+
     }
 
     private void processInput(KeyEvent key) {
         GameState.getInstance().appendInput(key);
     }
 
-    private void updateGameObjects() {
-
+    private void updateGameObjects(long l) {
+        for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
+            go.update(l);
+        }
     }
 }

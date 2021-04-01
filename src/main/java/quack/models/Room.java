@@ -35,12 +35,14 @@ public class Room {
         this.map = map;
         this.neighbors = neighbors;
         this.tileSet = tileSet;
+        this.gameObjects = new ArrayList<>();
     }
 
     public Room(RoomCellType[][] map, RoomType type) {
         this.type = type;
         this.map = map;
         this.neighbors = new Room[4];
+        this.gameObjects = new ArrayList<>();
     }
 
     public Room(int[][] intMap, RoomType type, Room[] neighbors) {
@@ -98,5 +100,20 @@ public class Room {
 
     public void addGameObject(GameObject gameObject) {
         gameObjects.add(gameObject);
+    }
+
+    public boolean isValidPosition(int row, int col) {
+        for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
+            if (row == go.getRow() && col == go.getCol()) {
+                return false;
+            }
+        }
+        if (row > map.length - 1 || col > map[0].length - 1 || row < 0 || col < 0) {
+            return false;
+        }
+        if (map[row][col] == RoomCellType.WALL) {
+            return false;
+        }
+        return true;
     }
 }
