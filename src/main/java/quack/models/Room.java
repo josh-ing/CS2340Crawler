@@ -1,7 +1,8 @@
 package quack.models;
 
-import javafx.geometry.Pos;
-import quack.models.monsters.BasicMonster;
+import quack.models.monsters.EasyMonster;
+import quack.models.monsters.HardMonster;
+import quack.models.monsters.MediumMonster;
 import quack.models.monsters.Monster;
 import quack.models.tilesets.OutsideTileSet;
 import quack.models.tilesets.TileSet;
@@ -36,7 +37,9 @@ public class Room {
     private ArrayList<GameObject> gameObjects;
     private Random random = new Random();
 
-    private static final int NUM_MONSTERS = 5;
+    private static final int NUM_EASY_MONSTERS = 3;
+    private static final int NUM_MEDIUM_MONSTERS = 1;
+    private static final int NUM_HARD_MONSTERS = 1;
 
     public Room(RoomCellType[][] map, RoomType type, Room[] neighbors, TileSet tileSet) {
         this.type = type;
@@ -45,12 +48,30 @@ public class Room {
         this.tileSet = tileSet;
         this.gameObjects = new ArrayList<>();
 
-        for (int i = 0; i < NUM_MONSTERS; i++) {
-            Monster monster = new BasicMonster();
-            ArrayList<Position> validPositions = getValidPositions();
-            monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+        if (type != RoomType.START) {
+            for (int i = 0; i < NUM_EASY_MONSTERS; i++) {
+                Monster monster = new EasyMonster();
+                ArrayList<Position> validPositions = getValidPositions();
+                monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
 
-            addGameObject(monster);
+                addGameObject(monster);
+            }
+
+            for (int i = 0; i < NUM_MEDIUM_MONSTERS; i++) {
+                Monster monster = new MediumMonster();
+                ArrayList<Position> validPositions = getValidPositions();
+                monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+
+                addGameObject(monster);
+            }
+
+            for (int i = 0; i < NUM_HARD_MONSTERS; i++) {
+                Monster monster = new HardMonster();
+                ArrayList<Position> validPositions = getValidPositions();
+                monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+
+                addGameObject(monster);
+            }
         }
     }
 
@@ -158,5 +179,25 @@ public class Room {
         }
 
         return positions;
+    }
+
+    public GameObject getGameObjectAtPosition(Position position) {
+        for (GameObject go : gameObjects) {
+            if (position.equals(go.getPosition())) {
+                return go;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean isEmptyOfMonsters() {
+        for (GameObject go : gameObjects) {
+            if (go instanceof Monster) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

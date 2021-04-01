@@ -10,6 +10,10 @@ import quack.models.characters.Character;
 import quack.models.characters.HenryCharacter;
 import quack.models.characters.PelicanCharacter;
 import quack.models.characters.QuackCharacter;
+import quack.models.weapons.KatanaWeapon;
+import quack.models.weapons.KnifeWeapon;
+import quack.models.weapons.LongSwordWeapon;
+import quack.models.weapons.Weapon;
 import quack.views.ConfigScreen;
 import quack.models.RoomGenerator;
 import java.io.FileNotFoundException;
@@ -42,10 +46,24 @@ public class ConfigController extends Controller {
                 } else {
                     character = new PelicanCharacter();
                 }
+
+                String weaponType = configure.getWeapon();
+                Weapon weapon;
+
+                if (weaponType.equals("Katana")) {
+                    weapon = new KatanaWeapon();
+                } else if (weaponType.equals("Knife")) {
+                    weapon = new KnifeWeapon();
+                } else {
+                    weapon = new LongSwordWeapon();
+                }
+
+
                 Player player = new Player(configure.getPlayerName(),
-                        character, getGold());
+                        character, weapon, getGold());
 
                 player.setImageAsset(character.getSpriteAsset());
+                GameState.reset();
                 GameState.getInstance().setPlayer(player);
                 toGameScreen();
             } else {

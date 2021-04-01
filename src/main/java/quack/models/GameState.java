@@ -3,12 +3,15 @@ package quack.models;
 import javafx.scene.input.KeyEvent;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GameState {
     private static GameState gameState = null;
 
     private Player player;
     private Room currentRoom;
+    private Set<Room> visitedRooms = new HashSet<>();
     private ArrayList<KeyEvent> currentInputs = new ArrayList<>();
 
     private GameState() {
@@ -27,6 +30,10 @@ public class GameState {
     public void setPlayer(Player player) {
         this.player = player;
         this.currentRoom.addGameObject(player);
+    }
+
+    public static void reset() {
+        gameState = null;
     }
 
     public void appendInput(KeyEvent input) {
@@ -57,5 +64,11 @@ public class GameState {
         } else {
             this.currentRoom = currentRoom;
         }
+
+        visitedRooms.add(currentRoom);
+    }
+
+    public Set<Room> getVisitedRooms() {
+        return visitedRooms;
     }
 }

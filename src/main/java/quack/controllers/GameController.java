@@ -13,7 +13,7 @@ import java.util.ConcurrentModificationException;
  */
 public class GameController extends Controller {
     private GameScreen gameScreen;
-
+    private AnimationTimer gameLoop;
     /**
      * Initializes the controller with a stage.
      * @param stage The stage involved with the game controller.
@@ -36,8 +36,7 @@ public class GameController extends Controller {
 
         this.stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> processInput(key));
 
-
-        AnimationTimer gameLoop = new AnimationTimer() {
+        gameLoop = new AnimationTimer() {
             @Override
             public void handle(long l) {
                 updateGameObjects(l);
@@ -65,5 +64,10 @@ public class GameController extends Controller {
 
         }
 
+        if (GameState.getInstance().getPlayer().getCurrHealth() <= 0) {
+            LoseScreenController loseScreenController = new LoseScreenController(stage);
+            loseScreenController.initLose();
+            gameLoop.stop();
+        }
     }
 }

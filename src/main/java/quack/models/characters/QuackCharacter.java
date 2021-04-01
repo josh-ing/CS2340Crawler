@@ -5,6 +5,6 @@ import java.io.FileNotFoundException;
 public class QuackCharacter extends Character {
 
     public QuackCharacter() {
-        super(10, 10, 10, "src/main/resources/assets/characters/quackchar.png");
+        super(300, 10, 10, "src/main/resources/assets/characters/quackchar.png");
     }
 }

@@ -49,4 +49,22 @@ public class Position {
         Position position = new Position(getRow(), getCol() + 1);
         return position;
     }
+
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null) {
+            return false;
+        }
+
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+
+        Position oPosition = (Position) o;
+
+        return this.getCol() == oPosition.getCol() && this.getRow() == oPosition.getRow();
+    }
 }
