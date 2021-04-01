@@ -39,4 +39,8 @@ public class GameState {
     public void clearInputs() {
         currentInputs = new ArrayList<KeyEvent>();
     }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
 }

@@ -38,6 +38,10 @@ public abstract class GameObject {
         return imageAsset;
     }
 
+    public void setImageAsset(Image imageAsset) {
+        this.imageAsset = imageAsset;
+    }
+
     public Rotation getRotation() {
         return rotation;
     }
