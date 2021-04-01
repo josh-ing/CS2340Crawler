@@ -46,7 +46,6 @@ public class ConfigController extends Controller {
                         character, getGold());
 
                 player.setImageAsset(character.getSpriteAsset());
-
                 GameState.getInstance().setPlayer(player);
                 toGameScreen();
             } else {
