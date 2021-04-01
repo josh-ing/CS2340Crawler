@@ -31,17 +31,17 @@ public class ConfigController extends Controller {
         stage.setScene(new Scene(configure));
 
         Button startGame = configure.getStartButton();
-        String playerType = configure.getDuck();
-        Character character;
-        if (playerType.equals("Quack")) {
-            character = new QuackCharacter();
-        } else if (playerType.equals("Henry")) {
-            character = new HenryCharacter();
-        } else {
-            character = new PelicanCharacter();
-        }
         startGame.setOnAction(e -> {
             if (this.checkFields()) {
+                String playerType = configure.getDuck();
+                Character character;
+                if (playerType.equals("Quack")) {
+                    character = new QuackCharacter();
+                } else if (playerType.equals("Henry")) {
+                    character = new HenryCharacter();
+                } else {
+                    character = new PelicanCharacter();
+                }
                 Player player = new Player(configure.getPlayerName(),
                         character, getGold());
 
@@ -56,6 +56,7 @@ public class ConfigController extends Controller {
                 errorAlert.showAndWait();
             }
         });
+
 
     }
 

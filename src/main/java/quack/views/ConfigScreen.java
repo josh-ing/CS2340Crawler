@@ -135,7 +135,7 @@ public class ConfigScreen extends VBox {
     }
 
     /**
-     * Returns duck character as integer.
+     * Returns duck character as string.
      * @return Integer value of the corresponding duck
      */
     public String getDuck() {
