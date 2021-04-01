@@ -58,13 +58,13 @@ public class ConfigScreen extends VBox {
         HBox weaponSelection = new HBox();
         Label weaponLabel = new Label("Choose your weapon");
         weaponGroup = new ToggleGroup();
-        RadioButton weaponToaster = new RadioButton("Toaster Bow");
-        RadioButton weaponKnife = new RadioButton("Butter knife");
-        RadioButton weaponWand = new RadioButton("Wand");
-        weaponToaster.setToggleGroup(weaponGroup);
+        RadioButton weaponKatana = new RadioButton("Katana");
+        RadioButton weaponKnife = new RadioButton("Knife");
+        RadioButton weaponSword = new RadioButton("Sword");
+        weaponKatana.setToggleGroup(weaponGroup);
         weaponKnife.setToggleGroup(weaponGroup);
-        weaponWand.setToggleGroup(weaponGroup);
-        weaponSelection.getChildren().addAll(weaponLabel, weaponToaster, weaponKnife, weaponWand);
+        weaponSword.setToggleGroup(weaponGroup);
+        weaponSelection.getChildren().addAll(weaponLabel, weaponKatana, weaponKnife, weaponSword);
         weaponSelection.setAlignment(Pos.CENTER);
         weaponSelection.setSpacing(15);
 
