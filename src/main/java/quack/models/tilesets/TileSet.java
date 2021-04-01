@@ -8,23 +8,27 @@ import java.io.FileNotFoundException;
 
 public abstract class TileSet {
 
-    private Image FLOOR;
-    private Image WALL;
-    private Image PORTAL;
+    private Image floor;
+    private Image wall;
+    private Image portal;
 
-    public TileSet(String floor, String wall, String portal) throws FileNotFoundException {
-        FLOOR = new Image(new FileInputStream(floor));
-        WALL = new Image(new FileInputStream(wall));
-        PORTAL = new Image(new FileInputStream(portal));
+    public TileSet(String floor, String wall, String portal) {
+        try {
+            this.floor = new Image(new FileInputStream(floor));
+            this.wall = new Image(new FileInputStream(wall));
+            this.portal = new Image(new FileInputStream(portal));
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot load tileset.");
+        }
     }
 
     public Image getTileImage(Room.RoomCellType cellType) {
         if (cellType == Room.RoomCellType.FLOOR) {
-            return FLOOR;
+            return floor;
         } else if (cellType == Room.RoomCellType.WALL) {
-            return WALL;
+            return wall;
         } else {
-            return PORTAL;
+            return portal;
         }
         //Logic to return the correct image based on cellType
     }

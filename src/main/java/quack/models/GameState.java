@@ -43,4 +43,12 @@ public class GameState {
     public Room getCurrentRoom() {
         return currentRoom;
     }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+
+        if (player != null) {
+            this.currentRoom.addGameObject(player);
+        }
+    }
 }

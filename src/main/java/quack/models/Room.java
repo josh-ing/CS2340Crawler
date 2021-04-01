@@ -95,4 +95,8 @@ public class Room {
     public void setGameObjects(ArrayList<GameObject> gameObjects) {
         this.gameObjects = gameObjects;
     }
+
+    public void addGameObject(GameObject gameObject) {
+        gameObjects.add(gameObject);
+    }
 }

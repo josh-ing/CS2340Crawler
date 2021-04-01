@@ -1,24 +1,14 @@
 package quack.views;
 
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import quack.models.GameObject;
 import quack.models.Room;
-import quack.models.Player;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 import javafx.scene.text.*;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Font;
-import javafx.scene.Node;
+import quack.models.tilesets.TileSet;
+import quack.models.tilesets.OutsideTileSet;
 import quack.views.components.ImageViewGrid;
-
-import javax.swing.text.html.ImageView;
 
 public class GameScreen extends StackPane {
 
@@ -27,6 +17,7 @@ public class GameScreen extends StackPane {
     private Font goldFont;
     private ImageViewGrid roomGrid;
     private ImageViewGrid gameObjectGrid;
+    private TileSet currentTileSet = new OutsideTileSet();
 
     private final int ROWS = 18;
     private final int COLUMNS = 24;
@@ -44,22 +35,8 @@ public class GameScreen extends StackPane {
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLUMNS; c++) {
                 Image tile;
-                try {
-                    if (map[r][c] == Room.RoomCellType.FLOOR) {
-                        tile = new Image(new FileInputStream("src/main/resources/assets/tiles/dungeon_floor.jpg"));
-                    } else if (map[r][c] == Room.RoomCellType.WALL) {
-                        tile = new Image(new FileInputStream("src/main/resources/assets/tiles/dungeon_wall.jpg"));
-                    } else if (map[r][c] == Room.RoomCellType.NORTH || map[r][c] == Room.RoomCellType.EAST
-                            || map[r][c] == Room.RoomCellType.SOUTH || map[r][c] == Room.RoomCellType.WEST) {
-                        tile = new Image(new FileInputStream("src/main/resources/assets/tiles/portal.jpg"));
-                    } else {
-                        tile = new Image(new FileInputStream("src/main/resources/assets/tiles/dungeon_floor.jpg"));
-                    }
-                    roomGrid.setImage(tile, r, c);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
+                tile = currentTileSet.getTileImage(map[r][c]);
+                roomGrid.setImage(tile, r, c);
             }
         }
     }
@@ -73,7 +50,6 @@ public class GameScreen extends StackPane {
         for (GameObject go: gameObjects) {
             roomGrid.setImage(go.getImageAsset(), go.getX(), go.getY());
         }
-
     }
 
     public Text getGoldText() {
