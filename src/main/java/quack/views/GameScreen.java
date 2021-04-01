@@ -1,24 +1,14 @@
 package quack.views;
 
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import quack.models.GameObject;
 import quack.models.Room;
-import quack.models.Player;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 import javafx.scene.text.*;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Font;
-import javafx.scene.Node;
+import quack.models.tilesets.TileSet;
+import quack.models.tilesets.OutsideTileSet;
 import quack.views.components.ImageViewGrid;
-
-import javax.swing.text.html.ImageView;
 
 public class GameScreen extends StackPane {
 
@@ -26,6 +16,7 @@ public class GameScreen extends StackPane {
     private Font goldFont;
     private ImageViewGrid roomGrid;
     private ImageViewGrid gameObjectGrid;
+    private TileSet currentTileSet = new OutsideTileSet();
 
     private final int ROWS = 18;
     private final int COLUMNS = 24;
@@ -43,22 +34,8 @@ public class GameScreen extends StackPane {
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLUMNS; c++) {
                 Image tile;
-                try {
-                    if (map[r][c] == Room.RoomCellType.FLOOR) {
-                        tile = new Image(new FileInputStream("src/main/resources/assets/tiles/dungeon_floor.jpg"));
-                    } else if (map[r][c] == Room.RoomCellType.WALL) {
-                        tile = new Image(new FileInputStream("src/main/resources/assets/tiles/dungeon_wall.jpg"));
-                    } else if (map[r][c] == Room.RoomCellType.NORTH || map[r][c] == Room.RoomCellType.EAST
-                            || map[r][c] == Room.RoomCellType.SOUTH || map[r][c] == Room.RoomCellType.WEST) {
-                        tile = new Image(new FileInputStream("src/main/resources/assets/tiles/portal.jpg"));
-                    } else {
-                        tile = new Image(new FileInputStream("src/main/resources/assets/tiles/dungeon_floor.jpg"));
-                    }
-                    roomGrid.setImage(tile, r, c);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
+                tile = currentTileSet.getTileImage(map[r][c]);
+                roomGrid.setImage(tile, r, c);
             }
         }
     }
@@ -72,84 +49,7 @@ public class GameScreen extends StackPane {
         for (GameObject go: gameObjects) {
             roomGrid.setImage(go.getImageAsset(), go.getX(), go.getY());
         }
-
     }
-
-    /**
-    public void render() {
-        this.getChildren().clear();
-
-        Font goldFont = Font.font("Arial", FontWeight.BOLD, 25.0);
-        goldText = new Text(10, 35, "GOLD: ");
-        goldText.setFill(Color.WHITE);
-        goldText.setFont(goldFont);
-
-        Room.RoomCellType[][] map = room.getMap();
-        ArrayList elements = new ArrayList<>();
-
-        double playerWidth = 10;
-        double playerHeight = 10;
-
-        playerNode = new Rectangle(10, 10);
-        double playerX = player.getX() * TILE_SIZE + ((TILE_SIZE - playerWidth))/2;
-        double playerY = player.getY() * TILE_SIZE + ((TILE_SIZE - playerHeight))/2;
-
-
-        playerNode.setTranslateX(playerX);
-        playerNode.setTranslateY(playerY);
-
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                int y = i * TILE_SIZE;
-                int x = j * TILE_SIZE;
-                StackPane stack = new StackPane();
-
-                Rectangle r = new Rectangle(TILE_SIZE, TILE_SIZE);
-
-                Room.RoomCellType cellType = map[i][j];
-
-                Text text = new Text(cellType.name());
-
-                stack.getChildren().addAll(r, text);
-
-                stack.setTranslateX(x);
-                stack.setTranslateY(y);
-
-                switch (cellType) {
-                case FLOOR:
-                    r.setFill(Color.BEIGE);
-                    break;
-
-                case WALL:
-                    r.setFill(Color.GRAY);
-                    break;
-
-                case NORTH:
-                    r.setFill(Color.BLUE);
-                    break;
-
-                case SOUTH:
-                    r.setFill(Color.BLUEVIOLET);
-                    break;
-
-                case EAST:
-                    r.setFill(Color.ALICEBLUE);
-                    break;
-
-                case WEST:
-                    r.setFill(Color.CORNFLOWERBLUE);
-                    break;
-                default:
-                    break;
-                }
-                elements.add(stack);
-            }
-        }
-
-        elements.add(playerNode);
-        elements.add(goldText);
-        this.getChildren().addAll(elements);
-    }*/
 
     public Text getGoldText() {
         return goldText;

@@ -1,17 +1,18 @@
 package quack.models;
 
+import quack.models.tilesets.TileSet;
+
 import java.util.ArrayList;
 
 public class Room {
 
     public enum RoomCellType {
-        FLOOR, //0
-        WALL, //1
-        CHEST, //2
-        NORTH, //3
-        EAST, //4
-        SOUTH, //5
-        WEST //6
+        FLOOR,
+        WALL,
+        NORTH,
+        EAST,
+        SOUTH,
+        WEST
     }
 
     public enum RoomType {
@@ -93,5 +94,9 @@ public class Room {
 
     public void setGameObjects(ArrayList<GameObject> gameObjects) {
         this.gameObjects = gameObjects;
+    }
+
+    public void addGameObject(GameObject gameObject) {
+        gameObjects.add(gameObject);
     }
 }
