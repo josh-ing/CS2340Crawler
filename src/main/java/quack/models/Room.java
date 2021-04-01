@@ -1,6 +1,11 @@
 package quack.models;
 
+import javafx.geometry.Pos;
+import quack.models.monsters.BasicMonster;
+import quack.models.monsters.Monster;
+import quack.models.tilesets.OutsideTileSet;
 import quack.models.tilesets.TileSet;
+import java.util.Random;
 
 import java.util.ArrayList;
 
@@ -29,6 +34,9 @@ public class Room {
     private Room[] neighbors; //[NORTH, EAST, SOUTH, WEST]
     private TileSet tileSet;
     private ArrayList<GameObject> gameObjects;
+    private Random random = new Random();
+
+    private static final int NUM_MONSTERS = 5;
 
     public Room(RoomCellType[][] map, RoomType type, Room[] neighbors, TileSet tileSet) {
         this.type = type;
@@ -36,13 +44,18 @@ public class Room {
         this.neighbors = neighbors;
         this.tileSet = tileSet;
         this.gameObjects = new ArrayList<>();
+
+        for (int i = 0; i < NUM_MONSTERS; i++) {
+            Monster monster = new BasicMonster();
+            ArrayList<Position> validPositions = getValidPositions();
+            monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+
+            addGameObject(monster);
+        }
     }
 
     public Room(RoomCellType[][] map, RoomType type) {
-        this.type = type;
-        this.map = map;
-        this.neighbors = new Room[4];
-        this.gameObjects = new ArrayList<>();
+        this(map, type, new Room[4], new OutsideTileSet());
     }
 
     public Room(int[][] intMap, RoomType type, Room[] neighbors) {
@@ -131,5 +144,19 @@ public class Room {
         }
 
         return position;
+    }
+
+    public ArrayList<Position> getValidPositions() {
+        ArrayList<Position> positions = new ArrayList<>();
+        for (int r = 0; r < map.length; r++) {
+            for (int c = 0; c < map[0].length; c++) {
+                if (map[r][c] == RoomCellType.FLOOR) {
+                    Position position = new Position(r, c);
+                    positions.add(position);
+                }
+            }
+        }
+
+        return positions;
     }
 }

@@ -15,6 +15,7 @@ public class Player extends GameObject {
     private int currHealth;
 
     public Player(String name, Character character, int gold) {
+        super("", 20000);
         this.name = name;
         this.character = character;
         this.currHealth = character.getMaxHealth();
@@ -22,7 +23,7 @@ public class Player extends GameObject {
         setPosition(new Position(9, 12));
     }
 
-    public void update(long l) {
+    public void update() {
         ArrayList<KeyEvent> inputs = GameState.getInstance().getCurrentInputs();
         Room currentRoom = GameState.getInstance().getCurrentRoom();
 

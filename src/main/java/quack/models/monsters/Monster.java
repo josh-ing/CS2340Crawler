@@ -6,13 +6,14 @@ public abstract class Monster extends GameObject {
     private int attack;
     private int speed;
 
-    public Monster(int health, int attack, int speed) {
+    public Monster(int health, int attack, int speed, String sprite) {
+        super(sprite, 1000);
         this.health = health;
         this.attack = attack;
         this.speed = speed;
     }
 
-    public void update(long l) {
+    public void update() {
 
     }
 

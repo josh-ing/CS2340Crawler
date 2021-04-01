@@ -2,6 +2,9 @@ package quack.models;
 
 import javafx.scene.image.Image;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public abstract class GameObject {
 
     public enum Rotation {
@@ -15,8 +18,30 @@ public abstract class GameObject {
     private Rotation rotation;
     private Image imageAsset;
     private long lastUpdate = 0;
+    private long updatePeriod; //ms
 
-    public abstract void update(long l);
+    public GameObject(String image, int updatePeriod) {
+        this.updatePeriod = updatePeriod;
+
+        try {
+            this.imageAsset = new Image(new FileInputStream(image));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public GameObject() {
+        this("", 500);
+    }
+
+    public void update(long l) {
+        if (l > lastUpdate + updatePeriod) {
+            lastUpdate = l;
+            update();
+        }
+    }
+
+    public abstract void update();
 
     public Position getPosition() {
         return position;
@@ -42,11 +67,11 @@ public abstract class GameObject {
         this.rotation = rotation;
     }
 
-    public void setLastUpdate(long lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public long getUpdatePeriod() {
+        return updatePeriod;
     }
 
-    public long getLastUpdate() {
-        return lastUpdate;
+    public void setUpdatePeriod(long updatePeriod) {
+        this.updatePeriod = updatePeriod;
     }
 }
