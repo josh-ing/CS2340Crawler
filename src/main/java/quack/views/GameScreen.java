@@ -22,7 +22,6 @@ import javax.swing.text.html.ImageView;
 
 public class GameScreen extends StackPane {
 
-    static final int TILE_SIZE = 50;
     private Text goldText;
     private Font goldFont;
     private ImageViewGrid roomGrid;
