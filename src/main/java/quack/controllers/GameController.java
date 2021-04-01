@@ -66,39 +66,39 @@ public class GameController extends Controller {
     }
 
     private void update() {
-        if (this.currentAction != null) {
-
-            System.out.println(this.currentAction);
-
-            switch (this.currentAction.getCode()) {
-                case UP:
-                    if (isValidPosition(player.getX(), player.getY() - 1)) {
-                        player.setY(player.getY() - 1);
-                    }
-                    break;
-
-                case DOWN:
-                    if (isValidPosition(player.getX(), player.getY() + 1)) {
-                        player.setY(player.getY() + 1);
-                    }
-                    break;
-
-                case LEFT:
-                    if (isValidPosition(player.getX() - 1, player.getY())) {
-                        player.setX(player.getX() - 1);
-                    }
-                    break;
-
-                case RIGHT:
-                    if (isValidPosition(player.getX() + 1, player.getY())) {
-                        player.setX(player.getX() + 1);
-                    }
-                    break;
-            }
-
-            this.currentAction = null;
-
-        }
+//        if (this.currentAction != null) {
+//
+//            System.out.println(this.currentAction);
+//
+//            switch (this.currentAction.getCode()) {
+//                case UP:
+//                    if (isValidPosition(player.getX(), player.getY() - 1)) {
+//                        player.setY(player.getY() - 1);
+//                    }
+//                    break;
+//
+//                case DOWN:
+//                    if (isValidPosition(player.getX(), player.getY() + 1)) {
+//                        player.setY(player.getY() + 1);
+//                    }
+//                    break;
+//
+//                case LEFT:
+//                    if (isValidPosition(player.getX() - 1, player.getY())) {
+//                        player.setX(player.getX() - 1);
+//                    }
+//                    break;
+//
+//                case RIGHT:
+//                    if (isValidPosition(player.getX() + 1, player.getY())) {
+//                        player.setX(player.getX() + 1);
+//                    }
+//                    break;
+//            }
+//
+//            this.currentAction = null;
+//
+//        }
     }
 
     private boolean isValidPosition(int x, int y) {
