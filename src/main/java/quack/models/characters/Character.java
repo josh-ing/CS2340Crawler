@@ -1,21 +1,20 @@
 package quack.models.characters;
 
+import javafx.scene.image.Image;
 import quack.models.GameObject;
 
-public class Character {
+public abstract class Character {
 
     private int maxHealth;
     private int attack;
     private int speed;
+    private Image spriteAsset;
 
-    public Character(int maxHealth, int attack, int speed) {
+    public Character(int maxHealth, int attack, int speed, String sprite) {
         this.maxHealth = maxHealth;
         this.attack = attack;
         this.speed = speed;
-    }
-
-    public void update() {
-
+        // Load image
     }
 
     public int getMaxHealth() {
@@ -42,4 +41,7 @@ public class Character {
         this.speed = speed;
     }
 
+    public Image getSpriteAsset() {
+        return spriteAsset;
+    }
 }
