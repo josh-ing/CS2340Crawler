@@ -15,7 +15,15 @@ public class Room {
 
     public enum RoomCellType {
         FLOOR,
-        WALL,
+        RIGHT_WALL,
+        DOWN_WALL,
+        LEFT_WALL,
+        UP_WALL,
+        UL_WALL,
+        UR_WALL,
+        LL_WALL,
+        LR_WALL,
+        OBSTRUCTION,
         NORTH,
         EAST,
         SOUTH,
@@ -86,8 +94,8 @@ public class Room {
         this(map, type, new Room[4], new OutsideTileSet());
     }
 
-    public Room(int[][] intMap, RoomType type, Room[] neighbors) {
-        this(createMapFromIntArray(intMap), type, neighbors, null);
+    public Room(RoomCellType[][] map, RoomType type, Room[] neighbors) {
+        this(map, type, neighbors, null);
     }
 
     public Room(int[][] intMap, RoomType type) {
@@ -149,14 +157,21 @@ public class Room {
                 return false;
             }
         }
+
         if (position.getRow() > map.length - 1 || position.getCol() > map[0].length - 1 || position.getRow() < 0 || position.getCol() < 0) {
             return false;
         }
-        if (map[position.getRow()][position.getCol()] == RoomCellType.WALL) {
-            return false;
-        }
 
-        return true;
+        switch (map[position.getRow()][position.getCol()]) {
+            case FLOOR:
+            case NORTH:
+            case SOUTH:
+            case EAST:
+            case WEST:
+                return true;
+            default:
+                return false;
+        }
     }
 
     public Position getExitPosition(RoomCellType exit) {
