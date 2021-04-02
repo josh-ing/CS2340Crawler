@@ -38,7 +38,7 @@ public class LoseScreenTest extends ApplicationTest {
         clickOn("Play");
         write("Quacky");
         clickOn("Medium");
-        clickOn("Wand");
+        clickOn("Katana");
         clickOn("Quack");
         clickOn("Start Game");
         verifyThat("Gold: 50", NodeMatchers.isNotNull());
