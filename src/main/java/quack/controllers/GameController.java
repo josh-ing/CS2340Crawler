@@ -5,7 +5,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import quack.models.*;
 import quack.views.GameScreen;
-import quack.views.WinScreen;
 
 import java.util.ConcurrentModificationException;
 
@@ -45,7 +44,8 @@ public class GameController extends Controller {
                 checkWin();
                 updateHUD();
 
-                gameScreen.updateGameObjectGrid(GameState.getInstance().getCurrentRoom().getGameObjects());
+                gameScreen.updateGameObjectGrid(GameState.getInstance().getCurrentRoom().
+                        getGameObjects());
                 gameScreen.updateRoomGrid(GameState.getInstance().getCurrentRoom().getMap());
 
                 GameState.getInstance().clearInputs();
@@ -64,7 +64,7 @@ public class GameController extends Controller {
             for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
                 go.update(l);
             }
-        } catch(ConcurrentModificationException e) {
+        } catch (ConcurrentModificationException e) {
 
         }
     }

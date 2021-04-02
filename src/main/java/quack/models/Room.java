@@ -153,24 +153,26 @@ public class Room {
 
     public boolean isValidPosition(Position position) {
         for (GameObject go : GameState.getInstance().getCurrentRoom().getGameObjects()) {
-            if (position.getRow() == go.getPosition().getRow() && position.getCol() == go.getPosition().getCol()) {
+            if (position.getRow() == go.getPosition().getRow()
+                    && position.getCol() == go.getPosition().getCol()) {
                 return false;
             }
         }
 
-        if (position.getRow() > map.length - 1 || position.getCol() > map[0].length - 1 || position.getRow() < 0 || position.getCol() < 0) {
+        if (position.getRow() > map.length - 1 || position.getCol() > map[0].length - 1
+                || position.getRow() < 0 || position.getCol() < 0) {
             return false;
         }
 
         switch (map[position.getRow()][position.getCol()]) {
-            case FLOOR:
-            case NORTH:
-            case SOUTH:
-            case EAST:
-            case WEST:
-                return true;
-            default:
-                return false;
+        case FLOOR:
+        case NORTH:
+        case SOUTH:
+        case EAST:
+        case WEST:
+            return true;
+        default:
+            return false;
         }
     }
 

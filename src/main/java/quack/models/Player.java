@@ -2,9 +2,7 @@ package quack.models;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import quack.controllers.LoseScreenController;
 import quack.models.characters.Character;
-import quack.models.monsters.Monster;
 import quack.models.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -18,7 +16,8 @@ public class Player extends GameObject implements Attacker, Attackable {
     private int currHealth;
 
     public Player(String name, Character character, Weapon weapon, int gold) {
-        super("src/main/resources/assets/characters/quackchar.png", 10000000 / character.getSpeed());
+        super("src/main/resources/assets/characters/quackchar.png",
+                10000000 / character.getSpeed());
         this.name = name;
         this.character = character;
         this.currHealth = character.getMaxHealth();
@@ -50,7 +49,8 @@ public class Player extends GameObject implements Attacker, Attackable {
                     attackPosition = getPosition().translateDown();
                 }
 
-                GameObject gameObjectAtPosition = currentRoom.getGameObjectAtPosition(attackPosition);
+                GameObject gameObjectAtPosition = currentRoom.getGameObjectAtPosition(
+                        attackPosition);
 
                 if (gameObjectAtPosition instanceof Attackable) {
                     Attackable attackable = (Attackable) gameObjectAtPosition;
@@ -69,33 +69,35 @@ public class Player extends GameObject implements Attacker, Attackable {
             if (keyEvent != null) {
 
                 switch (keyEvent.getCode()) {
-                    case LEFT:
-                        setRotation(Rotation.LEFT);
-                        if (currentRoom.isValidPosition(getPosition().translateLeft())) {
-                            setPosition(getPosition().translateLeft());
-                        }
-                        break;
+                case LEFT:
+                    setRotation(Rotation.LEFT);
+                    if (currentRoom.isValidPosition(getPosition().translateLeft())) {
+                        setPosition(getPosition().translateLeft());
+                    }
+                    break;
 
-                    case RIGHT:
-                        setRotation(Rotation.RIGHT);
-                        if (currentRoom.isValidPosition(getPosition().translateRight())) {
-                            setPosition(getPosition().translateRight());
-                        }
-                        break;
+                case RIGHT:
+                    setRotation(Rotation.RIGHT);
+                    if (currentRoom.isValidPosition(getPosition().translateRight())) {
+                        setPosition(getPosition().translateRight());
+                    }
+                    break;
 
-                    case UP:
-                        setRotation(Rotation.UP);
-                        if (currentRoom.isValidPosition(getPosition().translateUp())) {
-                            setPosition(getPosition().translateUp());
-                        }
-                        break;
+                case UP:
+                    setRotation(Rotation.UP);
+                    if (currentRoom.isValidPosition(getPosition().translateUp())) {
+                        setPosition(getPosition().translateUp());
+                    }
+                    break;
 
-                    case DOWN:
-                        setRotation(Rotation.DOWN);
-                        if (currentRoom.isValidPosition(getPosition().translateDown())) {
-                            setPosition(getPosition().translateDown());
-                        }
-                        break;
+                case DOWN:
+                    setRotation(Rotation.DOWN);
+                    if (currentRoom.isValidPosition(getPosition().translateDown())) {
+                        setPosition(getPosition().translateDown());
+                    }
+                    break;
+                default:
+                    break;
                 }
             }
         }
@@ -103,45 +105,47 @@ public class Player extends GameObject implements Attacker, Attackable {
 
     public void checkCellEvent() {
         Room currentRoom = GameState.getInstance().getCurrentRoom();
-        Room.RoomCellType currentCellType = currentRoom.getMap()[getPosition().getRow()][getPosition().getCol()];
+        Room.RoomCellType currentCellType = currentRoom.getMap()[getPosition()
+                .getRow()][getPosition().getCol()];
         Room nextRoom;
         Position nextPosition = new Position(0, 0);
 
         switch (currentCellType) {
-            case NORTH:
-                nextRoom = currentRoom.getNeighbors()[0];
-                if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
-                    nextPosition = nextRoom.getExitPosition(Room.RoomCellType.SOUTH).translateUp();
-                }
-                break;
+        case NORTH:
+            nextRoom = currentRoom.getNeighbors()[0];
+            if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.SOUTH).translateUp();
+            }
+            break;
 
-            case EAST:
-                nextRoom = currentRoom.getNeighbors()[1];
-                if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
-                    nextPosition = nextRoom.getExitPosition(Room.RoomCellType.WEST).translateRight();
-                }
-                break;
+        case EAST:
+            nextRoom = currentRoom.getNeighbors()[1];
+            if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.WEST).translateRight();
+            }
+            break;
 
-            case SOUTH:
-                nextRoom = currentRoom.getNeighbors()[2];
-                if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
-                    nextPosition = nextRoom.getExitPosition(Room.RoomCellType.NORTH).translateDown();
-                }
-                break;
+        case SOUTH:
+            nextRoom = currentRoom.getNeighbors()[2];
+            if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.NORTH).translateDown();
+            }
+            break;
 
-            case WEST:
-                nextRoom = currentRoom.getNeighbors()[3];
-                if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
-                    nextPosition = nextRoom.getExitPosition(Room.RoomCellType.EAST).translateLeft();
-                }
-                break;
+        case WEST:
+            nextRoom = currentRoom.getNeighbors()[3];
+            if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
+                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.EAST).translateLeft();
+            }
+            break;
 
-            default:
-                nextRoom = null;
+        default:
+            nextRoom = null;
         }
 
         if (nextRoom != null) {
-            if (GameState.getInstance().getVisitedRooms().contains(nextRoom) || currentRoom.isEmptyOfMonsters()) {
+            if (GameState.getInstance().getVisitedRooms()
+                    .contains(nextRoom) || currentRoom.isEmptyOfMonsters()) {
                 GameState.getInstance().setCurrentRoom(nextRoom);
                 setPosition(nextPosition);
             }

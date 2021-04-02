@@ -1,7 +1,5 @@
 package quack.models.characters;
 
-import java.io.FileNotFoundException;
-
 public class HenryCharacter extends Character {
 
     public HenryCharacter()  {

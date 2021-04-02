@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import quack.models.GameState;
 import quack.models.Player;
-import quack.models.Room;
 import quack.models.characters.Character;
 import quack.models.characters.HenryCharacter;
 import quack.models.characters.PelicanCharacter;
@@ -15,7 +14,6 @@ import quack.models.weapons.KnifeWeapon;
 import quack.models.weapons.LongSwordWeapon;
 import quack.models.weapons.Weapon;
 import quack.views.ConfigScreen;
-import quack.models.RoomGenerator;
 import java.io.FileNotFoundException;
 
 /**
