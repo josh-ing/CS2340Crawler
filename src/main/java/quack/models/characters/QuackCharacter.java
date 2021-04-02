@@ -1,7 +1,5 @@
 package quack.models.characters;
 
-import java.io.FileNotFoundException;
-
 public class QuackCharacter extends Character {
     private String asset;
 

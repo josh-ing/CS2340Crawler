@@ -66,18 +66,20 @@ public abstract class Monster extends GameObject implements Attacker, Attackable
         Position nextPostion = null;
 
         switch (randomRotation) {
-            case RIGHT:
-                nextPostion = getPosition().translateRight();
-                break;
-            case DOWN:
-                nextPostion = getPosition().translateDown();
-                break;
-            case LEFT:
-                nextPostion = getPosition().translateLeft();
-                break;
-            case UP:
-                nextPostion = getPosition().translateUp();
-                break;
+        case RIGHT:
+            nextPostion = getPosition().translateRight();
+            break;
+        case DOWN:
+            nextPostion = getPosition().translateDown();
+            break;
+        case LEFT:
+            nextPostion = getPosition().translateLeft();
+            break;
+        case UP:
+            nextPostion = getPosition().translateUp();
+            break;
+        default:
+            break;
         }
 
         if (currentRoom.isValidPosition(nextPostion)) {

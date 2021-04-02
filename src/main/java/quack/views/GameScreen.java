@@ -4,8 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import quack.models.GameObject;
 import quack.models.Room;
-import javafx.scene.text.*;
-import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import quack.models.tilesets.TileSet;
 import quack.models.tilesets.OutsideTileSet;
 import quack.views.components.ImageViewGrid;
@@ -20,9 +19,9 @@ public class GameScreen extends Pane {
     private ImageViewGrid gameObjectGrid;
     private TileSet currentTileSet = new OutsideTileSet();
 
-    private final int ROWS = 18;
-    private final int COLUMNS = 24;
-    private final int DIMENSIONS = 50;
+    static final int ROWS = 18;
+    static final int COLUMNS = 24;
+    static final int DIMENSIONS = 50;
 
 
     public GameScreen() {
@@ -55,7 +54,8 @@ public class GameScreen extends Pane {
             }
         }
         for (GameObject go: gameObjects) {
-            gameObjectGrid.setImage(go.getImageAsset(), go.getPosition().getRow(), go.getPosition().getCol());
+            gameObjectGrid.setImage(go.getImageAsset(),
+                    go.getPosition().getRow(), go.getPosition().getCol());
         }
     }
 
