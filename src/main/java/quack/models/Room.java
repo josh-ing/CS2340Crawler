@@ -1,5 +1,6 @@
 package quack.models;
 
+import quack.models.items.Chest;
 import quack.models.monsters.EasyMonster;
 import quack.models.monsters.HardMonster;
 import quack.models.monsters.MediumMonster;
@@ -72,6 +73,12 @@ public class Room {
 
                 addGameObject(monster);
             }
+
+            Chest chest = new Chest();
+            ArrayList<Position> validPositions = getValidPositions();
+            chest.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+
+            addGameObject(chest);
         }
     }
 
