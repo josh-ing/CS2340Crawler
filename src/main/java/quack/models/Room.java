@@ -152,7 +152,7 @@ public class Room {
     }
 
     public boolean isValidPosition(Position position) {
-        for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
+        for (GameObject go : GameState.getInstance().getCurrentRoom().getGameObjects()) {
             if (position.getRow() == go.getPosition().getRow() && position.getCol() == go.getPosition().getCol()) {
                 return false;
             }
