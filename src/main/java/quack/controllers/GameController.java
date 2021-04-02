@@ -5,6 +5,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import quack.models.*;
 import quack.views.GameScreen;
+import quack.views.WinScreen;
 
 import java.util.ConcurrentModificationException;
 
@@ -40,6 +41,9 @@ public class GameController extends Controller {
             @Override
             public void handle(long l) {
                 updateGameObjects(l);
+                checkPlayerDeath();
+                checkWin();
+                updateHUD();
 
                 gameScreen.updateGameObjectGrid(GameState.getInstance().getCurrentRoom().getGameObjects());
                 gameScreen.updateRoomGrid(GameState.getInstance().getCurrentRoom().getMap());
@@ -63,11 +67,26 @@ public class GameController extends Controller {
         } catch(ConcurrentModificationException e) {
 
         }
+    }
 
+    private void checkPlayerDeath() {
         if (GameState.getInstance().getPlayer().getCurrHealth() <= 0) {
             LoseScreenController loseScreenController = new LoseScreenController(stage);
             loseScreenController.initLose();
             gameLoop.stop();
         }
+    }
+
+    private void checkWin() {
+        if (GameState.getInstance().getCurrentRoom().getRoomType() == Room.RoomType.EXIT) {
+            WinScreenController winScreenController = new WinScreenController(stage);
+            winScreenController.initWin();
+            gameLoop.stop();
+        }
+    }
+
+    private void updateHUD() {
+        gameScreen.setHealth(GameState.getInstance().getPlayer().getCurrHealth());
+        gameScreen.setGold(GameState.getInstance().getPlayer().getGold());
     }
 }

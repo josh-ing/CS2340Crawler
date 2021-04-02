@@ -105,32 +105,39 @@ public class Player extends GameObject implements Attacker, Attackable {
         Room currentRoom = GameState.getInstance().getCurrentRoom();
         Room.RoomCellType currentCellType = currentRoom.getMap()[getPosition().getRow()][getPosition().getCol()];
         Room nextRoom;
-        Position nextPosition;
+        Position nextPosition = new Position(0, 0);
 
         switch (currentCellType) {
             case NORTH:
                 nextRoom = currentRoom.getNeighbors()[0];
-                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.SOUTH).translateUp();
+                if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
+                    nextPosition = nextRoom.getExitPosition(Room.RoomCellType.SOUTH).translateUp();
+                }
                 break;
 
             case EAST:
                 nextRoom = currentRoom.getNeighbors()[1];
-                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.WEST).translateRight();
+                if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
+                    nextPosition = nextRoom.getExitPosition(Room.RoomCellType.WEST).translateRight();
+                }
                 break;
 
             case SOUTH:
                 nextRoom = currentRoom.getNeighbors()[2];
-                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.NORTH).translateDown();
+                if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
+                    nextPosition = nextRoom.getExitPosition(Room.RoomCellType.NORTH).translateDown();
+                }
                 break;
 
             case WEST:
                 nextRoom = currentRoom.getNeighbors()[3];
-                nextPosition = nextRoom.getExitPosition(Room.RoomCellType.EAST).translateLeft();
+                if (nextRoom.getRoomType() != Room.RoomType.EXIT) {
+                    nextPosition = nextRoom.getExitPosition(Room.RoomCellType.EAST).translateLeft();
+                }
                 break;
 
             default:
                 nextRoom = null;
-                nextPosition = null;
         }
 
         if (nextRoom != null) {

@@ -1,7 +1,7 @@
 package quack.views;
 
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import quack.models.GameObject;
 import quack.models.Room;
 import javafx.scene.text.*;
@@ -12,10 +12,10 @@ import quack.views.components.ImageViewGrid;
 
 import java.util.ArrayList;
 
-public class GameScreen extends StackPane {
+public class GameScreen extends Pane {
 
-    private Text goldText;
-    private Font goldFont;
+    private Text goldText = new Text("GOLD");
+    private Text healthText = new Text("HEALTH");
     private ImageViewGrid roomGrid;
     private ImageViewGrid gameObjectGrid;
     private TileSet currentTileSet = new OutsideTileSet();
@@ -27,9 +27,15 @@ public class GameScreen extends StackPane {
 
     public GameScreen() {
         super();
+        goldText.setX(10);
+        goldText.setY(30);
+
+        healthText.setX(10);
+        healthText.setY(50);
+
         roomGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
         gameObjectGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
-        this.getChildren().addAll(roomGrid, gameObjectGrid);
+        this.getChildren().addAll(roomGrid, gameObjectGrid, goldText, healthText);
     }
 
     public void updateRoomGrid(Room.RoomCellType[][] map) {
@@ -53,19 +59,11 @@ public class GameScreen extends StackPane {
         }
     }
 
-    public Text getGoldText() {
-        return goldText;
+    public void setHealth(int health) {
+        healthText.setText("HEALTH: " + health);
     }
 
-    public void setGoldText(Text goldText) {
-        this.goldText = goldText;
-    }
-
-    public Font getGoldFont() {
-        return goldFont;
-    }
-
-    public void setGoldFont(Font goldFont) {
-        this.goldFont = goldFont;
+    public void setGold(int gold) {
+        goldText.setText("GOLD: " + gold);
     }
 }
