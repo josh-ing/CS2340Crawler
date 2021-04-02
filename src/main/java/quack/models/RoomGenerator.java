@@ -54,7 +54,8 @@ public class RoomGenerator {
 
         roomTemplate[0][0] = Room.RoomCellType.UL_WALL;
         roomTemplate[0][roomTemplate[0].length - 1] = Room.RoomCellType.UR_WALL;
-        roomTemplate[roomTemplate.length - 1][roomTemplate[0].length - 1] = Room.RoomCellType.LR_WALL;
+        roomTemplate[roomTemplate.length - 1]
+                [roomTemplate[0].length - 1] = Room.RoomCellType.LR_WALL;
         roomTemplate[roomTemplate.length - 1][0] = Room.RoomCellType.LL_WALL;
 
         return roomTemplate;

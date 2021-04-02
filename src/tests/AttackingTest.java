@@ -40,7 +40,8 @@ public class AttackingTest {
 
         player.attack(monster);
 
-        assertEquals(monster.getHealth(), initMonsterHealth - character.getAttack() - weapon.getAttack());
+        assertEquals(monster.getHealth(), initMonsterHealth - character.getAttack()
+                - weapon.getAttack());
     }
 
 }

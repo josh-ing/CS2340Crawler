@@ -1,6 +1,4 @@
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import quack.models.GameObject;
 import quack.models.GameState;
 import quack.models.Player;
 import quack.models.characters.QuackCharacter;

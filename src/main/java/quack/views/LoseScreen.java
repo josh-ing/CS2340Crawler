@@ -32,7 +32,8 @@ public class LoseScreen extends VBox {
 
 
         try {
-            Image image = new Image(new FileInputStream("src/main/resources/assets/LoseScreen.gif"));
+            Image image = new Image(new FileInputStream(
+                    "src/main/resources/assets/LoseScreen.gif"));
 
             BackgroundSize size = new BackgroundSize(BackgroundSize.AUTO,
                 BackgroundSize.AUTO, false, false, true, false);
