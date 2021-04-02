@@ -1,24 +1,20 @@
 package quack.controllers;
-
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import quack.models.*;
 import quack.views.GameScreen;
-import quack.models.Room;
-import quack.models.PlayerModel;
-import quack.models.RoomGenerator;
+import quack.views.WinScreen;
 
-import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 
 /**
  * Controller for MainMenuScreen
  */
 public class GameController extends Controller {
-    private RoomGenerator roomGenerator;
     private GameScreen gameScreen;
-    private Room currentRoom;
-    private PlayerModel player;
-
+    private AnimationTimer gameLoop;
     /**
      * Initializes the controller with a stage.
      * @param stage The stage involved with the game controller.
@@ -29,71 +25,68 @@ public class GameController extends Controller {
 
     /**
      * Initializes app to show map.
-     * @param roomGenerator The randomly generated map.
-     * @param player The player model chosen.
      */
-    public void initGame(RoomGenerator roomGenerator, PlayerModel player) {
-        this.roomGenerator = roomGenerator;
-        this.player = player;
-
-        Room start = roomGenerator.generateStartRoom();
-        this.currentRoom = start;
-
-        gameScreen = new GameScreen(start, player);
+    public void initGame() {
+        gameScreen = new GameScreen();
         gameScreen.setMinWidth(1200);
         gameScreen.setMinHeight(900);
-        gameScreen.getGoldText().setText("Gold: " + player.getGold());
+        //gameScreen.getGoldText().setText("Gold: " + player.getGold());
 
         this.stage.setScene(new Scene(gameScreen));
-        this.stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> changeRoom(key));
+        gameScreen.updateRoomGrid(GameState.getInstance().getCurrentRoom().getMap());
+
+        this.stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> processInput(key));
+
+        gameLoop = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                updateGameObjects(l);
+                checkPlayerDeath();
+                checkWin();
+                updateHUD();
+
+                gameScreen.updateGameObjectGrid(GameState.getInstance().getCurrentRoom().getGameObjects());
+                gameScreen.updateRoomGrid(GameState.getInstance().getCurrentRoom().getMap());
+
+                GameState.getInstance().clearInputs();
+            }
+        };
+
+        gameLoop.start();
     }
 
-    private void setGameScreenRoom(Room room) {
-        if (room.getRoomType() == Room.RoomType.EXIT) {
+    private void processInput(KeyEvent key) {
+        GameState.getInstance().appendInput(key);
+    }
+
+    private void updateGameObjects(long l) {
+        try {
+            for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
+                go.update(l);
+            }
+        } catch(ConcurrentModificationException e) {
+
+        }
+    }
+
+    private void checkPlayerDeath() {
+        if (GameState.getInstance().getPlayer().getCurrHealth() <= 0) {
+            LoseScreenController loseScreenController = new LoseScreenController(stage);
+            loseScreenController.initLose();
+            gameLoop.stop();
+        }
+    }
+
+    private void checkWin() {
+        if (GameState.getInstance().getCurrentRoom().getRoomType() == Room.RoomType.EXIT) {
             WinScreenController winScreenController = new WinScreenController(stage);
             winScreenController.initWin();
-        } else {
-            this.currentRoom = room;
-            gameScreen.setRoom(room);
-            gameScreen.getGoldText().setText("Gold: " + player.getGold());
+            gameLoop.stop();
         }
     }
 
-    public void changeRoom(KeyEvent key) {
-        Room[] neighbors = currentRoom.getNeighbors();
-        System.out.println(Arrays.toString(neighbors));
-
-        switch (key.getCode()) {
-        case UP:
-            if (neighbors[0] != null) {
-                setGameScreenRoom(neighbors[0]);
-            }
-            break;
-
-        case RIGHT:
-            if (neighbors[1] != null) {
-                setGameScreenRoom(neighbors[1]);
-            }
-            break;
-
-        case DOWN:
-            if (neighbors[2] != null) {
-                setGameScreenRoom(neighbors[2]);
-            }
-            break;
-
-        case LEFT:
-            if (neighbors[3] != null) {
-                setGameScreenRoom(neighbors[3]);
-            }
-            break;
-
-        default:
-            break;
-        }
-    }
-
-    public Room getCurrentRoom() {
-        return currentRoom;
+    private void updateHUD() {
+        gameScreen.setHealth(GameState.getInstance().getPlayer().getCurrHealth());
+        gameScreen.setGold(GameState.getInstance().getPlayer().getGold());
     }
 }

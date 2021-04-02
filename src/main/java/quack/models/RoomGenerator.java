@@ -32,19 +32,30 @@ public class RoomGenerator {
      * Creates a int array where the border are all 1s.
      * @return 2d int array representing the room.
      */
-    private int[][] createRoomTemplate() {
-        int[][] roomTemplate = new int[mapHeight][mapWidth];
+    private Room.RoomCellType[][] createRoomTemplate() {
+        Room.RoomCellType[][] roomTemplate = new Room.RoomCellType[mapHeight][mapWidth];
+
+        for (int i = 0; i < mapHeight; i++) {
+            for (int j = 0; j < mapWidth; j++) {
+                roomTemplate[i][j] = Room.RoomCellType.FLOOR;
+            }
+        }
 
         //Initialize vertical wall borders
         for (int i = 0; i < mapHeight; i++) {
-            roomTemplate[i][0] = 1;
-            roomTemplate[i][mapWidth - 1] = 1;
+            roomTemplate[i][0] = Room.RoomCellType.LEFT_WALL;
+            roomTemplate[i][mapWidth - 1] = Room.RoomCellType.RIGHT_WALL;
         }
         //Initialize horizontal wall borders
         for (int i = 0; i < mapWidth; i++) {
-            roomTemplate[0][i] = 1;
-            roomTemplate[mapHeight - 1][i] = 1;
+            roomTemplate[0][i] = Room.RoomCellType.UP_WALL;
+            roomTemplate[mapHeight - 1][i] = Room.RoomCellType.DOWN_WALL;
         }
+
+        roomTemplate[0][0] = Room.RoomCellType.UL_WALL;
+        roomTemplate[0][roomTemplate[0].length - 1] = Room.RoomCellType.UR_WALL;
+        roomTemplate[roomTemplate.length - 1][roomTemplate[0].length - 1] = Room.RoomCellType.LR_WALL;
+        roomTemplate[roomTemplate.length - 1][0] = Room.RoomCellType.LL_WALL;
 
         return roomTemplate;
     }
@@ -53,18 +64,18 @@ public class RoomGenerator {
      * Creates a random room layout with obstacles.
      * @return A 2d int array representing a random room.
      */
-    private int[][] createRandomRoom() {
+    private Room.RoomCellType[][] createRandomRoom() {
         Random rand = new Random();
-        int[][] randomRoom = createRoomTemplate();
+        Room.RoomCellType[][] randomRoom = createRoomTemplate();
         for (int i = 0; i < NUM_OBSTACLES; i++) {
             int row = CLEARANCE + rand.nextInt(mapHeight - 1 - 2 * CLEARANCE);
             int col = CLEARANCE + rand.nextInt(mapWidth - 1 - 2 * CLEARANCE);
             int coinFlip = rand.nextInt(2);
-            randomRoom[row][col] = 1;
+            randomRoom[row][col] = Room.RoomCellType.OBSTRUCTION;
             if (coinFlip == 0) {
-                randomRoom[row + 1][col] = 1;
+                randomRoom[row + 1][col] = Room.RoomCellType.OBSTRUCTION;
             } else {
-                randomRoom[row][col - 1] = 1;
+                randomRoom[row][col - 1] = Room.RoomCellType.OBSTRUCTION;
             }
         }
 
@@ -77,8 +88,8 @@ public class RoomGenerator {
      * @return Room representing the start room.
      */
     private Room createStartRoom() {
-        int[][] startRoomArray = createRoomTemplate();
-        Room startRoom = new Room(startRoomArray, Room.RoomType.START, Room.TileSetType.DUNGEON);
+        Room.RoomCellType[][] startRoomArray = createRoomTemplate();
+        Room startRoom = new Room(startRoomArray, Room.RoomType.START, null);
         Room[] startRoomNeighbors = new Room[4];
 
         //Note that one of these four rooms will be overrided with the path to the boss room.
@@ -86,7 +97,7 @@ public class RoomGenerator {
             Room[] newRoomNeighbors = new Room[4];
             newRoomNeighbors[(i + 2) % 4] = startRoom;
             Room newRoom = new Room(createRoomTemplate(), Room.RoomType.TREASURE,
-                    newRoomNeighbors, Room.TileSetType.DUNGEON);
+                    newRoomNeighbors);
             addExitsToRoomArray(newRoom);
             startRoomNeighbors[i] = newRoom;
 
@@ -119,12 +130,12 @@ public class RoomGenerator {
 
             directionsTowardsExit.remove((lastExit + 2) % 4);
 
-            int[][] roomArray = createRandomRoom();
+            Room.RoomCellType[][] roomArray = createRandomRoom();
             int direction = directionsTowardsExit.get(rand.nextInt(3));
 
             Room[] currentRoomNeighbors = currentRoom.getNeighbors();
             Room[] newRoomNeighbors = new Room[4];
-            Room newRoom = new Room(roomArray, Room.RoomType.MONSTER, Room.TileSetType.DUNGEON);
+            Room newRoom = new Room(roomArray, Room.RoomType.MONSTER);
             currentRoomNeighbors[direction] = newRoom;
             newRoomNeighbors[(direction + 2) % 4] = currentRoom;
             currentRoom.setNeighbors(currentRoomNeighbors);
@@ -170,12 +181,12 @@ public class RoomGenerator {
     private void addBossRoom(Room lastRoom, int lastExit) {
         Room[] lastRoomNeighbors = lastRoom.getNeighbors();
         Room exitRoom = new Room(createRoomTemplate(),
-                Room.RoomType.EXIT, Room.TileSetType.DUNGEON);
+                Room.RoomType.EXIT);
         Room[] bossRoomNeighbors = new Room[4];
         bossRoomNeighbors[(lastExit + 2) % 4] = lastRoom;
         bossRoomNeighbors[lastExit] = exitRoom;
         Room bossRoom = new Room(createRoomTemplate(),
-                Room.RoomType.BOSS, bossRoomNeighbors, Room.TileSetType.DUNGEON);
+                Room.RoomType.BOSS, bossRoomNeighbors);
         lastRoomNeighbors[lastExit] = bossRoom;
         lastRoom.setNeighbors(lastRoomNeighbors);
         addExitsToRoomArray(lastRoom);
