@@ -3,9 +3,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import quack.models.PlayerModel;
+import quack.models.GameState;
+import quack.models.Player;
 import quack.models.Room;
-import quack.models.characters.PlayableCharacterModel;
+import quack.models.characters.Character;
+import quack.models.characters.HenryCharacter;
+import quack.models.characters.PelicanCharacter;
+import quack.models.characters.QuackCharacter;
+import quack.models.weapons.KatanaWeapon;
+import quack.models.weapons.KnifeWeapon;
+import quack.models.weapons.LongSwordWeapon;
+import quack.models.weapons.Weapon;
 import quack.views.ConfigScreen;
 import quack.models.RoomGenerator;
 import java.io.FileNotFoundException;
@@ -26,15 +34,38 @@ public class ConfigController extends Controller {
         configure.setMinHeight(900);
         stage.setScene(new Scene(configure));
 
-        PlayableCharacterModel character = new PlayableCharacterModel(3, 3,
-                3, 3, configure.getDuck());
         Button startGame = configure.getStartButton();
         startGame.setOnAction(e -> {
             if (this.checkFields()) {
-                PlayerModel player = new PlayerModel(configure.getPlayerName(),
-                        character, getGold());
-                toGameScreen(player);
+                String playerType = configure.getDuck();
+                Character character;
+                if (playerType.equals("Quack")) {
+                    character = new QuackCharacter();
+                } else if (playerType.equals("Henry")) {
+                    character = new HenryCharacter();
+                } else {
+                    character = new PelicanCharacter();
+                }
 
+                String weaponType = configure.getWeapon();
+                Weapon weapon;
+
+                if (weaponType.equals("Katana")) {
+                    weapon = new KatanaWeapon();
+                } else if (weaponType.equals("Knife")) {
+                    weapon = new KnifeWeapon();
+                } else {
+                    weapon = new LongSwordWeapon();
+                }
+
+
+                Player player = new Player(configure.getPlayerName(),
+                        character, weapon, getGold());
+
+                player.setImageAsset(character.getSpriteAsset());
+                GameState.reset();
+                GameState.getInstance().setPlayer(player);
+                toGameScreen();
             } else {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");
@@ -42,6 +73,7 @@ public class ConfigController extends Controller {
                 errorAlert.showAndWait();
             }
         });
+
 
     }
 
@@ -59,36 +91,9 @@ public class ConfigController extends Controller {
         return validName && validDifficulty && validWeapon && validDuck;
     }
 
-    public void toGameScreen(PlayerModel player) {
-        int[][] intMap = {
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {6, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
-                {6, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        };
-
-
-        Room[] neighbors = {null, null, null, null};
-
-
-        Room room = new Room(intMap, Room.RoomType.MONSTER, neighbors, Room.TileSetType.DUNGEON);
-        RoomGenerator gameRoomGenerator = new RoomGenerator(7, 24, 18);
+    public void toGameScreen() {
         GameController gameController = new GameController(stage);
-        gameController.initGame(gameRoomGenerator, player);
+        gameController.initGame();
     }
 
     private int getGold() {

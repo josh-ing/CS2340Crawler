@@ -113,12 +113,12 @@ public class GameControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void KeysNotPressed() {
+    public void testKeysNotPressed() {
         assertThat(robotContext().getKeyboardRobot().getPressedKeys().isEmpty(), is(true));
     }
 
     @Test
-    public void ForgetsReleaseKeys() {
+    public void testForgetsReleaseKeys() {
         press(KeyCode.CONTROL, KeyCode.SHIFT, KeyCode.ALT);
     }
 

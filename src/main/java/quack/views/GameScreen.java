@@ -1,110 +1,69 @@
 package quack.views;
 
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import quack.models.GameObject;
 import quack.models.Room;
-import quack.models.PlayerModel;
-import java.util.ArrayList;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 import javafx.scene.text.*;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Font;
+import quack.models.tilesets.TileSet;
+import quack.models.tilesets.OutsideTileSet;
+import quack.views.components.ImageViewGrid;
+
+import java.util.ArrayList;
 
 public class GameScreen extends Pane {
 
-    static final int TILE_SIZE = 50;
-    private Text goldText;
-    private Font goldFont;
-    private Room room;
-    private PlayerModel player;
+    private Text goldText = new Text("GOLD");
+    private Text healthText = new Text("HEALTH");
+    private ImageViewGrid roomGrid;
+    private ImageViewGrid gameObjectGrid;
+    private TileSet currentTileSet = new OutsideTileSet();
 
-    public GameScreen(Room room, PlayerModel player) {
+    private final int ROWS = 18;
+    private final int COLUMNS = 24;
+    private final int DIMENSIONS = 50;
+
+
+    public GameScreen() {
         super();
+        goldText.setX(10);
+        goldText.setY(30);
 
-        this.room = room;
-        this.player = player;
-        this.setRoom(room);
+        healthText.setX(10);
+        healthText.setY(50);
+
+        roomGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
+        gameObjectGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
+        this.getChildren().addAll(roomGrid, gameObjectGrid, goldText, healthText);
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
-
-        this.getChildren().clear();
-
-        Font goldFont = Font.font("Arial", FontWeight.BOLD, 25.0);
-        goldText = new Text(10, 35, "GOLD: ");
-        goldText.setFill(Color.WHITE);
-        goldText.setFont(goldFont);
-
-        Room.RoomCellType[][] map = room.getMap();
-        ArrayList elements = new ArrayList<>();
-
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                int y = i * TILE_SIZE;
-                int x = j * TILE_SIZE;
-                StackPane stack = new StackPane();
-
-                Rectangle r = new Rectangle(TILE_SIZE, TILE_SIZE);
-
-                Room.RoomCellType cellType = map[i][j];
-
-                Text text = new Text(cellType.name());
-
-                stack.getChildren().addAll(r, text);
-
-                stack.setTranslateX(x);
-                stack.setTranslateY(y);
-
-                switch (cellType) {
-                case FLOOR:
-                    r.setFill(Color.BEIGE);
-                    break;
-
-                case WALL:
-                    r.setFill(Color.GRAY);
-                    break;
-
-                case NORTH:
-                    r.setFill(Color.BLUE);
-                    break;
-
-                case SOUTH:
-                    r.setFill(Color.BLUEVIOLET);
-                    break;
-
-                case EAST:
-                    r.setFill(Color.ALICEBLUE);
-                    break;
-
-                case WEST:
-                    r.setFill(Color.CORNFLOWERBLUE);
-                    break;
-                default:
-                    break;
-                }
-                elements.add(stack);
+    public void updateRoomGrid(Room.RoomCellType[][] map) {
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLUMNS; c++) {
+                Image tile;
+                tile = currentTileSet.getTileImage(map[r][c]);
+                roomGrid.setImage(tile, r, c);
             }
         }
-
-        elements.add(goldText);
-        this.getChildren().addAll(elements);
     }
 
-    public Text getGoldText() {
-        return goldText;
+    public void updateGameObjectGrid(ArrayList<GameObject> gameObjects) {
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLUMNS; c++) {
+                gameObjectGrid.setImage(null, r, c);
+            }
+        }
+        for (GameObject go: gameObjects) {
+            gameObjectGrid.setImage(go.getImageAsset(), go.getPosition().getRow(), go.getPosition().getCol());
+        }
     }
 
-    public void setGoldText(Text goldText) {
-        this.goldText = goldText;
+    public void setHealth(int health) {
+        healthText.setText("HEALTH: " + health);
     }
 
-    public Font getGoldFont() {
-        return goldFont;
-    }
-
-    public void setGoldFont(Font goldFont) {
-        this.goldFont = goldFont;
+    public void setGold(int gold) {
+        goldText.setText("GOLD: " + gold);
     }
 }
