@@ -8,6 +8,7 @@ import quack.controllers.MainMenuController;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javafx.scene.Node;
+import javafx.scene.input.MouseButton;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -39,6 +40,7 @@ public class GameControllerTest extends ApplicationTest {
         }
         verifyThat("NORTH", NodeMatchers.isNotNull());
     }
+
     @Test
     public void testSouthExitVisible() throws Exception {
         clickOn("Play");
@@ -122,4 +124,13 @@ public class GameControllerTest extends ApplicationTest {
         press(KeyCode.CONTROL, KeyCode.SHIFT, KeyCode.ALT);
     }
 
+    @Test
+    public void testButtonsNotPressed() {
+        assertThat(robotContext().getMouseRobot().getPressedButtons().isEmpty(), is(true));
+    }
+
+    @Test
+    public void testForgetsReleaseButtons() {
+        press(MouseButton.MIDDLE, MouseButton.PRIMARY, MouseButton.SECONDARY);
+    }
 }
