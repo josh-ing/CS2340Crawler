@@ -78,9 +78,9 @@ public class ConfigScreen extends VBox {
         HBox imageWrapperTotal = new HBox();
         duckGroup = new ToggleGroup();
         SelectCharacterWrapper quack = new SelectCharacterWrapper(
-                "src/main/resources/assets/quack.png", "Quack", duckGroup);
+                "src/main/resources/assets/quack.gif", "Quack", duckGroup);
         SelectCharacterWrapper henry = new SelectCharacterWrapper(
-                "src/main/resources/assets/henry.png", "Henry", duckGroup);
+                "src/main/resources/assets/henry.gif", "Henry", duckGroup);
         SelectCharacterWrapper pelican = new SelectCharacterWrapper(
                 "src/main/resources/assets/pelican.png", "Pelican", duckGroup);
 

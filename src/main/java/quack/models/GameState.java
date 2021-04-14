@@ -1,6 +1,7 @@
 package quack.models;
 
 import javafx.scene.input.KeyEvent;
+import quack.models.items.Item;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ public class GameState {
     private Room currentRoom;
     private Set<Room> visitedRooms = new HashSet<>();
     private ArrayList<KeyEvent> currentInputs = new ArrayList<>();
+    private ArrayList<Item> inventory = new ArrayList<>();
 
     private GameState() {
         RoomGenerator roomGenerator = new RoomGenerator(7, 24, 18);
