@@ -1,4 +1,4 @@
 package quack.models.items;
 
-public class Item {
+public abstract class Item {
 }
