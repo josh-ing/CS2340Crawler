@@ -8,7 +8,6 @@ import quack.models.Player;
 import quack.models.weapons.KatanaWeapon;
 import quack.models.weapons.KnifeWeapon;
 import quack.models.weapons.LongSwordWeapon;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -20,7 +19,7 @@ public class Chest extends GameObject {
 
 
     public Chest() {
-        super("src/main/resources/assets/items/chest.png", 100);
+        super("src/main/resources/assets/items/chestClosed.png", 100);
         ItemTypes[] types = ItemTypes.values();
         ItemTypes randomType = types[random.nextInt(types.length)];
 
@@ -56,6 +55,7 @@ public class Chest extends GameObject {
                     if (player.getFacingPosition().equals(getPosition())) {
                         GameState.getInstance().getInventory().addItem(item);
                         open = true;
+                        updateImage("src/main/resources/assets/items/chest.png");
                     }
                 }
             }

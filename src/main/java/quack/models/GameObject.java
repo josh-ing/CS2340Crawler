@@ -74,4 +74,12 @@ public abstract class GameObject implements Renderable {
     public void setUpdatePeriod(long updatePeriod) {
         this.updatePeriod = updatePeriod;
     }
+
+    public void updateImage(String image) {
+        try {
+            this.imageAsset = new Image(new FileInputStream(image));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
