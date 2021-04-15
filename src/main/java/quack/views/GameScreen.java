@@ -8,11 +8,14 @@ import quack.models.Renderable;
 import quack.models.Room;
 import javafx.scene.text.Text;
 import quack.models.items.Inventory;
+import quack.models.items.InventoryHUD;
 import quack.models.items.Item;
 import quack.models.tilesets.TileSet;
 import quack.models.tilesets.OutsideTileSet;
 import quack.views.components.ImageViewGrid;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class GameScreen extends Pane {
@@ -24,6 +27,9 @@ public class GameScreen extends Pane {
     private ImageViewGrid roomGrid;
     private ImageViewGrid gameObjectGrid;
     private ImageViewGrid inventoryGrid;
+    private ImageViewGrid equipBlock;
+    private ImageViewGrid inventoryBlock;
+    private InventoryHUD hud;
     private TileSet currentTileSet = new OutsideTileSet();
 
     static final int ROWS = 18;
@@ -42,14 +48,21 @@ public class GameScreen extends Pane {
         attackText.setX(10);
         attackText.setY(70);
 
+        hud = new InventoryHUD();
+        equipBlock = new ImageViewGrid(1, 2, DIMENSIONS);
         equipGrid = new ImageViewGrid(1, 2, DIMENSIONS);
+        inventoryBlock = new ImageViewGrid(1, Inventory.INVENTORY_SIZE, DIMENSIONS);
         inventoryGrid = new ImageViewGrid(1, Inventory.INVENTORY_SIZE, DIMENSIONS);
 
+        inventoryBlock.setTranslateY(800);
         inventoryGrid.setTranslateY(800);
+        inventoryGrid.toFront();
+        equipBlock.setTranslateY(850);
         equipGrid.setTranslateY(850);
+        equipGrid.toFront();
         roomGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
         gameObjectGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
-        this.getChildren().addAll(roomGrid, gameObjectGrid, inventoryGrid, equipGrid, goldText, healthText, attackText);
+        this.getChildren().addAll(roomGrid, gameObjectGrid, inventoryBlock, inventoryGrid, equipBlock, equipGrid, goldText, healthText, attackText);
     }
 
     public void updateRoomGrid(Room.RoomCellType[][] map) {
@@ -79,10 +92,13 @@ public class GameScreen extends Pane {
 
         for (int c = 0; c < Inventory.INVENTORY_SIZE; c++) {
             inventoryGrid.setImage(null, 0, c);
+            inventoryBlock.setImage(null, 0, c);
         }
 
         for (int i = 0; i < inventory.size(); i++) {
             inventoryGrid.setImage(inventory.get(i).getSprite(), 0, i);
+            inventoryBlock.setImage(hud.getInventory(), 0, i);
+            inventoryGrid.toFront();
         }
     }
 
@@ -92,9 +108,16 @@ public class GameScreen extends Pane {
 
         if (GameState.getInstance().getUsedItem() != null) {
             equipGrid.setImage(GameState.getInstance().getUsedItem().getSprite(), 0, 1);
+            equipBlock.setImage(hud.getInventorySelect(), 0, 1); //uhm?
+            //ok here's the rundown
+            //create a wrapper class specifically for inventory blocks
+            //congraduations problem solved
+            equipGrid.toFront();
         }
 
         equipGrid.setImage(GameState.getInstance().getPlayer().getWeapon().getSprite(), 0, 0);
+        equipBlock.setImage(hud.getInventorySelect(), 0, 0);
+        equipGrid.toFront();
     }
 
     public void setHealth(int health) {
