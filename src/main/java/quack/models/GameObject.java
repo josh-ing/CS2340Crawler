@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public abstract class GameObject {
+public abstract class GameObject implements Renderable {
 
     public enum Rotation {
         RIGHT,
@@ -51,7 +51,7 @@ public abstract class GameObject {
         this.position = position;
     }
 
-    public Image getImageAsset() {
+    public Image getSprite() {
         return imageAsset;
     }
 

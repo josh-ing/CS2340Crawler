@@ -3,6 +3,7 @@ package quack.models;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import quack.models.characters.Character;
+import quack.models.items.Item;
 import quack.models.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Player extends GameObject implements Attacker, Attackable {
     private Weapon weapon;
     private int gold;
     private int currHealth;
+    private int currAttack;
 
     public Player(String name, Character character, Weapon weapon, int gold) {
         super("src/main/resources/assets/quack.gif",
@@ -23,34 +25,77 @@ public class Player extends GameObject implements Attacker, Attackable {
         this.currHealth = character.getMaxHealth();
         this.gold = gold;
         this.weapon = weapon;
+        this.currAttack = character.getAttack();
         setPosition(new Position(9, 12));
     }
 
     public void update() {
         checkPlayerMovement();
         checkPlayerAttack();
+        checkInventory();
         checkCellEvent();
     }
 
+    public void checkInventory() {
+        ArrayList<KeyEvent> inputs = GameState.getInstance().getCurrentInputs();
+        ArrayList<Item> inventory = GameState.getInstance().getInventory().getItems();
+
+        for (KeyEvent keyEvent : inputs) {
+            switch (keyEvent.getCode()) {
+                case DIGIT1:
+                    if (inventory.size() > 0) {
+                        inventory.get(0).use();
+                    }
+                    break;
+                case DIGIT2:
+                    if (inventory.size() > 1) {
+                        inventory.get(1).use();
+                    }
+                    break;
+                case DIGIT3:
+                    if (inventory.size() > 2) {
+                        inventory.get(2).use();
+                    }
+                    break;
+                case DIGIT4:
+                    if (inventory.size() > 3) {
+                        inventory.get(3).use();
+                    }
+                    break;
+                case DIGIT5:
+                    if (inventory.size() > 4) {
+                        inventory.get(4).use();
+                    }
+                    break;
+            }
+        }
+    }
+
+    public Position getFacingPosition() {
+        Position facingPosition;
+
+        if (getRotation() == Rotation.RIGHT) {
+            facingPosition = getPosition().translateRight();
+        } else if (getRotation() == Rotation.UP) {
+            facingPosition = getPosition().translateUp();
+        } else if (getRotation() == Rotation.LEFT) {
+            facingPosition = getPosition().translateLeft();
+        } else {
+            facingPosition = getPosition().translateDown();
+        }
+
+        return facingPosition;
+    }
+
     public void checkPlayerAttack() {
-        Position attackPosition;
         Room currentRoom = GameState.getInstance().getCurrentRoom();
         ArrayList<KeyEvent> inputs = GameState.getInstance().getCurrentInputs();
 
         for (KeyEvent keyEvent : inputs) {
             if (keyEvent.getCode() == KeyCode.SPACE) {
-                if (getRotation() == Rotation.RIGHT) {
-                    attackPosition = getPosition().translateRight();
-                } else if (getRotation() == Rotation.UP) {
-                    attackPosition = getPosition().translateUp();
-                } else if (getRotation() == Rotation.LEFT) {
-                    attackPosition = getPosition().translateLeft();
-                } else {
-                    attackPosition = getPosition().translateDown();
-                }
 
                 GameObject gameObjectAtPosition = currentRoom.getGameObjectAtPosition(
-                        attackPosition);
+                        getFacingPosition());
 
                 if (gameObjectAtPosition instanceof Attackable) {
                     Attackable attackable = (Attackable) gameObjectAtPosition;
@@ -192,7 +237,15 @@ public class Player extends GameObject implements Attacker, Attackable {
     @Override
     public void attack(Attackable target) {
         if (target != null) {
-            target.damage(character.getAttack() + weapon.getAttack());
+            target.damage(currAttack + weapon.getAttack());
         }
+    }
+
+    public void setCurrAttack(int currAttack) {
+        this.currAttack = currAttack;
+    }
+
+    public int getCurrAttack() {
+        return currAttack;
     }
 }

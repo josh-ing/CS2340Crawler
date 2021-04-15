@@ -88,5 +88,8 @@ public class GameController extends Controller {
     private void updateHUD() {
         gameScreen.setHealth(GameState.getInstance().getPlayer().getCurrHealth());
         gameScreen.setGold(GameState.getInstance().getPlayer().getGold());
+        gameScreen.setAttack(GameState.getInstance().getPlayer().getCurrAttack());
+        gameScreen.updateInventoryGrid();
+        gameScreen.updateEquipGrid();
     }
 }
