@@ -1,22 +1,16 @@
 package quack.models.items;
 
 import javafx.scene.image.Image;
+import quack.models.Renderable;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Item {
-    private int healthRegen;
-    private int attackInc;
-    private int rangeLInc;
-    private int rangeWInc;
+public abstract class Item implements Renderable {
+
     private Image spriteImage;
 
-    public Item(int healthRegen, int attackInc, int rangeLInc, int rangeWInc, String sprite) {
-        this.healthRegen = healthRegen;
-        this.attackInc = attackInc;
-        this.rangeLInc = rangeLInc;
-        this.rangeWInc = rangeWInc;
+    public Item(String sprite) {
         try {
             spriteImage = new Image(new FileInputStream(sprite));
         } catch (FileNotFoundException e) {
@@ -24,19 +18,11 @@ public class Item {
         }
     }
 
-    public int getHealthRegen() {
-        return healthRegen;
-    }
+    public abstract void use();
 
-    public int getAttackInc() {
-        return attackInc;
-    }
+    public abstract void unUse();
 
-    public int getRangeLInc() {
-            return rangeLInc;
-    }
-
-    public int getRangeWInc() {
-        return rangeWInc;
+    public Image getSprite() {
+        return spriteImage;
     }
 }

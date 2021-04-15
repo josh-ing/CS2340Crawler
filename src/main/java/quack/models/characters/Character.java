@@ -1,10 +1,12 @@
 package quack.models.characters;
 
 import javafx.scene.image.Image;
+import quack.models.Renderable;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public abstract class Character {
+public abstract class Character implements Renderable {
 
     private int maxHealth;
     private int attack;
@@ -47,7 +49,7 @@ public abstract class Character {
         this.speed = speed;
     }
 
-    public Image getSpriteAsset() {
+    public Image getSprite() {
         return spriteAsset;
     }
 }

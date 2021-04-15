@@ -1,5 +1,7 @@
 package quack.models.weapons;
 import javafx.scene.image.Image;
+import quack.models.GameState;
+import quack.models.items.Item;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,24 +9,19 @@ import java.io.FileNotFoundException;
 /**
  * Class representing a weapon
  */
-public class Weapon {
+public class Weapon extends Item {
 
     private int rangeWidth;
     private int rangeLength;
     private int attack;
     private int speed;
-    private Image spriteImage;
 
     public Weapon(int rangeWidth, int rangeLength, int attack, int speed, String sprite) {
+        super(sprite);
         this.rangeWidth = rangeWidth;
         this.rangeLength = rangeLength;
         this.attack = attack;
         this.speed = speed;
-        try {
-            spriteImage = new Image(new FileInputStream(sprite));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public int getRangeWidth() {
@@ -41,5 +38,16 @@ public class Weapon {
 
     public int getSpeed() {
         return speed;
+    }
+
+    @Override
+    public void use() {
+        GameState.getInstance().getPlayer().setWeapon(this);
+        GameState.getInstance().getInventory().getItems().remove(this);
+    }
+
+    @Override
+    public void unUse() {
+
     }
 }

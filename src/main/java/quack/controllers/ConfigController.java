@@ -60,7 +60,7 @@ public class ConfigController extends Controller {
                 Player player = new Player(configure.getPlayerName(),
                         character, weapon, getGold());
 
-                player.setImageAsset(character.getSpriteAsset());
+                player.setImageAsset(character.getSprite());
                 GameState.reset();
                 GameState.getInstance().setPlayer(player);
                 toGameScreen();
