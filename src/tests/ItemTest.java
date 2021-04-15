@@ -8,6 +8,7 @@ import quack.models.items.Item;
 import quack.models.monsters.Monster;
 import quack.models.weapons.KatanaWeapon;
 import quack.models.weapons.KnifeWeapon;
+import quack.models.weapons.LongSwordWeapon;
 import quack.models.weapons.Weapon;
 
 import static org.junit.Assert.assertEquals;
@@ -46,5 +47,37 @@ public class ItemTest {
         item.use();
 
         assertEquals(oldAttack + 10, GameState.getInstance().getPlayer().getCurrAttack());
+    }
+
+    @Test
+    public void weaponTest() {
+        QuackCharacter character = new QuackCharacter();
+        Weapon weapon = new LongSwordWeapon();
+        Player player = new Player("Pelican", character, weapon, 100);
+
+        GameState.getInstance();
+        GameState.getInstance().setPlayer(player);
+
+        int oldAttack = GameState.getInstance().getPlayer().getCurrAttack();
+
+        weapon.use();
+
+        assertEquals(oldAttack, GameState.getInstance().getPlayer().getCurrAttack());
+    }
+
+    @Test
+    public void separateWeaponTest() {
+        QuackCharacter character = new QuackCharacter();
+        Weapon weapon = new KnifeWeapon();
+        Player player = new Player("Quack", character, weapon, 100);
+
+        GameState.getInstance();
+        GameState.getInstance().setPlayer(player);
+
+        int oldAttack = GameState.getInstance().getPlayer().getCurrAttack();
+
+        weapon.use();
+
+        assertEquals(oldAttack, GameState.getInstance().getPlayer().getCurrAttack());
     }
 }
