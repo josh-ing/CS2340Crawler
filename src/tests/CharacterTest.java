@@ -27,7 +27,7 @@ public class CharacterTest {
     @Test
     public void testPlayerPelican() {
         pelican = new PelicanCharacter();
-        assertEquals(pelican.getAsset(), "src/main/resources/assets/characters/pelicanchar.png");
+        assertEquals(pelican.getAsset(), "src/main/resources/assets/characters/chicken.gif");
     }
 
 
