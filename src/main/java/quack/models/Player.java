@@ -16,7 +16,7 @@ public class Player extends GameObject implements Attacker, Attackable {
     private int currHealth;
 
     public Player(String name, Character character, Weapon weapon, int gold) {
-        super("src/main/resources/assets/characters/quackchar.png",
+        super("src/main/resources/assets/quack.gif",
                 10000000 / character.getSpeed());
         this.name = name;
         this.character = character;

@@ -37,9 +37,9 @@ public class ConfigController extends Controller {
             if (this.checkFields()) {
                 String playerType = configure.getDuck();
                 Character character;
-                if (playerType.equals("Quack")) {
+                if (playerType.equals("quack")) {
                     character = new QuackCharacter();
-                } else if (playerType.equals("Henry")) {
+                } else if (playerType.equals("henry")) {
                     character = new HenryCharacter();
                 } else {
                     character = new PelicanCharacter();

@@ -15,13 +15,13 @@ public class CharacterTest {
     @Test
     public void testPlayerQuack() {
         quack = new QuackCharacter();
-        assertEquals(quack.getAsset(), "src/main/resources/assets/characters/quackchar.png");
+        assertEquals(quack.getAsset(), "src/main/resources/assets/quack.gif");
     }
 
     @Test
     public void testPlayerHenry() {
         henry = new HenryCharacter();
-        assertEquals(henry.getAsset(), "src/main/resources/assets/characters/henrychar.png");
+        assertEquals(henry.getAsset(), "src/main/resources/assets/henry.gif");
     }
 
     @Test
