@@ -10,16 +10,13 @@ import java.util.Set;
 
 public class GameState {
     private static GameState gameState = null;
-    private ArrayList<Item> inventory = new ArrayList<>();
+
     private Player player;
     private Room currentRoom;
     private Set<Room> visitedRooms = new HashSet<>();
     private ArrayList<KeyEvent> currentInputs = new ArrayList<>();
-<<<<<<< HEAD
-=======
     private Inventory inventory = new Inventory();
     private Item usedItem;
->>>>>>> 67d8f8d0a1272678384d94a883d168cf4fc24832
 
     private GameState() {
         RoomGenerator roomGenerator = new RoomGenerator(7, 24, 18);
@@ -79,8 +76,6 @@ public class GameState {
         return visitedRooms;
     }
 
-<<<<<<< HEAD
-=======
     public Inventory getInventory() {
         return inventory;
     }
@@ -96,5 +91,4 @@ public class GameState {
     public Item getUsedItem() {
         return usedItem;
     }
->>>>>>> 67d8f8d0a1272678384d94a883d168cf4fc24832
 }
