@@ -15,9 +15,11 @@ public class HealthPotion extends Item {
         GameState.getInstance().getInventory().getItems().remove(this);
         Player player = GameState.getInstance().getPlayer();
         player.setCurrHealth(player.getCurrHealth() + 200);
+        GameState.getInstance().setUsedItem(null);
     }
 
     @Override
     public void unUse() {
+
     }
 }
