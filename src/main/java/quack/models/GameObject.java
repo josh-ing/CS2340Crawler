@@ -34,6 +34,12 @@ public abstract class GameObject implements Renderable {
         this("", 500);
     }
 
+    public GameObject(Image image) {
+        this.imageAsset = image;
+        updatePeriod = 500;
+    }
+
+
     public void update(long l) {
         if (l > lastUpdate + updatePeriod) {
             lastUpdate = l;
