@@ -24,23 +24,23 @@ public class Chest extends GameObject {
         ItemTypes randomType = types[random.nextInt(types.length)];
 
         switch (randomType) {
-            case SUPER_POTION:
-                item = new SuperPotion();
-                break;
-            case ATTACK_POTION:
-                item = new AttackPotion();
-                break;
-            case HEALTH_POTION:
-                item = new HealthPotion();
-                break;
-            case KNIFE:
-                item = new KnifeWeapon();
-                break;
-            case SWORD:
-                item = new LongSwordWeapon();
-                break;
-            default:
-                item = new KatanaWeapon();
+        case SUPER_POTION:
+            item = new SuperPotion();
+            break;
+        case ATTACK_POTION:
+            item = new AttackPotion();
+            break;
+        case HEALTH_POTION:
+            item = new HealthPotion();
+            break;
+        case KNIFE:
+            item = new KnifeWeapon();
+            break;
+        case SWORD:
+            item = new LongSwordWeapon();
+            break;
+        default:
+            item = new KatanaWeapon();
         }
     }
 

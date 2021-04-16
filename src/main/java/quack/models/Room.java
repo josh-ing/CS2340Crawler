@@ -2,7 +2,6 @@ package quack.models;
 
 import quack.models.items.Chest;
 import quack.models.items.DroppedItem;
-import quack.models.items.Item;
 import quack.models.monsters.EasyMonster;
 import quack.models.monsters.HardMonster;
 import quack.models.monsters.MediumMonster;
@@ -156,7 +155,8 @@ public class Room {
     public boolean isValidPosition(Position position) {
         for (GameObject go : GameState.getInstance().getCurrentRoom().getGameObjects()) {
             if (position.getRow() == go.getPosition().getRow()
-                    && position.getCol() == go.getPosition().getCol() && !(go instanceof DroppedItem)) {
+                    && position.getCol() == go.getPosition().getCol()
+                    && !(go instanceof DroppedItem)) {
                 return false;
             }
         }

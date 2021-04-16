@@ -8,11 +8,13 @@ public class InventoryHUD {
     private Image inventory;
     private Image inventorySelect;
 
-    public InventoryHUD () {
+    public InventoryHUD() {
         try {
-            inventory = new Image(new FileInputStream("src/main/resources/assets/inventory/inventory.png"));
-            inventorySelect = new Image(new FileInputStream("src/main/resources/assets/inventory/inventorySelect.png"));
-        } catch (FileNotFoundException e){
+            inventory = new Image(new FileInputStream(
+                    "src/main/resources/assets/inventory/inventory.png"));
+            inventorySelect = new Image(new FileInputStream(
+                    "src/main/resources/assets/inventory/inventorySelect.png"));
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 

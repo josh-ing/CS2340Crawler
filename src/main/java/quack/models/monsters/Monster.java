@@ -1,6 +1,4 @@
 package quack.models.monsters;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import quack.models.*;
 import quack.models.items.*;
 import quack.models.weapons.KatanaWeapon;
@@ -26,23 +24,23 @@ public abstract class Monster extends GameObject implements Attacker, Attackable
         ItemTypes randomType = types[random.nextInt(types.length)];
 
         switch (randomType) {
-            case SUPER_POTION:
-                loot = new DroppedItem(new SuperPotion());
-                break;
-            case ATTACK_POTION:
-                loot = new DroppedItem(new AttackPotion());
-                break;
-            case HEALTH_POTION:
-                loot = new DroppedItem(new HealthPotion());
-                break;
-            case KNIFE:
-                loot = new DroppedItem(new KnifeWeapon());
-                break;
-            case SWORD:
-                loot = new DroppedItem(new LongSwordWeapon());
-                break;
-            default:
-                loot = new DroppedItem(new KatanaWeapon());
+        case SUPER_POTION:
+            loot = new DroppedItem(new SuperPotion());
+            break;
+        case ATTACK_POTION:
+            loot = new DroppedItem(new AttackPotion());
+            break;
+        case HEALTH_POTION:
+            loot = new DroppedItem(new HealthPotion());
+            break;
+        case KNIFE:
+            loot = new DroppedItem(new KnifeWeapon());
+            break;
+        case SWORD:
+            loot = new DroppedItem(new LongSwordWeapon());
+            break;
+        default:
+            loot = new DroppedItem(new KatanaWeapon());
         }
     }
 

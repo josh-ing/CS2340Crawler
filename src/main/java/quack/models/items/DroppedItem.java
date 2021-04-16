@@ -1,10 +1,5 @@
 package quack.models.items;
-
-import javafx.scene.image.Image;
 import quack.models.GameObject;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class DroppedItem extends GameObject {
     private Item item;

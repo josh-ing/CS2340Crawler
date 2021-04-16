@@ -4,7 +4,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import quack.models.GameObject;
 import quack.models.GameState;
-import quack.models.Renderable;
 import quack.models.Room;
 import javafx.scene.text.Text;
 import quack.models.items.Inventory;
@@ -13,9 +12,6 @@ import quack.models.items.Item;
 import quack.models.tilesets.TileSet;
 import quack.models.tilesets.OutsideTileSet;
 import quack.views.components.ImageViewGrid;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class GameScreen extends Pane {
@@ -62,7 +58,8 @@ public class GameScreen extends Pane {
         equipGrid.toFront();
         roomGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
         gameObjectGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
-        this.getChildren().addAll(roomGrid, gameObjectGrid, inventoryBlock, inventoryGrid, equipBlock, equipGrid, goldText, healthText, attackText);
+        this.getChildren().addAll(roomGrid, gameObjectGrid, inventoryBlock,
+                inventoryGrid, equipBlock, equipGrid, goldText, healthText, attackText);
     }
 
     public void updateRoomGrid(Room.RoomCellType[][] map) {
