@@ -1,4 +1,6 @@
 package quack.models.monsters;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import quack.models.*;
 import quack.models.items.*;
 import quack.models.weapons.KatanaWeapon;

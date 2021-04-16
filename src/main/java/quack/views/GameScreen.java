@@ -108,15 +108,13 @@ public class GameScreen extends Pane {
 
         if (GameState.getInstance().getUsedItem() != null) {
             equipGrid.setImage(GameState.getInstance().getUsedItem().getSprite(), 0, 1);
-            equipBlock.setImage(hud.getInventorySelect(), 0, 1); //uhm?
-            //ok here's the rundown
-            //create a wrapper class specifically for inventory blocks
-            //congraduations problem solved
+            equipBlock.setImage(hud.getInventorySelect(), 0, 1);
             equipGrid.toFront();
         }
 
         equipGrid.setImage(GameState.getInstance().getPlayer().getWeapon().getSprite(), 0, 0);
         equipBlock.setImage(hud.getInventorySelect(), 0, 0);
+        equipBlock.setImage(null, 0, 1);
         equipGrid.toFront();
     }
 

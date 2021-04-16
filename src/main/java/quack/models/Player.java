@@ -3,6 +3,7 @@ package quack.models;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import quack.models.characters.Character;
+import quack.models.items.DroppedItem;
 import quack.models.items.Item;
 import quack.models.weapons.Weapon;
 
@@ -34,6 +35,7 @@ public class Player extends GameObject implements Attacker, Attackable {
         checkPlayerAttack();
         checkInventory();
         checkCellEvent();
+        checkDroppedItems();
     }
 
     public void checkInventory() {
@@ -144,6 +146,19 @@ public class Player extends GameObject implements Attacker, Attackable {
                 default:
                     break;
                 }
+            }
+        }
+    }
+
+    public void checkDroppedItems() {
+        Room currentRoom = GameState.getInstance().getCurrentRoom();
+
+        for (GameObject o : currentRoom.getGameObjects()) {
+            if (o instanceof DroppedItem && this.getPosition().equals(o.getPosition())) {
+                System.out.println("sampletext");
+                DroppedItem dropItem = (DroppedItem) o;
+                GameState.getInstance().getInventory().addItem(dropItem.getItem());
+                currentRoom.getGameObjects().remove(o);
             }
         }
     }

@@ -11,6 +11,7 @@ public class DroppedItem extends GameObject {
 
     public DroppedItem(Item item) {
         super(item.getSprite());
+        this.item = item;
 
     }
 
