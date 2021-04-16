@@ -155,7 +155,6 @@ public class Player extends GameObject implements Attacker, Attackable {
 
         for (GameObject o : currentRoom.getGameObjects()) {
             if (o instanceof DroppedItem && this.getPosition().equals(o.getPosition())) {
-                System.out.println("sampletext");
                 DroppedItem dropItem = (DroppedItem) o;
                 GameState.getInstance().getInventory().addItem(dropItem.getItem());
                 currentRoom.getGameObjects().remove(o);
