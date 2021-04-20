@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 
 public class MainMenuScreen extends VBox {
 
-    private Button newGameButton;
+    private Button newGameButton, instructPageButton;
 
     public MainMenuScreen() throws FileNotFoundException {
         super();
@@ -42,9 +42,15 @@ public class MainMenuScreen extends VBox {
         newGameButton.setTranslateY(-200);
         newGameButton.setTranslateX(-200);
 
+        instructPageButton = new Button("Instructions");
+        instructPageButton.setBackground(background1);
+        instructPageButton.setFont(font1);
+        instructPageButton.setTranslateY(-130);
+        instructPageButton.setTranslateX(-90);
+
         this.setBackground(background);
         this.setAlignment(Pos.BOTTOM_RIGHT);
-        this.getChildren().add(newGameButton);
+        this.getChildren().addAll(newGameButton, instructPageButton);
     }
 
     public Button getNewGameButton() {
@@ -53,5 +59,13 @@ public class MainMenuScreen extends VBox {
 
     public void setNewGameButton(Button newGameButton) {
         this.newGameButton = newGameButton;
+    }
+
+    public Button getInstructPageButton() {
+        return instructPageButton;
+    }
+
+    public void setInstructPageButton(Button newGameButton) {
+        this.newGameButton = instructPageButton;
     }
 }
