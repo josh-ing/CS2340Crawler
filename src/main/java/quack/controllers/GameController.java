@@ -33,6 +33,7 @@ public class GameController extends Controller {
         gameScreen.setMinHeight(900);
         //gameScreen.getGoldText().setText("Gold: " + player.getGold());
         Button getBackMenu = gameScreen.getBackMenu();
+        getBackMenu.setFocusTraversable(false);
         getBackMenu.setOnAction(e -> {
             try {
                 toMenuScreen();
