@@ -254,6 +254,7 @@ public class Player extends GameObject implements Attacker, Attackable {
     public void attack(Attackable target) {
         if (target != null) {
             target.damage(currAttack + weapon.getAttack());
+            GameState.getInstance().incrementDamageDealt(currAttack + weapon.getAttack());
         }
     }
 
