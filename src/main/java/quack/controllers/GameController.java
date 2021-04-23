@@ -1,11 +1,13 @@
 package quack.controllers;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import quack.models.*;
 import quack.views.GameScreen;
 
+import java.io.FileNotFoundException;
 import java.util.ConcurrentModificationException;
 
 /**
@@ -30,6 +32,14 @@ public class GameController extends Controller {
         gameScreen.setMinWidth(1200);
         gameScreen.setMinHeight(900);
         //gameScreen.getGoldText().setText("Gold: " + player.getGold());
+        Button getBackMenu = gameScreen.getBackMenu();
+        getBackMenu.setOnAction(e -> {
+            try {
+                toMenuScreen();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
 
         this.stage.setScene(new Scene(gameScreen));
         gameScreen.updateRoomGrid(GameState.getInstance().getCurrentRoom().getMap());
@@ -92,5 +102,13 @@ public class GameController extends Controller {
         gameScreen.setAttack(GameState.getInstance().getPlayer().getCurrAttack());
         gameScreen.updateInventoryGrid();
         gameScreen.updateEquipGrid();
+    }
+    /**
+     * Goes back to the menu screen.
+     * @throws FileNotFoundException if the file is not found.
+     */
+    public void toMenuScreen() throws FileNotFoundException {
+        MainMenuController mainMenu = new MainMenuController(stage);
+        mainMenu.initMainMenu();
     }
 }

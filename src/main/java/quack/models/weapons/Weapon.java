@@ -1,10 +1,6 @@
 package quack.models.weapons;
-import javafx.scene.image.Image;
 import quack.models.GameState;
 import quack.models.items.Item;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 /**
  * Class representing a weapon

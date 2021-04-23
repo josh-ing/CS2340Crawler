@@ -1,10 +1,18 @@
 package quack.views;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import quack.models.GameObject;
 import quack.models.GameState;
-import quack.models.Renderable;
 import quack.models.Room;
 import javafx.scene.text.Text;
 import quack.models.items.Inventory;
@@ -13,9 +21,6 @@ import quack.models.items.Item;
 import quack.models.tilesets.TileSet;
 import quack.models.tilesets.OutsideTileSet;
 import quack.views.components.ImageViewGrid;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class GameScreen extends Pane {
@@ -31,6 +36,7 @@ public class GameScreen extends Pane {
     private ImageViewGrid inventoryBlock;
     private InventoryHUD hud;
     private TileSet currentTileSet = new OutsideTileSet();
+    private Button menuButton;
 
     static final int ROWS = 18;
     static final int COLUMNS = 24;
@@ -62,7 +68,28 @@ public class GameScreen extends Pane {
         equipGrid.toFront();
         roomGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
         gameObjectGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
-        this.getChildren().addAll(roomGrid, gameObjectGrid, inventoryBlock, inventoryGrid, equipBlock, equipGrid, goldText, healthText, attackText);
+
+        Font font1;
+        String fontFamily = "Tw Cen MT";
+        FontWeight fontWeight = FontWeight.BOLD;
+        double fontSize = 20;
+
+        BackgroundFill backgroundFillBut = new BackgroundFill(Color.MOCCASIN,
+            CornerRadii.EMPTY, Insets.EMPTY);
+        Background background1 = new Background(backgroundFillBut);
+
+
+        font1 = Font.font(fontFamily, fontWeight, fontSize);
+        menuButton = new Button("Exit");
+        menuButton.setBackground(background1);
+        menuButton.setFont(font1);
+        menuButton.setTranslateY(850);
+        menuButton.setTranslateX(1130);
+        menuButton.setBackground(background1);
+        menuButton.setAlignment(Pos.BOTTOM_RIGHT);
+
+        this.getChildren().addAll(roomGrid, gameObjectGrid, inventoryBlock,
+                inventoryGrid, equipBlock, equipGrid, goldText, healthText, attackText, menuButton);
     }
 
     public void updateRoomGrid(Room.RoomCellType[][] map) {
@@ -108,15 +135,13 @@ public class GameScreen extends Pane {
 
         if (GameState.getInstance().getUsedItem() != null) {
             equipGrid.setImage(GameState.getInstance().getUsedItem().getSprite(), 0, 1);
-            equipBlock.setImage(hud.getInventorySelect(), 0, 1); //uhm?
-            //ok here's the rundown
-            //create a wrapper class specifically for inventory blocks
-            //congraduations problem solved
+            equipBlock.setImage(hud.getInventorySelect(), 0, 1);
             equipGrid.toFront();
         }
 
         equipGrid.setImage(GameState.getInstance().getPlayer().getWeapon().getSprite(), 0, 0);
         equipBlock.setImage(hud.getInventorySelect(), 0, 0);
+        equipBlock.setImage(null, 0, 1);
         equipGrid.toFront();
     }
 
@@ -130,5 +155,11 @@ public class GameScreen extends Pane {
 
     public void setAttack(int attack) {
         attackText.setText("ATTACK: " + attack);
+    }
+    public Button getBackMenu() {
+        return menuButton;
+    }
+    public void setBackMenu(Button newGameButton) {
+        this.menuButton = menuButton;
     }
 }

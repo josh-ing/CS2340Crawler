@@ -3,6 +3,7 @@ package quack.models;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import quack.models.characters.Character;
+import quack.models.items.DroppedItem;
 import quack.models.items.Item;
 import quack.models.weapons.Weapon;
 
@@ -34,6 +35,7 @@ public class Player extends GameObject implements Attacker, Attackable {
         checkPlayerAttack();
         checkInventory();
         checkCellEvent();
+        checkDroppedItems();
     }
 
     public void checkInventory() {
@@ -42,31 +44,33 @@ public class Player extends GameObject implements Attacker, Attackable {
 
         for (KeyEvent keyEvent : inputs) {
             switch (keyEvent.getCode()) {
-                case DIGIT1:
-                    if (inventory.size() > 0) {
-                        inventory.get(0).use();
-                    }
-                    break;
-                case DIGIT2:
-                    if (inventory.size() > 1) {
-                        inventory.get(1).use();
-                    }
-                    break;
-                case DIGIT3:
-                    if (inventory.size() > 2) {
-                        inventory.get(2).use();
-                    }
-                    break;
-                case DIGIT4:
-                    if (inventory.size() > 3) {
-                        inventory.get(3).use();
-                    }
-                    break;
-                case DIGIT5:
-                    if (inventory.size() > 4) {
-                        inventory.get(4).use();
-                    }
-                    break;
+            case DIGIT1:
+                if (inventory.size() > 0) {
+                    inventory.get(0).use();
+                }
+                break;
+            case DIGIT2:
+                if (inventory.size() > 1) {
+                    inventory.get(1).use();
+                }
+                break;
+            case DIGIT3:
+                if (inventory.size() > 2) {
+                    inventory.get(2).use();
+                }
+                break;
+            case DIGIT4:
+                if (inventory.size() > 3) {
+                    inventory.get(3).use();
+                }
+                break;
+            case DIGIT5:
+                if (inventory.size() > 4) {
+                    inventory.get(4).use();
+                }
+                break;
+            default:
+                break;
             }
         }
     }
@@ -144,6 +148,18 @@ public class Player extends GameObject implements Attacker, Attackable {
                 default:
                     break;
                 }
+            }
+        }
+    }
+
+    public void checkDroppedItems() {
+        Room currentRoom = GameState.getInstance().getCurrentRoom();
+
+        for (GameObject o : currentRoom.getGameObjects()) {
+            if (o instanceof DroppedItem && this.getPosition().equals(o.getPosition())) {
+                DroppedItem dropItem = (DroppedItem) o;
+                GameState.getInstance().getInventory().addItem(dropItem.getItem());
+                currentRoom.getGameObjects().remove(o);
             }
         }
     }
