@@ -205,8 +205,9 @@ public class Player extends GameObject implements Attacker, Attackable {
         }
 
         if (nextRoom != null) {
-            if (GameState.getInstance().getVisitedRooms()
-                    .contains(nextRoom) || currentRoom.isEmptyOfMonsters()) {
+            boolean isChallengeDone = currentRoom.getRoomType() != Room.RoomType.CHALLENGE || currentRoom.isEmptyOfMonsters();
+            if (isChallengeDone && (GameState.getInstance().getVisitedRooms()
+                    .contains(nextRoom) || currentRoom.isEmptyOfMonsters())) {
                 GameState.getInstance().setCurrentRoom(nextRoom);
                 setPosition(nextPosition);
             }

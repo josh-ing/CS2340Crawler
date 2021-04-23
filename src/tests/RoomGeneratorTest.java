@@ -53,7 +53,7 @@ public class RoomGeneratorTest {
         assertEquals(9, countRooms(roomGenerator));
 
         roomGenerator = new RoomGenerator(7, 24, 17);
-        assertEquals(13, countRooms(roomGenerator));
+        assertEquals(13 + 2, countRooms(roomGenerator));
     }
 
     @Test

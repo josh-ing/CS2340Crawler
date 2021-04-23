@@ -2,10 +2,7 @@ package quack.models;
 
 import quack.models.items.Chest;
 import quack.models.items.DroppedItem;
-import quack.models.monsters.EasyMonster;
-import quack.models.monsters.HardMonster;
-import quack.models.monsters.MediumMonster;
-import quack.models.monsters.Monster;
+import quack.models.monsters.*;
 import quack.models.tilesets.OutsideTileSet;
 import quack.models.tilesets.TileSet;
 import java.util.Random;
@@ -34,7 +31,7 @@ public class Room {
     public enum RoomType {
         START,
         TREASURE,
-        SHOP,
+        CHALLENGE,
         MONSTER,
         BOSS,
         EXIT,
@@ -47,9 +44,6 @@ public class Room {
     private ArrayList<GameObject> gameObjects;
     private Random random = new Random();
 
-    private static final int NUM_EASY_MONSTERS = 3;
-    private static final int NUM_MEDIUM_MONSTERS = 1;
-    private static final int NUM_HARD_MONSTERS = 1;
 
     public Room(RoomCellType[][] map, RoomType type, Room[] neighbors, TileSet tileSet) {
         this.type = type;
@@ -57,38 +51,48 @@ public class Room {
         this.neighbors = neighbors;
         this.tileSet = tileSet;
         this.gameObjects = new ArrayList<>();
-
-        if (type != RoomType.START) {
-            for (int i = 0; i < NUM_EASY_MONSTERS; i++) {
-                Monster monster = new EasyMonster();
-                ArrayList<Position> validPositions = getValidPositions();
-                monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
-
-                addGameObject(monster);
-            }
-
-            for (int i = 0; i < NUM_MEDIUM_MONSTERS; i++) {
-                Monster monster = new MediumMonster();
-                ArrayList<Position> validPositions = getValidPositions();
-                monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
-
-                addGameObject(monster);
-            }
-
-            for (int i = 0; i < NUM_HARD_MONSTERS; i++) {
-                Monster monster = new HardMonster();
-                ArrayList<Position> validPositions = getValidPositions();
-                monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
-
-                addGameObject(monster);
-            }
-
+        if (type == RoomType.CHALLENGE) {
+            Monster monster = new ChallengeTotem();
+            monster.setPosition(new Position(9, 12));
+            addGameObject(monster);
+        }else if (type != RoomType.START) {
+            spawnMonsters(3, 1, 1);
             Chest chest = new Chest();
             ArrayList<Position> validPositions = getValidPositions();
             chest.setPosition(validPositions.get(random.nextInt(validPositions.size())));
 
             addGameObject(chest);
         }
+
+    }
+
+    public void spawnMonsters(int numEasy, int numMed, int numHard) {
+
+        for (int i = 0; i < numEasy; i++) {
+            Monster monster = new EasyMonster();
+            ArrayList<Position> validPositions = getValidPositions();
+            monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+
+            addGameObject(monster);
+        }
+
+        for (int i = 0; i < numMed; i++) {
+            Monster monster = new MediumMonster();
+            ArrayList<Position> validPositions = getValidPositions();
+            monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+
+            addGameObject(monster);
+        }
+
+        for (int i = 0; i < numHard; i++) {
+            Monster monster = new HardMonster();
+            ArrayList<Position> validPositions = getValidPositions();
+            monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+
+            addGameObject(monster);
+        }
+
+
     }
 
     public Room(RoomCellType[][] map, RoomType type) {
@@ -218,6 +222,16 @@ public class Room {
     }
 
     public boolean isEmptyOfMonsters() {
+        if (type == RoomType.CHALLENGE) {
+            for (GameObject go : gameObjects) {
+                if (go instanceof ChallengeTotem) {
+                    return true;
+                }
+                if (go instanceof HardMonster) {
+                    return false;
+                }
+            }
+        }
         for (GameObject go : gameObjects) {
             if (go instanceof Monster) {
                 return false;
