@@ -5,6 +5,7 @@ import quack.models.items.DroppedItem;
 import quack.models.monsters.EasyMonster;
 import quack.models.monsters.HardMonster;
 import quack.models.monsters.MediumMonster;
+import quack.models.monsters.Boss;
 import quack.models.monsters.Monster;
 import quack.models.tilesets.OutsideTileSet;
 import quack.models.tilesets.TileSet;
@@ -59,36 +60,44 @@ public class Room {
         this.gameObjects = new ArrayList<>();
 
         if (type != RoomType.START) {
-            for (int i = 0; i < NUM_EASY_MONSTERS; i++) {
-                Monster monster = new EasyMonster();
+            if (type == RoomType.BOSS) {
+                Monster monster = new Boss();
                 ArrayList<Position> validPositions = getValidPositions();
                 monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
-
                 addGameObject(monster);
-            }
+            } else {
+                for (int i = 0; i < NUM_EASY_MONSTERS; i++) {
+                    Monster monster = new EasyMonster();
+                    ArrayList<Position> validPositions = getValidPositions();
+                    monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
 
-            for (int i = 0; i < NUM_MEDIUM_MONSTERS; i++) {
-                Monster monster = new MediumMonster();
+                    addGameObject(monster);
+                }
+
+                for (int i = 0; i < NUM_MEDIUM_MONSTERS; i++) {
+                    Monster monster = new MediumMonster();
+                    ArrayList<Position> validPositions = getValidPositions();
+                    monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+
+                    addGameObject(monster);
+                }
+
+                for (int i = 0; i < NUM_HARD_MONSTERS; i++) {
+                    Monster monster = new HardMonster();
+                    ArrayList<Position> validPositions = getValidPositions();
+                    monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+
+                    addGameObject(monster);
+                }
+
+                Chest chest = new Chest();
                 ArrayList<Position> validPositions = getValidPositions();
-                monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+                chest.setPosition(validPositions.get(random.nextInt(validPositions.size())));
 
-                addGameObject(monster);
+                addGameObject(chest);
             }
-
-            for (int i = 0; i < NUM_HARD_MONSTERS; i++) {
-                Monster monster = new HardMonster();
-                ArrayList<Position> validPositions = getValidPositions();
-                monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
-
-                addGameObject(monster);
-            }
-
-            Chest chest = new Chest();
-            ArrayList<Position> validPositions = getValidPositions();
-            chest.setPosition(validPositions.get(random.nextInt(validPositions.size())));
-
-            addGameObject(chest);
         }
+
     }
 
     public Room(RoomCellType[][] map, RoomType type) {

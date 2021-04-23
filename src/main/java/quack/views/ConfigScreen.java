@@ -81,10 +81,10 @@ public class ConfigScreen extends VBox {
                 "src/main/resources/assets/quack.gif", "Quack", duckGroup);
         SelectCharacterWrapper henry = new SelectCharacterWrapper(
                 "src/main/resources/assets/henry.gif", "Henry", duckGroup);
-        SelectCharacterWrapper pelican = new SelectCharacterWrapper(
-                "src/main/resources/assets/chicken.gif", "Pelican", duckGroup);
+        SelectCharacterWrapper chicken = new SelectCharacterWrapper(
+                "src/main/resources/assets/chicken.gif", "Chicken", duckGroup);
 
-        imageWrapperTotal.getChildren().addAll(quack, henry, pelican);
+        imageWrapperTotal.getChildren().addAll(quack, henry, chicken);
         imageWrapperTotal.setAlignment(Pos.CENTER);
 
         this.getChildren().addAll(nameWrapper, difficultySelection,
