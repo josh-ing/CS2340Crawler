@@ -10,7 +10,7 @@ public class Boss extends Monster {
 
     @Override
     public void update() {
-        movement();
+        this.movement();
         super.randomAttack();
     }
 
@@ -50,19 +50,19 @@ public class Boss extends Monster {
                 small = adjacentArray[i];
                 smallestIndex = i;
             }
-            if (smallestIndex == 1) {
-                //up
-                nextMove = rotations[1];
-            } else if (smallestIndex == 3) {
-                //down
-                nextMove = rotations[3];
-            } else if (smallestIndex == 2) {
-                //left
-                nextMove = rotations[2];
-            } else if (smallestIndex == 0) {
-                //right
-                nextMove = rotations[0];
-            }
+        }
+        if (smallestIndex == 1) {
+            //up
+            nextMove = rotations[1];
+        } else if (smallestIndex == 3) {
+            //down
+            nextMove = rotations[3];
+        } else if (smallestIndex == 2) {
+            //left
+            nextMove = rotations[2];
+        } else if (smallestIndex == 0) {
+            //right
+            nextMove = rotations[0];
         }
         switch (nextMove) {
             case RIGHT:
