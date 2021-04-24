@@ -32,6 +32,7 @@ public class GameScreen extends Pane {
     private ImageViewGrid roomGrid;
     private ImageViewGrid gameObjectGrid;
     private ImageViewGrid inventoryGrid;
+    private ImageViewGrid effectsGrid;
     private ImageViewGrid equipBlock;
     private ImageViewGrid inventoryBlock;
     private InventoryHUD hud;
@@ -68,6 +69,7 @@ public class GameScreen extends Pane {
         equipGrid.toFront();
         roomGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
         gameObjectGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
+        effectsGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
 
         Font font1;
         String fontFamily = "Tw Cen MT";
@@ -88,7 +90,7 @@ public class GameScreen extends Pane {
         menuButton.setBackground(background1);
         menuButton.setAlignment(Pos.BOTTOM_RIGHT);
 
-        this.getChildren().addAll(roomGrid, gameObjectGrid, inventoryBlock,
+        this.getChildren().addAll(roomGrid, gameObjectGrid, effectsGrid, inventoryBlock,
                 inventoryGrid, equipBlock, equipGrid, goldText, healthText, attackText, menuButton);
     }
 
@@ -143,6 +145,19 @@ public class GameScreen extends Pane {
         equipBlock.setImage(hud.getInventorySelect(), 0, 0);
         equipBlock.setImage(null, 0, 1);
         equipGrid.toFront();
+    }
+
+    public void updateEffectsGrid(ArrayList<GameObject> effectObjects) {
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLUMNS; c++) {
+                effectsGrid.setImage(null, r, c);
+            }
+        }
+
+        for (GameObject eo: effectObjects) {
+            effectsGrid.setImage(eo.getSprite(),
+                    eo.getPosition().getRow(), eo.getPosition().getCol());
+        }
     }
 
     public void setHealth(int health) {
