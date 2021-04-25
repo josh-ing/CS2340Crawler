@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,6 +19,9 @@ import java.io.FileNotFoundException;
 public class LoseScreen extends VBox {
 
     private Button menuButton;
+    private Text textStatMonster = new Text();
+    private Text textStatDamage = new Text();
+    private Text textStatGold = new Text();
 
     /**
      * Constructor initializing all the fields for the lose screen.
@@ -53,6 +57,22 @@ public class LoseScreen extends VBox {
         Background background1 = new Background(backgroundFillBut);
 
         font1 = Font.font(fontFamily, fontWeight, fontSize);
+
+        textStatMonster.setFont(font1);
+        textStatMonster.setFill(Color.ALICEBLUE);
+        textStatMonster.setTranslateY(-300);
+        textStatMonster.setTranslateX(-430);
+
+        textStatGold.setFont(font1);
+        textStatGold.setFill(Color.ALICEBLUE);
+        textStatGold.setTranslateY(-280);
+        textStatGold.setTranslateX(-430);
+
+        textStatDamage.setFont(font1);
+        textStatDamage.setFill(Color.ALICEBLUE);
+        textStatDamage.setTranslateY(-290);
+        textStatDamage.setTranslateX(-430);
+
         menuButton = new Button("Play Again!");
         menuButton.setBackground(background1);
         menuButton.setFont(font1);
@@ -61,7 +81,7 @@ public class LoseScreen extends VBox {
 
 
         this.setAlignment(Pos.BOTTOM_RIGHT);
-        this.getChildren().add(menuButton);
+        this.getChildren().addAll(textStatDamage, textStatMonster, textStatGold, menuButton);
     }
 
     /**

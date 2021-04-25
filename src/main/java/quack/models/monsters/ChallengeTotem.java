@@ -6,7 +6,7 @@ import quack.models.GameState;
 
 public class ChallengeTotem extends Monster implements Attackable {
     public ChallengeTotem() {
-        super(1, 0, 1, "src/main/resources/assets/monsters/HardMonster.gif");
+        super(1, 0, 1, "src/main/resources/assets/monsters/totem.png");
     }
 
     @Override
