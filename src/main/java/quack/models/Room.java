@@ -2,11 +2,7 @@ package quack.models;
 
 import quack.models.items.Chest;
 import quack.models.items.DroppedItem;
-import quack.models.monsters.EasyMonster;
-import quack.models.monsters.HardMonster;
-import quack.models.monsters.MediumMonster;
-import quack.models.monsters.Boss;
-import quack.models.monsters.Monster;
+import quack.models.monsters.*;
 import quack.models.tilesets.OutsideTileSet;
 import quack.models.tilesets.TileSet;
 import java.util.Random;

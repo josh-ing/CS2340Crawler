@@ -8,6 +8,10 @@ import quack.models.Room;
 import java.util.ArrayList;
 
 public class Boss extends Monster {
+    //particle effects for attack
+    private Projectile fire = new Projectile();
+
+
     public Boss() { super(200, 20, 2, "src/main/resources/assets/monsters/boss.gif" ); }
 
     @Override
@@ -37,6 +41,9 @@ public class Boss extends Monster {
 
         for (Position attackPosition : attackPositions) {
             if (player.getPosition().equals(attackPosition)) {
+                GameState.getInstance().getCurrentRoom().addGameObject(fire);
+                fire.setPosition(attackPosition);
+                fire.setAttacking(true);
                 attack(player);
             }
         }
