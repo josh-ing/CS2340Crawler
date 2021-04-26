@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import quack.models.items.Inventory;
 import quack.models.items.InventoryHUD;
 import quack.models.items.Item;
+import quack.models.monsters.Boss;
 import quack.models.tilesets.TileSet;
 import quack.models.tilesets.OutsideTileSet;
 import quack.views.components.ImageViewGrid;

@@ -55,12 +55,18 @@ public class Room {
             Monster monster = new ChallengeTotem();
             monster.setPosition(new Position(9, 12));
             addGameObject(monster);
+        } else if(type == RoomType.BOSS) {
+            if (type == RoomType.BOSS) {
+                Monster monster = new Boss();
+                ArrayList<Position> validPositions = getValidPositions();
+                monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
+                addGameObject(monster);
+            }
         }else if (type != RoomType.START) {
             spawnMonsters(3, 1, 1);
             Chest chest = new Chest();
             ArrayList<Position> validPositions = getValidPositions();
             chest.setPosition(validPositions.get(random.nextInt(validPositions.size())));
-
             addGameObject(chest);
         }
 
@@ -91,7 +97,6 @@ public class Room {
 
             addGameObject(monster);
         }
-
 
     }
 
