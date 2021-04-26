@@ -4,7 +4,6 @@ import javafx.scene.image.Image;
 import quack.models.GameState;
 
 public class SwordAnim extends Animations{
-    private Image sprite;
 
     public SwordAnim() { super("src/main/resources/assets/damage animations/sword.gif", 500);}
 
@@ -14,6 +13,8 @@ public class SwordAnim extends Animations{
 
     @Override
     public void update() {
-
+        if (!GameState.getInstance().getPlayer().getFacingPosition().equals(this.getPosition())) {
+            GameState.getInstance().getEffectObjects().remove(this);
+        }
     }
 }

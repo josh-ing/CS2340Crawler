@@ -2,6 +2,7 @@ package quack.models;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import quack.models.Effects.Animations;
 import quack.models.Effects.KatanaAnim;
 import quack.models.Effects.KnifeAnim;
 import quack.models.Effects.SwordAnim;
@@ -26,6 +27,7 @@ public class Player extends GameObject implements Attacker, Attackable {
     private KatanaAnim katana = new KatanaAnim();
     private KnifeAnim knife = new KnifeAnim();
     private SwordAnim sword = new SwordAnim();
+
 
     public Player(String name, Character character, Weapon weapon, int gold) {
         super("src/main/resources/assets/quack.gif",
