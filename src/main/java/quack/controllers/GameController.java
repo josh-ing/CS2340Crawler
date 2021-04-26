@@ -57,7 +57,7 @@ public class GameController extends Controller {
 
                 gameScreen.updateGameObjectGrid(GameState.getInstance().getCurrentRoom().
                         getGameObjects());
-                gameScreen.updateEffectsGrid(GameState.getInstance().getEffectObjects());
+                //gameScreen.updateEffectsGrid(GameState.getInstance().getEffectObjects());
                 gameScreen.updateRoomGrid(GameState.getInstance().getCurrentRoom().getMap());
                 gameScreen.updateEquipGrid();
                 gameScreen.updateInventoryGrid();

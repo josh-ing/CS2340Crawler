@@ -19,8 +19,8 @@ public class SelectCharacterWrapper extends VBox {
         ImageView imageView = new ImageView(image);
         RadioButton radioButton = new RadioButton(name);
         radioButton.setToggleGroup(toggleGroup);
-        imageView.setFitHeight(250);
-        imageView.setFitWidth(250);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
         this.getChildren().addAll(imageView, radioButton);
         this.setAlignment(Pos.CENTER);
         this.setSpacing(4);
