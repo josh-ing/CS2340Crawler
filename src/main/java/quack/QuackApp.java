@@ -34,7 +34,7 @@ public class QuackApp extends Application {
         String musicFile = "src/main/resources/music/GameMusic.mp3";
         Media media = new Media(new File(musicFile).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setVolume(0.2);
+        mediaPlayer.setVolume(0.04);
         mediaPlayer.setOnEndOfMedia(new Runnable() {
             public void run() {
                 mediaPlayer.seek(Duration.ZERO);

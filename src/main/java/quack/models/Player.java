@@ -295,8 +295,10 @@ public class Player extends GameObject implements Attacker, Attackable {
         return currAttack;
     }
 
+
     public String getDifficulty() {
         return difficult;
     }
+
 
 }
