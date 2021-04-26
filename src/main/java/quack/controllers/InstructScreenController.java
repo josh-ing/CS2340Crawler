@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import quack.views.InstructScreen;
-import quack.views.MainMenuScreen;
 
 import java.io.FileNotFoundException;
 

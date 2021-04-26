@@ -2,7 +2,6 @@ package quack.models;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import quack.models.Effects.Animations;
 import quack.models.Effects.KatanaAnim;
 import quack.models.Effects.KnifeAnim;
 import quack.models.Effects.SwordAnim;
@@ -24,12 +23,13 @@ public class Player extends GameObject implements Attacker, Attackable {
     private int gold;
     private int currHealth;
     private int currAttack;
+    private String difficult;
     private KatanaAnim katana = new KatanaAnim();
     private KnifeAnim knife = new KnifeAnim();
     private SwordAnim sword = new SwordAnim();
 
 
-    public Player(String name, Character character, Weapon weapon, int gold) {
+    public Player(String name, Character character, Weapon weapon, int gold, String difficult) {
         super("src/main/resources/assets/quack.gif",
                 10000000 / character.getSpeed());
         this.name = name;
@@ -38,6 +38,7 @@ public class Player extends GameObject implements Attacker, Attackable {
         this.gold = gold;
         this.weapon = weapon;
         this.currAttack = character.getAttack();
+        this.difficult = difficult;
         setPosition(new Position(9, 12));
     }
 
@@ -231,7 +232,8 @@ public class Player extends GameObject implements Attacker, Attackable {
         }
 
         if (nextRoom != null) {
-            boolean isChallengeDone = currentRoom.getRoomType() != Room.RoomType.CHALLENGE || currentRoom.isEmptyOfMonsters();
+            boolean isChallengeDone = currentRoom.getRoomType()
+                    != Room.RoomType.CHALLENGE || currentRoom.isEmptyOfMonsters();
             if (isChallengeDone && (GameState.getInstance().getVisitedRooms()
                     .contains(nextRoom) || currentRoom.isEmptyOfMonsters())) {
                 GameState.getInstance().setCurrentRoom(nextRoom);
@@ -292,4 +294,7 @@ public class Player extends GameObject implements Attacker, Attackable {
     public int getCurrAttack() {
         return currAttack;
     }
+
+    public String difficulty() { return difficult; }
+
 }

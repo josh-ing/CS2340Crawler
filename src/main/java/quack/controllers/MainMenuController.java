@@ -40,12 +40,12 @@ public class MainMenuController extends Controller {
 
         });
         instructPageButton.setOnAction(e -> {
-                try {
-                    toInstructScreen();
-                } catch (FileNotFoundException fileNotFoundException) {
-                    fileNotFoundException.printStackTrace();
-                }
-            });
+            try {
+                toInstructScreen();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
         stage.show();
     }
 

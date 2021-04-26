@@ -113,5 +113,7 @@ public class GameState {
         return usedItem;
     }
 
-    public ArrayList<Animations> getEffectObjects() { return effectArray; }
+    public ArrayList<Animations> getEffectObjects() {
+        return effectArray;
+    }
 }

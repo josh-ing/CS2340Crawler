@@ -5,20 +5,15 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import quack.controllers.LoseScreenController;
 import quack.controllers.MainMenuController;
-import quack.controllers.WinScreenController;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.nio.file.Paths;
-
 public class QuackApp extends Application {
 
     protected Stage stage;
     private final int width = 1200;
     private final int height = 900;
+    private MediaPlayer mediaPlayer;
 
     public static void main(String[] args) {
         launch(args);
@@ -35,7 +30,6 @@ public class QuackApp extends Application {
         winScreenController.initMainMenu();
     }
 
-    MediaPlayer mediaPlayer;
     public void music() {
         String musicFile = "src/main/resources/music/GameMusic.mp3";
         Media media = new Media(new File(musicFile).toURI().toString());
@@ -47,7 +41,9 @@ public class QuackApp extends Application {
             }
         });
         mediaPlayer.setAutoPlay(true);
-
     }
 
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
 }

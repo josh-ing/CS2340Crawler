@@ -3,9 +3,11 @@ package quack.models.Effects;
 import javafx.scene.image.Image;
 import quack.models.GameState;
 
-public class SwordAnim extends Animations{
+public class SwordAnim extends Animations {
 
-    public SwordAnim() { super("src/main/resources/assets/damage animations/sword.gif", 500);}
+    public SwordAnim() {
+        super("src/main/resources/assets/damage animations/sword.gif", 500);
+    }
 
     public Image getSprite() {
         return this.getSpriteAsset();

@@ -39,7 +39,8 @@ public class ConfigScreen extends VBox {
         font1 = Font.font(fontFamily, fontWeight, fontSize);
 
         //Background image
-        Image image = new Image(new FileInputStream("src/main/resources/assets/tiles/backgroundConfig.png"));
+        String input = "src/main/resources/assets/tiles/";
+        Image image = new Image(new FileInputStream(input + "backgroundConfig.png"));
 
         BackgroundSize size = new BackgroundSize(BackgroundSize.AUTO,
             BackgroundSize.AUTO, false, false, true, false);
