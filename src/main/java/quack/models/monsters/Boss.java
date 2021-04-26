@@ -1,9 +1,6 @@
 package quack.models.monsters;
 
-import quack.models.GameState;
-import quack.models.Player;
-import quack.models.Position;
-import quack.models.Room;
+import quack.models.*;
 
 import java.util.ArrayList;
 
@@ -43,10 +40,7 @@ public class Boss extends Monster {
             if (player.getPosition().equals(attackPosition)) {
                 GameState.getInstance().getCurrentRoom().addGameObject(fire);
                 fire.setPosition(attackPosition);
-                fire.setAttacking(true);
                 attack(player);
-            } else {
-                fire.setAttacking(false);
             }
         }
     }

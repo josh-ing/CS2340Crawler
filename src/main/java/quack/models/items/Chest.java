@@ -16,6 +16,7 @@ public class Chest extends GameObject {
     private Item item;
     private Random random = new Random();
     private boolean open = false;
+    private int goldRequirement = 100;
 
 
     public Chest() {
@@ -52,7 +53,8 @@ public class Chest extends GameObject {
         if (!open) {
             for (KeyEvent keyEvent : inputs) {
                 if (keyEvent.getCode() == KeyCode.C) {
-                    if (player.getFacingPosition().equals(getPosition())) {
+                    if (player.getFacingPosition().equals(getPosition()) && player.getGold() >= goldRequirement) {
+                        player.setGold(player.getGold() - goldRequirement);
                         GameState.getInstance().getInventory().addItem(item);
                         open = true;
                         updateImage("src/main/resources/assets/items/chest.png");
