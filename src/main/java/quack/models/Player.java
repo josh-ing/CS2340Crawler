@@ -108,6 +108,19 @@ public class Player extends GameObject implements Attacker, Attackable {
 
         for (KeyEvent keyEvent : inputs) {
             if (keyEvent.getCode() == KeyCode.SPACE) {
+                if (weapon instanceof KatanaWeapon) {
+                    GameState.getInstance().getEffectObjects().add(katana);
+                    katana.setPosition(this.getFacingPosition());
+                    katana.setRotation(this.getRotation());
+                } else if (weapon instanceof KnifeWeapon) {
+                    GameState.getInstance().getEffectObjects().add(knife);
+                    knife.setPosition(this.getFacingPosition());
+                    knife.setRotation(this.getRotation());
+                } else if (weapon instanceof LongSwordWeapon) {
+                    GameState.getInstance().getEffectObjects().add(sword);
+                    sword.setPosition(this.getFacingPosition());
+                    sword.setRotation(this.getRotation());
+                }
 
                 GameObject gameObjectAtPosition = currentRoom.getGameObjectAtPosition(
                         getFacingPosition());
@@ -116,19 +129,6 @@ public class Player extends GameObject implements Attacker, Attackable {
                     Attackable attackable = (Attackable) gameObjectAtPosition;
 
                     attack(attackable);
-                    if (weapon instanceof KatanaWeapon) {
-                        GameState.getInstance().getEffectObjects().add(katana);
-                        katana.setPosition(this.getFacingPosition());
-                        katana.setRotation(this.getRotation());
-                    } else if (weapon instanceof KnifeWeapon) {
-                        GameState.getInstance().getEffectObjects().add(knife);
-                        knife.setPosition(this.getFacingPosition());
-                        knife.setRotation(this.getRotation());
-                    } else if (weapon instanceof LongSwordWeapon) {
-                        GameState.getInstance().getEffectObjects().add(sword);
-                        sword.setPosition(this.getFacingPosition());
-                        sword.setRotation(this.getRotation());
-                    }
                 }
             }
         }

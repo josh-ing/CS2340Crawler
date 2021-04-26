@@ -1,11 +1,18 @@
 package quack.models.Effects;
 
 import javafx.scene.image.Image;
+import quack.models.GameState;
 
 public class KatanaAnim extends Animations {
-    private Image sprite;
 
-    public KatanaAnim() { super("src/main/resources/assets/damage animations/knife.gif");}
+    public KatanaAnim() { super("src/main/resources/assets/damage animations/knife.gif", 500);}
 
-    public Image getSprite() { return sprite; }
+    public Image getSprite() {
+        return this.getSpriteAsset();
+    }
+
+    @Override
+    public void update() {
+
+    }
 }

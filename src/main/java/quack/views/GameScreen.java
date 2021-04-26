@@ -94,7 +94,7 @@ public class GameScreen extends Pane {
         menuButton.setBackground(background1);
         menuButton.setAlignment(Pos.BOTTOM_RIGHT);
 
-        this.getChildren().addAll(roomGrid, gameObjectGrid, effectsGrid, inventoryBlock,
+        this.getChildren().addAll(roomGrid, effectsGrid, gameObjectGrid, inventoryBlock,
                 inventoryGrid, equipBlock, equipGrid, goldText, healthText, attackText, menuButton);
     }
 

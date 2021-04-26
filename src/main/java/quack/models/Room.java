@@ -1,5 +1,6 @@
 package quack.models;
 
+import quack.models.Effects.Animations;
 import quack.models.items.Chest;
 import quack.models.items.DroppedItem;
 import quack.models.monsters.*;

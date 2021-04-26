@@ -12,14 +12,26 @@ public abstract class Animations implements Renderable {
     private Image spriteAsset;
     private Position position;
     private GameObject.Rotation rotation;
+    private long lastUpdate = 0;
+    private long updatePeriod; //ms
 
-    public Animations(String sprite) {
+    public Animations(String sprite, long updatePeriod) {
+        this.updatePeriod = updatePeriod;
         try {
             this.spriteAsset = new Image(new FileInputStream(sprite));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
+
+    public void update(long l) {
+        if (l > lastUpdate + updatePeriod) {
+            lastUpdate = l;
+            update();
+        }
+    }
+
+    public abstract void update();
 
     public Image getSpriteAsset() {
         return spriteAsset;

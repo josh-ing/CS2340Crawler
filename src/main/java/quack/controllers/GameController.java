@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import quack.models.*;
+import quack.models.Effects.Animations;
 import quack.views.GameScreen;
 
 import java.io.FileNotFoundException;
@@ -51,6 +52,7 @@ public class GameController extends Controller {
             @Override
             public void handle(long l) {
                 updateGameObjects(l);
+                updateEffectObjects(l);
                 checkPlayerDeath();
                 checkWin();
                 updateHUD();
@@ -76,6 +78,16 @@ public class GameController extends Controller {
         try {
             for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
                 go.update(l);
+            }
+        } catch (ConcurrentModificationException e) {
+
+        }
+    }
+
+    private void updateEffectObjects(long l) {
+        try {
+            for (Animations effects: GameState.getInstance().getEffectObjects()) {
+                effects.update(l);
             }
         } catch (ConcurrentModificationException e) {
 
