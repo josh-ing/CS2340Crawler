@@ -39,12 +39,16 @@ public class Boss extends Monster {
 
         for (Position attackPosition : attackPositions) {
             if (player.getPosition().equals(attackPosition)) {
-                GameState.getInstance().getEffectObjects().add(fire);
-                fire.setPosition(attackPosition);
-                fire.setRotation(this.getRotation());
+                spawnFlame(attackPosition);
                 attack(player);
             }
         }
+    }
+
+    public void spawnFlame(Position position) {
+        GameState.getInstance().getEffectObjects().add(fire);
+        fire.setPosition(position);
+        fire.setRotation(this.getRotation());
     }
 
     public void movement() {
