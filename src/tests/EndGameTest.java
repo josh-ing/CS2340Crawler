@@ -15,7 +15,7 @@ public class EndGameTest extends ApplicationTest {
         controller.initLose();
     }
     @Test
-    public void testEndStatsWin() throws InterruptedException{
+    public void testEndStatsWin() throws InterruptedException {
         TimeUnit.SECONDS.sleep(1);
         clickOn("Total Monsters Killed: ");
         TimeUnit.SECONDS.sleep(1);
@@ -26,7 +26,7 @@ public class EndGameTest extends ApplicationTest {
         verifyThat("Play", NodeMatchers.isNotNull());
     }
     @Test
-    public void testStatsLose() throws InterruptedException{
+    public void testStatsLose() throws InterruptedException {
         TimeUnit.SECONDS.sleep(1);
         clickOn("Total Monsters Killed: ");
         TimeUnit.SECONDS.sleep(1);

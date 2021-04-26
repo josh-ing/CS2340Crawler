@@ -7,7 +7,6 @@ import quack.models.Player;
 import quack.models.Position;
 import quack.models.characters.QuackCharacter;
 import quack.models.items.*;
-import quack.models.monsters.Monster;
 import quack.models.weapons.KatanaWeapon;
 import quack.models.weapons.KnifeWeapon;
 import quack.models.weapons.LongSwordWeapon;
@@ -150,7 +149,8 @@ public class ItemTest {
 
         Chest chest = new Chest();
         chest.setPosition(new Position(4, 5));
-        GameState.getInstance().appendInput(new KeyEvent(null, null, null, KeyCode.C, false, false, false, false));
+        GameState.getInstance().appendInput(new KeyEvent(null, null, null, KeyCode.C,
+                false, false, false, false));
         assertEquals(100, GameState.getInstance().getPlayer().getGold());
         chest.update();
 

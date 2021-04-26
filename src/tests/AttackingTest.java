@@ -54,7 +54,7 @@ public class AttackingTest {
         GameState.getInstance().setPlayer(player);
         assertEquals(100, player.getGold());
 
-        while(monster.getHealth() > 0) {
+        while (monster.getHealth() > 0) {
             player.attack(monster);
         }
 

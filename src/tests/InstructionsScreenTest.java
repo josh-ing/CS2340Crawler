@@ -15,7 +15,7 @@ public class InstructionsScreenTest extends ApplicationTest {
         controller.initInstructScreen();
     }
     @Test
-    public void testInstructions() throws InterruptedException{
+    public void testInstructions() throws InterruptedException {
         TimeUnit.SECONDS.sleep(1);
         clickOn("Menu");
         TimeUnit.SECONDS.sleep(1);
