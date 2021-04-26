@@ -22,7 +22,6 @@ public class GameState {
     private int monstersKilled;
     private int damageDealt;
 
-
     private GameState() {
         RoomGenerator roomGenerator = new RoomGenerator(7, 24, 18);
         setCurrentRoom(roomGenerator.generateStartRoom());
@@ -116,4 +115,5 @@ public class GameState {
     public ArrayList<Animations> getEffectObjects() {
         return effectArray;
     }
+
 }
