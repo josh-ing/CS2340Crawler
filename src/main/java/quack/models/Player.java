@@ -95,6 +95,8 @@ public class Player extends GameObject implements Attacker, Attackable {
         Room currentRoom = GameState.getInstance().getCurrentRoom();
         ArrayList<KeyEvent> inputs = GameState.getInstance().getCurrentInputs();
 
+
+
         for (KeyEvent keyEvent : inputs) {
             if (keyEvent.getCode() == KeyCode.SPACE) {
 

@@ -124,4 +124,7 @@ public class Boss extends Monster {
         }
         return rotations[direction];
     }
+
+
+
 }

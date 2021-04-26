@@ -130,12 +130,12 @@ public abstract class Monster extends GameObject implements Attacker, Attackable
 
     @Override
     public void damage(int damage) {
+        Player player = GameState.getInstance().getPlayer();
         setHealth(getHealth() - damage);
 
         if (getHealth() <= 0) {
             GameState.getInstance().getCurrentRoom().getGameObjects().remove(this);
             GameState.getInstance().incrementMonstersKilled(1);
-            Player player = GameState.getInstance().getPlayer();
             player.setGold(player.getGold() + this.goldDrop);
             int rand = random.nextInt(2);
             if (rand == 1) {
