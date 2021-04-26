@@ -12,11 +12,7 @@ public class Projectile extends GameObject {
 
     @Override
     public void update() {
-        if (attacking) {
-            updateImage("src/main/resources/assets/monsters/FinalBossAttack.gif");
-        } else {
-            GameState.getInstance().getCurrentRoom().getGameObjects().remove(this);
-        }
+
     }
 
     public void setAttacking(boolean attack) {
