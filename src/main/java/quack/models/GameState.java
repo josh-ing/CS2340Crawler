@@ -1,6 +1,7 @@
 package quack.models;
 
 import javafx.scene.input.KeyEvent;
+import quack.models.Effects.Animations;
 import quack.models.items.Inventory;
 import quack.models.items.Item;
 
@@ -13,6 +14,7 @@ public class GameState {
 
     private Player player;
     private Room currentRoom;
+    private ArrayList<Animations> effectArray = new ArrayList<>();
     private Set<Room> visitedRooms = new HashSet<>();
     private ArrayList<KeyEvent> currentInputs = new ArrayList<>();
     private Inventory inventory = new Inventory();
@@ -111,4 +113,5 @@ public class GameState {
         return usedItem;
     }
 
+    public ArrayList<Animations> getEffectObjects() { return effectArray; }
 }

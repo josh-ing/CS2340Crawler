@@ -2,9 +2,15 @@ package quack.models;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import quack.models.Effects.KatanaAnim;
+import quack.models.Effects.KnifeAnim;
+import quack.models.Effects.SwordAnim;
 import quack.models.characters.Character;
 import quack.models.items.DroppedItem;
 import quack.models.items.Item;
+import quack.models.weapons.KatanaWeapon;
+import quack.models.weapons.KnifeWeapon;
+import quack.models.weapons.LongSwordWeapon;
 import quack.models.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -17,6 +23,9 @@ public class Player extends GameObject implements Attacker, Attackable {
     private int gold;
     private int currHealth;
     private int currAttack;
+    private KatanaAnim katana = new KatanaAnim();
+    private KnifeAnim knife = new KnifeAnim();
+    private SwordAnim sword = new SwordAnim();
 
     public Player(String name, Character character, Weapon weapon, int gold) {
         super("src/main/resources/assets/quack.gif",
@@ -107,6 +116,19 @@ public class Player extends GameObject implements Attacker, Attackable {
                     Attackable attackable = (Attackable) gameObjectAtPosition;
 
                     attack(attackable);
+                    if (weapon instanceof KatanaWeapon) {
+                        GameState.getInstance().getEffectObjects().add(katana);
+                        katana.setPosition(this.getFacingPosition());
+                        katana.setRotation(this.getRotation());
+                    } else if (weapon instanceof KnifeWeapon) {
+                        GameState.getInstance().getEffectObjects().add(knife);
+                        knife.setPosition(this.getFacingPosition());
+                        knife.setRotation(this.getRotation());
+                    } else if (weapon instanceof LongSwordWeapon) {
+                        GameState.getInstance().getEffectObjects().add(sword);
+                        sword.setPosition(this.getFacingPosition());
+                        sword.setRotation(this.getRotation());
+                    }
                 }
             }
         }

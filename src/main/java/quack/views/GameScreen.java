@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import quack.models.Effects.Animations;
 import quack.models.GameObject;
 import quack.models.GameState;
 import quack.models.Room;
@@ -150,14 +151,14 @@ public class GameScreen extends Pane {
         equipGrid.toFront();
     }
 
-    public void updateEffectsGrid(ArrayList<GameObject> effectObjects) {
+    public void updateEffectsGrid(ArrayList<Animations> effectObjects) {
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLUMNS; c++) {
                 effectsGrid.setImage(null, r, c);
             }
         }
 
-        for (GameObject eo: effectObjects) {
+        for (Animations eo: effectObjects) {
             effectsGrid.setImage(eo.getSprite(),
                     eo.getPosition().getRow(), eo.getPosition().getCol());
         }
