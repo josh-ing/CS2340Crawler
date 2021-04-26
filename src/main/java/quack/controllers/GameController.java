@@ -125,4 +125,5 @@ public class GameController extends Controller {
         MainMenuController mainMenu = new MainMenuController(stage);
         mainMenu.initMainMenu();
     }
+
 }

@@ -24,10 +24,10 @@ public class LoseScreenController extends Controller {
         LoseScreen loseScreen = new LoseScreen();
         loseScreen.setMinWidth(1200);
         loseScreen.setMinHeight(900);
-        loseScreen.setFocusTraversable(false);
 
         this.stage.setScene(new Scene(loseScreen));
         Button newGameButton = loseScreen.getMenuButton();
+        newGameButton.setFocusTraversable(false);
         newGameButton.setOnAction(e -> {
             try {
                 toMenuScreen();

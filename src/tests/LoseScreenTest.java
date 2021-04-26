@@ -4,11 +4,17 @@ import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 import quack.controllers.LoseScreenController;
+import quack.models.Player;
+import quack.models.characters.QuackCharacter;
+import quack.models.weapons.KnifeWeapon;
+import quack.models.weapons.Weapon;
+
 import java.util.concurrent.TimeUnit;
 
 import static org.testfx.api.FxAssert.verifyThat;
 
 public class LoseScreenTest extends ApplicationTest {
+    private Player player;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -24,6 +30,9 @@ public class LoseScreenTest extends ApplicationTest {
 
     @Test
     public void testMenuReturn() throws InterruptedException {
+        Weapon weapon = new KnifeWeapon();
+        QuackCharacter quack = new QuackCharacter();
+        player = new Player("Quack", quack, weapon, 500);
         TimeUnit.SECONDS.sleep(1);
         clickOn("Play Again!");
         TimeUnit.SECONDS.sleep(1);
