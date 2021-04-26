@@ -50,7 +50,8 @@ public class WinScreen extends VBox {
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }
-        textStatMonster.setText("Total Monsters Killed: " + GameState.getInstance().getMonstersKilled());
+        textStatMonster.setText("Total Monsters Killed: "
+                 + GameState.getInstance().getMonstersKilled());
         textStatDamage.setText("Total Damage Dealt: " + GameState.getInstance().getDamageDealt());
         textStatGold.setText("Total Gold Earned: " + GameState.getInstance().getPlayer().getGold());
 

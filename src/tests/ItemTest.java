@@ -24,7 +24,7 @@ public class ItemTest {
         Item item = new HealthPotion();
         QuackCharacter character = new QuackCharacter();
         Weapon weapon = new KatanaWeapon();
-        Player player = new Player("Quack", character, weapon, 100);
+        Player player = new Player("Quack", character, weapon, 100, "Easy");
 
         GameState.getInstance();
         GameState.getInstance().setPlayer(player);
@@ -41,7 +41,7 @@ public class ItemTest {
         Item item = new AttackPotion();
         QuackCharacter character = new QuackCharacter();
         Weapon weapon = new KatanaWeapon();
-        Player player = new Player("Quack", character, weapon, 100);
+        Player player = new Player("Quack", character, weapon, 100, "Easy");
 
         GameState.getInstance();
         GameState.getInstance().setPlayer(player);
@@ -58,7 +58,7 @@ public class ItemTest {
         Item item = new AttackPotion();
         QuackCharacter character = new QuackCharacter();
         Weapon weapon = new KatanaWeapon();
-        Player player = new Player("Quack", character, weapon, 100);
+        Player player = new Player("Quack", character, weapon, 100, "Easy");
 
         GameState.getInstance();
         GameState.getInstance().setPlayer(player);
@@ -83,7 +83,7 @@ public class ItemTest {
         Item item = new SuperPotion();
         QuackCharacter character = new QuackCharacter();
         Weapon weapon = new KatanaWeapon();
-        Player player = new Player("Quack", character, weapon, 100);
+        Player player = new Player("Quack", character, weapon, 100, "Easy");
 
         GameState.getInstance();
         GameState.getInstance().setPlayer(player);
@@ -107,7 +107,7 @@ public class ItemTest {
     public void weaponTest() {
         QuackCharacter character = new QuackCharacter();
         Weapon weapon = new LongSwordWeapon();
-        Player player = new Player("Pelican", character, weapon, 100);
+        Player player = new Player("Pelican", character, weapon, 100, "Easy");
 
         GameState.getInstance();
         GameState.getInstance().setPlayer(player);
@@ -123,7 +123,7 @@ public class ItemTest {
     public void separateWeaponTest() {
         QuackCharacter character = new QuackCharacter();
         Weapon weapon = new KnifeWeapon();
-        Player player = new Player("Quack", character, weapon, 100);
+        Player player = new Player("Quack", character, weapon, 100, "Easy");
 
         GameState.getInstance();
         GameState.getInstance().setPlayer(player);
@@ -139,7 +139,7 @@ public class ItemTest {
     public void openChestTest() {
         QuackCharacter character = new QuackCharacter();
         Weapon weapon = new KnifeWeapon();
-        Player player = new Player("Quack", character, weapon, 100);
+        Player player = new Player("Quack", character, weapon, 100, "Easy");
         player.setPosition(new Position(5, 5));
         player.setRotation(GameObject.Rotation.UP);
 

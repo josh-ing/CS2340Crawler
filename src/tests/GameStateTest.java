@@ -12,11 +12,11 @@ public class GameStateTest {
     @Test
     public void testGameObjectSize() {
         GameState gameState = GameState.getInstance();
-        Player player = new Player("Bot", new QuackCharacter(), new KnifeWeapon(), 100);
+        Player player = new Player("Bot", new QuackCharacter(), new KnifeWeapon(), 100, "Easy");
         gameState.setPlayer(player);
         assertEquals(gameState.getCurrentRoom().getGameObjects().size(), 1);
         gameState.setCurrentRoom(gameState.getCurrentRoom().getNeighbors()[0]);
-        assertEquals(gameState.getCurrentRoom().getGameObjects().size(), 6);
+        assertEquals(gameState.getCurrentRoom().getGameObjects().size(), 7);
         for (int i = 0; i < gameState.getCurrentRoom().getGameObjects().size();) {
             if (gameState.getCurrentRoom().getGameObjects().get(i) instanceof Monster) {
                 ((Monster) gameState.getCurrentRoom().getGameObjects().get(i)).damage(9999999);
@@ -24,18 +24,18 @@ public class GameStateTest {
                 i++;
             }
         }
-        assertEquals(gameState.getCurrentRoom().getGameObjects().size(), 1);
+        assertEquals(gameState.getCurrentRoom().getGameObjects().size(), 6);
         gameState.setCurrentRoom(gameState.getCurrentRoom().getNeighbors()[2]);
         assertEquals(gameState.getCurrentRoom().getGameObjects().size(), 1);
         gameState.setCurrentRoom(gameState.getCurrentRoom().getNeighbors()[0]);
-        assertEquals(gameState.getCurrentRoom().getGameObjects().size(), 1);
+        assertEquals(gameState.getCurrentRoom().getGameObjects().size(), 5);
     }
 
     @Test
     public void testGetVisitedRooms() {
         GameState.reset();
         GameState gameState = GameState.getInstance();
-        Player player = new Player("Bot", new QuackCharacter(), new KnifeWeapon(), 100);
+        Player player = new Player("Bot", new QuackCharacter(), new KnifeWeapon(), 100, "Easy");
         gameState.setPlayer(player);
         assertEquals(gameState.getVisitedRooms().size(), 1);
         gameState.setCurrentRoom(gameState.getCurrentRoom().getNeighbors()[0]);

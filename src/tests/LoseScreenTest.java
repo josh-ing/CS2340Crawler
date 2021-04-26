@@ -32,7 +32,7 @@ public class LoseScreenTest extends ApplicationTest {
     public void testMenuReturn() throws InterruptedException {
         Weapon weapon = new KnifeWeapon();
         QuackCharacter quack = new QuackCharacter();
-        player = new Player("Quack", quack, weapon, 500);
+        player = new Player("Quack", quack, weapon, 100, "Easy");
         TimeUnit.SECONDS.sleep(1);
         clickOn("Play Again!");
         TimeUnit.SECONDS.sleep(1);

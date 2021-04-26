@@ -19,7 +19,7 @@ public class BossTest {
         boss = new Boss();
         Weapon weapon = new KnifeWeapon();
         QuackCharacter quack = new QuackCharacter();
-        player = new Player("Quack", quack, weapon, 500);
+        player = new Player("Quack", quack, weapon, 500, "Easy");
         boss.attack(player);
 
         assertEquals(player.getCurrHealth(), quack.getMaxHealth() - boss.getAttack());
@@ -30,7 +30,7 @@ public class BossTest {
         boss = new Boss();
         Weapon katana = new KatanaWeapon();
         HenryCharacter henry = new HenryCharacter();
-        player = new Player("Henry", henry, katana, 500);
+        player = new Player("Henry", henry, katana, 100, "Easy");
 
         int bossHealth = boss.getHealth();
         player.attack(boss);
