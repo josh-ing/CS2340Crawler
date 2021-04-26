@@ -46,7 +46,7 @@ public class Boss extends Monster {
                 fire.setAttacking(true);
                 attack(player);
             } else {
-                fire.setAttacking(false);
+                GameState.getInstance().getCurrentRoom().getGameObjects().remove(fire);
             }
         }
     }

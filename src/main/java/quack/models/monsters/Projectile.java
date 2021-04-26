@@ -13,8 +13,6 @@ public class Projectile extends GameObject {
     public void update() {
         if (attacking) {
             updateImage("src/main/resources/assets/monsters/FinalBossAttack.gif");
-        } else {
-            updateImage(null);
         }
     }
 

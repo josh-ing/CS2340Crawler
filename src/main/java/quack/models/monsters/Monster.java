@@ -14,12 +14,14 @@ public abstract class Monster extends GameObject implements Attacker, Attackable
     private int speed;
     private Random random = new Random();
     private DroppedItem loot;
+    private int goldDrop;
 
     public Monster(int health, int attack, int speed, String sprite) {
         super(sprite, 1000000000 / speed);
         this.health = health;
         this.attack = attack;
         this.speed = speed;
+        this.goldDrop = 0;
         ItemTypes[] types = ItemTypes.values();
         ItemTypes randomType = types[random.nextInt(types.length)];
 
@@ -42,6 +44,11 @@ public abstract class Monster extends GameObject implements Attacker, Attackable
         default:
             loot = new DroppedItem(new KatanaWeapon());
         }
+    }
+
+    public Monster(int health, int attack, int speed, String sprite, int goldDrop) {
+        this(health, attack, speed, sprite);
+        this.goldDrop = goldDrop;
     }
 
     public void update() {
@@ -128,6 +135,8 @@ public abstract class Monster extends GameObject implements Attacker, Attackable
         if (getHealth() <= 0) {
             GameState.getInstance().getCurrentRoom().getGameObjects().remove(this);
             GameState.getInstance().incrementMonstersKilled(1);
+            Player player = GameState.getInstance().getPlayer();
+            player.setGold(player.getGold() + this.goldDrop);
             int rand = random.nextInt(2);
             if (rand == 1) {
                 GameState.getInstance().getCurrentRoom().getGameObjects().add(loot);
