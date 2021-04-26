@@ -3,6 +3,7 @@ package quack;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import quack.controllers.MainMenuController;
+import quack.controllers.WinScreenController;
 
 public class QuackApp extends Application {
 
