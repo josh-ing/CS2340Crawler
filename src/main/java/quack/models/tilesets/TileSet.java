@@ -1,6 +1,7 @@
 package quack.models.tilesets;
 
 import javafx.scene.image.Image;
+import quack.models.GameState;
 import quack.models.Room;
 
 import java.io.FileInputStream;
@@ -21,20 +22,27 @@ public abstract class TileSet {
     private Image portal;
 
     public TileSet(String tileSetRoot) {
-        try {
-            this.floor = new Image(new FileInputStream(tileSetRoot + "/floor.png"));
-            this.wallLeft = new Image(new FileInputStream(tileSetRoot + "/wallLeft.png"));
-            this.wallRight = new Image(new FileInputStream(tileSetRoot + "/wallRight.png"));
-            this.wallUp = new Image(new FileInputStream(tileSetRoot + "/wallUp.png"));
-            this.wallDown = new Image(new FileInputStream(tileSetRoot + "/wallDown.png"));
-            this.wallULCorner = new Image(new FileInputStream(tileSetRoot + "/wallULCorner.png"));
-            this.wallURCorner = new Image(new FileInputStream(tileSetRoot + "/wallURCorner.png"));
-            this.wallLLCorner = new Image(new FileInputStream(tileSetRoot + "/wallLLCorner.png"));
-            this.wallLRCorner = new Image(new FileInputStream(tileSetRoot + "/wallLRCorner.png"));
-            this.obstruction = new Image(new FileInputStream(tileSetRoot + "/dungeon_wall.png"));
-            this.portal = new Image(new FileInputStream(tileSetRoot + "/portal.png"));
-        } catch (FileNotFoundException e) {
-            System.out.println("Cannot load tileset.");
+        if (GameState.getInstance().getPlayer().getGold() == 100) {
+            try {
+                this.floor = new Image(new FileInputStream(tileSetRoot + "/floor.png"));
+                this.wallLeft = new Image(new FileInputStream(tileSetRoot + "/wallLeft.png"));
+                this.wallRight = new Image(new FileInputStream(tileSetRoot + "/wallRight.png"));
+                this.wallUp = new Image(new FileInputStream(tileSetRoot + "/wallUp.png"));
+                this.wallDown = new Image(new FileInputStream(tileSetRoot + "/wallDown.png"));
+                this.wallULCorner =
+                    new Image(new FileInputStream(tileSetRoot + "/wallULCorner.png"));
+                this.wallURCorner =
+                    new Image(new FileInputStream(tileSetRoot + "/wallURCorner.png"));
+                this.wallLLCorner =
+                    new Image(new FileInputStream(tileSetRoot + "/wallLLCorner.png"));
+                this.wallLRCorner =
+                    new Image(new FileInputStream(tileSetRoot + "/wallLRCorner.png"));
+                this.obstruction =
+                    new Image(new FileInputStream(tileSetRoot + "/dungeon_wall.png"));
+                this.portal = new Image(new FileInputStream(tileSetRoot + "/portal.png"));
+            } catch (FileNotFoundException e) {
+                System.out.println("Cannot load tileset.");
+            }
         }
     }
 
