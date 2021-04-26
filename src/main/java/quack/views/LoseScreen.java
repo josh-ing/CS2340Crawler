@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import quack.models.GameState;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -58,30 +59,33 @@ public class LoseScreen extends VBox {
 
         font1 = Font.font(fontFamily, fontWeight, fontSize);
 
-        textStatMonster.setFont(font1);
-        textStatMonster.setFill(Color.ALICEBLUE);
-        textStatMonster.setTranslateY(-300);
-        textStatMonster.setTranslateX(-430);
-
-        textStatGold.setFont(font1);
-        textStatGold.setFill(Color.ALICEBLUE);
-        textStatGold.setTranslateY(-280);
-        textStatGold.setTranslateX(-430);
+        textStatMonster.setText("Total Monsters Killed: " + GameState.getInstance().getMonstersKilled());
+        textStatDamage.setText("Total Damage Dealt: " + GameState.getInstance().getDamageDealt());
+        textStatGold.setText("Total Gold Earned: " + GameState.getInstance().getPlayer().getGold());
 
         textStatDamage.setFont(font1);
         textStatDamage.setFill(Color.ALICEBLUE);
-        textStatDamage.setTranslateY(-290);
+        textStatDamage.setTranslateY(-230);
         textStatDamage.setTranslateX(-430);
+
+        textStatGold.setFont(font1);
+        textStatGold.setFill(Color.ALICEBLUE);
+        textStatGold.setTranslateY(-200);
+        textStatGold.setTranslateX(-430);
+
+        textStatMonster.setFont(font1);
+        textStatMonster.setFill(Color.ALICEBLUE);
+        textStatMonster.setTranslateY(-160);
+        textStatMonster.setTranslateX(-430);
 
         menuButton = new Button("Play Again!");
         menuButton.setBackground(background1);
         menuButton.setFont(font1);
-        menuButton.setTranslateY(-100);
-        menuButton.setTranslateX(-430);
-
+        menuButton.setTranslateY(-80);
+        menuButton.setTranslateX(-450);
 
         this.setAlignment(Pos.BOTTOM_RIGHT);
-        this.getChildren().addAll(textStatDamage, textStatMonster, textStatGold, menuButton);
+        this.getChildren().addAll(textStatDamage, textStatGold, textStatMonster, menuButton);
     }
 
     /**

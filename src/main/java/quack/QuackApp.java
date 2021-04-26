@@ -2,6 +2,7 @@ package quack;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import quack.controllers.LoseScreenController;
 import quack.controllers.MainMenuController;
 import quack.controllers.WinScreenController;
 
@@ -21,7 +22,7 @@ public class QuackApp extends Application {
         stage.setTitle("Quack");
         stage.setResizable(false);
 
-        MainMenuController mainMenuController = new MainMenuController(stage);
-        mainMenuController.initMainMenu();
+        MainMenuController winScreenController = new MainMenuController(stage);
+        winScreenController.initMainMenu();
     }
 }
