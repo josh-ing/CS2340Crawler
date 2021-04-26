@@ -1,7 +1,6 @@
 package quack.models.monsters;
 
 import quack.models.Attackable;
-import quack.models.Attacker;
 import quack.models.GameState;
 
 public class ChallengeTotem extends Monster implements Attackable {

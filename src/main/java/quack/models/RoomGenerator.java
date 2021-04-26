@@ -137,7 +137,8 @@ public class RoomGenerator {
             Room.RoomCellType[][] roomArray = createRandomRoom();
 
             if (3 == i || 5 == i) {
-                int direction = directionsTowardsExit.get(rand.nextInt(directionsTowardsExit.size()));
+                int randomInt = rand.nextInt(directionsTowardsExit.size());
+                int direction = directionsTowardsExit.get(randomInt);
                 Room challengeRoom = new Room(createRoomTemplate(), Room.RoomType.CHALLENGE);
                 connectRooms(currentRoom, challengeRoom, direction);
 

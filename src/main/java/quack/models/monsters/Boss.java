@@ -8,12 +8,10 @@ import java.util.ArrayList;
 public class Boss extends Monster {
     //particle effects for attack
     private Flame fire = new Flame();
-    ArrayList<Position> attackPositions;
 
 
     public Boss() {
-        super(200, 20, 2, "src/main/resources/assets/monsters/boss.gif" );
-        this.attackPositions = new ArrayList<>();
+        super(200, 20, 2, "src/main/resources/assets/monsters/boss.gif");
     }
 
     @Override
@@ -23,8 +21,7 @@ public class Boss extends Monster {
     }
 
     public void bossAttack() {
-        //boss has slightly bigger attack radius
-        //each side has a hitbox 2 blocks wide
+        ArrayList<Position> attackPositions = new ArrayList<>();
         //right
         attackPositions.add(getPosition().translateRight());
         attackPositions.add(getPosition().translateRight().translateRight());
@@ -57,20 +54,20 @@ public class Boss extends Monster {
         Position nextPosition = null;
 
         switch (nextMove) {
-            case RIGHT:
-                nextPosition = getPosition().translateRight();
-                break;
-            case DOWN:
-                nextPosition = getPosition().translateDown();
-                break;
-            case LEFT:
-                nextPosition = getPosition().translateLeft();
-                break;
-            case UP:
-                nextPosition = getPosition().translateUp();
-                break;
-            default:
-                break;
+        case RIGHT:
+            nextPosition = getPosition().translateRight();
+            break;
+        case DOWN:
+            nextPosition = getPosition().translateDown();
+            break;
+        case LEFT:
+            nextPosition = getPosition().translateLeft();
+            break;
+        case UP:
+            nextPosition = getPosition().translateUp();
+            break;
+        default:
+            break;
         }
 
         if (currentRoom.isValidPosition(nextPosition)) {
@@ -88,19 +85,27 @@ public class Boss extends Monster {
         Position playerPos = player.getPosition();
         if (currentRoom.isValidPosition(currentPos.translateUp())) {
             Position adjacentUp = currentPos.translateUp();
-            upDistance = Math.abs(adjacentUp.getRow() - playerPos.getRow()) + Math.abs(adjacentUp.getCol() - playerPos.getCol());
+            int row = Math.abs(adjacentUp.getRow() - playerPos.getRow());
+            int col = Math.abs(adjacentUp.getCol() - playerPos.getRow());
+            upDistance = row + col;
         }
         if (currentRoom.isValidPosition(currentPos.translateDown())) {
             Position adjacentDown = currentPos.translateDown();
-            downDistance = Math.abs(adjacentDown.getRow() - playerPos.getRow()) + Math.abs(adjacentDown.getCol() - playerPos.getCol());
+            int row = Math.abs(adjacentDown.getRow() - playerPos.getRow());
+            int col = Math.abs(adjacentDown.getCol() - playerPos.getRow());
+            downDistance = row + col;
         }
         if (currentRoom.isValidPosition(currentPos.translateLeft())) {
             Position adjacentLeft = currentPos.translateLeft();
-            leftDistance = Math.abs(adjacentLeft.getRow() - playerPos.getRow()) + Math.abs(adjacentLeft.getCol() - playerPos.getCol());
+            int row = Math.abs(adjacentLeft.getRow() - playerPos.getRow());
+            int col = Math.abs(adjacentLeft.getCol() - playerPos.getRow());
+            leftDistance = row + col;
         }
         if (currentRoom.isValidPosition(currentPos.translateRight())) {
             Position adjacentRight = currentPos.translateRight();
-            rightDistance = Math.abs(adjacentRight.getRow() - playerPos.getRow()) + Math.abs(adjacentRight.getCol() - playerPos.getCol());
+            int row = Math.abs(adjacentRight.getRow() - playerPos.getRow());
+            int col = Math.abs(adjacentRight.getCol() - playerPos.getRow());
+            rightDistance = row + col;
         }
         return this.getSmallest(upDistance, downDistance, leftDistance, rightDistance, rotations);
     }

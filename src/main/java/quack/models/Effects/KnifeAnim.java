@@ -5,7 +5,9 @@ import quack.models.GameState;
 
 public class KnifeAnim extends Animations {
 
-    public KnifeAnim() { super("src/main/resources/assets/damage animations/knife.gif", 500);}
+    public KnifeAnim() {
+        super("src/main/resources/assets/damage animations/knife.gif", 500);
+    }
 
     public Image getSprite() {
         return this.getSpriteAsset();

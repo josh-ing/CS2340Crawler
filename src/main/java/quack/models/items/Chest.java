@@ -53,7 +53,8 @@ public class Chest extends GameObject {
         if (!open) {
             for (KeyEvent keyEvent : inputs) {
                 if (keyEvent.getCode() == KeyCode.C) {
-                    if (player.getFacingPosition().equals(getPosition()) && player.getGold() >= goldRequirement) {
+                    if (player.getFacingPosition().equals(getPosition())
+                            && player.getGold() >= goldRequirement) {
                         player.setGold(player.getGold() - goldRequirement);
                         GameState.getInstance().getInventory().addItem(item);
                         open = true;

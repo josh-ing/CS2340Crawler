@@ -5,7 +5,9 @@ import quack.models.GameState;
 
 public class KatanaAnim extends Animations {
 
-    public KatanaAnim() { super("src/main/resources/assets/damage animations/katana.gif", 500);}
+    public KatanaAnim() {
+        super("src/main/resources/assets/damage animations/katana.gif", 500);
+    }
 
     public Image getSprite() {
         return this.getSpriteAsset();

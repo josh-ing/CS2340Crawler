@@ -1,6 +1,5 @@
 package quack.models;
 
-import quack.models.Effects.Animations;
 import quack.models.items.Chest;
 import quack.models.items.DroppedItem;
 import quack.models.monsters.*;
@@ -56,14 +55,14 @@ public class Room {
             Monster monster = new ChallengeTotem();
             monster.setPosition(new Position(9, 12));
             addGameObject(monster);
-        } else if(type == RoomType.BOSS) {
+        } else if (type == RoomType.BOSS) {
             if (type == RoomType.BOSS) {
                 Monster monster = new Boss();
                 ArrayList<Position> validPositions = getValidPositions();
                 monster.setPosition(validPositions.get(random.nextInt(validPositions.size())));
                 addGameObject(monster);
             }
-        }else if (type != RoomType.START) {
+        } else if (type != RoomType.START) {
             spawnMonsters(3, 1, 1);
             Chest chest = new Chest();
             ArrayList<Position> validPositions = getValidPositions();
