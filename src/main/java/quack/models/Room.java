@@ -203,6 +203,23 @@ public class Room {
             for (int c = 0; c < map[0].length; c++) {
                 if (map[r][c] == RoomCellType.FLOOR) {
                     Position position = new Position(r, c);
+
+                    if (position.translateUp().equals(getExitPosition(RoomCellType.NORTH))) {
+                        continue;
+                    }
+
+                    if (position.translateDown().equals(getExitPosition(RoomCellType.SOUTH))) {
+                        continue;
+                    }
+
+                    if (position.translateRight().equals(getExitPosition(RoomCellType.EAST))) {
+                        continue;
+                    }
+
+                    if (position.translateLeft().equals(getExitPosition(RoomCellType.WEST))) {
+                        continue;
+                    }
+
                     positions.add(position);
                 }
             }
