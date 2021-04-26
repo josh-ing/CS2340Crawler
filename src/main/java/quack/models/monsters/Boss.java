@@ -1,15 +1,20 @@
 package quack.models.monsters;
 
 import quack.models.*;
+import quack.models.Effects.Flame;
 
 import java.util.ArrayList;
 
 public class Boss extends Monster {
     //particle effects for attack
-    private Projectile fire = new Projectile();
+    private Flame fire = new Flame();
+    ArrayList<Position> attackPositions;
 
 
-    public Boss() { super(200, 20, 2, "src/main/resources/assets/monsters/boss.gif" ); }
+    public Boss() {
+        super(200, 20, 2, "src/main/resources/assets/monsters/boss.gif" );
+        this.attackPositions = new ArrayList<>();
+    }
 
     @Override
     public void update() {
@@ -20,7 +25,6 @@ public class Boss extends Monster {
     public void bossAttack() {
         //boss has slightly bigger attack radius
         //each side has a hitbox 2 blocks wide
-        ArrayList<Position> attackPositions = new ArrayList<>();
         //right
         attackPositions.add(getPosition().translateRight());
         attackPositions.add(getPosition().translateRight().translateRight());
@@ -38,8 +42,9 @@ public class Boss extends Monster {
 
         for (Position attackPosition : attackPositions) {
             if (player.getPosition().equals(attackPosition)) {
-                GameState.getInstance().getCurrentRoom().addGameObject(fire);
+                GameState.getInstance().getEffectObjects().add(fire);
                 fire.setPosition(attackPosition);
+                fire.setRotation(this.getRotation());
                 attack(player);
             }
         }
@@ -124,7 +129,6 @@ public class Boss extends Monster {
         }
         return rotations[direction];
     }
-
 
 
 }

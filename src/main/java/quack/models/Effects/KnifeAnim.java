@@ -14,6 +14,8 @@ public class KnifeAnim extends Animations {
 
     @Override
     public void update() {
-
+        if (!GameState.getInstance().getPlayer().getFacingPosition().equals(this.getPosition())) {
+            GameState.getInstance().getEffectObjects().remove(this);
+        }
     }
 }
