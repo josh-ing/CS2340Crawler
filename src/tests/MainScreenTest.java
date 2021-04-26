@@ -19,4 +19,9 @@ public class MainScreenTest extends ApplicationTest {
     public void testPlayButton() {
         verifyThat("Play", NodeMatchers.isNotNull());
     }
+
+    @Test
+    public void testInstructButton() {
+        verifyThat("Instructions", NodeMatchers.isNotNull());
+    }
 }
