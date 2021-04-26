@@ -59,7 +59,8 @@ public class LoseScreen extends VBox {
 
         font1 = Font.font(fontFamily, fontWeight, fontSize);
 
-        textStatMonster.setText("Total Monsters Killed: " + GameState.getInstance().getMonstersKilled());
+        textStatMonster.setText("Total Monsters Killed: "
+                + GameState.getInstance().getMonstersKilled());
         textStatDamage.setText("Total Damage Dealt: " + GameState.getInstance().getDamageDealt());
         textStatGold.setText("Total Gold Earned: " + GameState.getInstance().getPlayer().getGold());
 

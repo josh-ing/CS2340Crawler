@@ -14,7 +14,8 @@ import java.io.FileNotFoundException;
 
 public class MainMenuScreen extends VBox {
 
-    private Button newGameButton, instructPageButton;
+    private Button newGameButton;
+    private Button instructPageButton;
 
     public MainMenuScreen() throws FileNotFoundException {
         super();
