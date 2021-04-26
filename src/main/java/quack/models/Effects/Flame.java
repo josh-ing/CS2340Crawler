@@ -1,6 +1,7 @@
 package quack.models.Effects;
 
 import javafx.scene.image.Image;
+import quack.models.GameState;
 
 
 public class Flame extends Animations {
@@ -12,6 +13,9 @@ public class Flame extends Animations {
 
     @Override
     public void update() {
+        if (!GameState.getInstance().getPlayer().getPosition().equals(this.getPosition())) {
+            GameState.getInstance().getEffectObjects().remove(this);
+        }
 
     }
 }
