@@ -1,9 +1,6 @@
 package quack.models.monsters;
 
-import quack.models.GameState;
-import quack.models.Player;
-import quack.models.Position;
-import quack.models.Room;
+import quack.models.*;
 
 import java.util.ArrayList;
 
@@ -46,7 +43,7 @@ public class Boss extends Monster {
                 fire.setAttacking(true);
                 attack(player);
             } else {
-                GameState.getInstance().getCurrentRoom().getGameObjects().remove(fire);
+                fire.setAttacking(false);
             }
         }
     }
