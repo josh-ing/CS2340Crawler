@@ -12,8 +12,8 @@ import javafx.scene.text.FontWeight;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class SelectCharacterWrapper extends VBox {
-    public SelectCharacterWrapper(String path, String name,
+public class SelectWeaponWrapper extends VBox {
+    public SelectWeaponWrapper(String path, String name,
                                   ToggleGroup toggleGroup) throws FileNotFoundException {
         super();
         //Text formatting
@@ -36,6 +36,4 @@ public class SelectCharacterWrapper extends VBox {
         this.setAlignment(Pos.CENTER);
         this.setSpacing(4);
     }
-
-
 }

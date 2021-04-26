@@ -140,7 +140,9 @@ public class RoomGenerator {
                 int direction = directionsTowardsExit.get(rand.nextInt(directionsTowardsExit.size()));
                 Room challengeRoom = new Room(createRoomTemplate(), Room.RoomType.CHALLENGE);
                 connectRooms(currentRoom, challengeRoom, direction);
+
                 directionsTowardsExit.remove((Integer) (direction % 4));
+
             }
 
             int direction = directionsTowardsExit.get(rand.nextInt(directionsTowardsExit.size()));
