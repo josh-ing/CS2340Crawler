@@ -47,14 +47,23 @@ public class GameScreen extends Pane {
 
     public GameScreen() {
         super();
+        Font font1;
+        String fontFamily = "Tw Cen MT";
+        FontWeight fontWeight = FontWeight.BOLD;
+        double fontSize = 20;
+        font1 = Font.font(fontFamily, fontWeight, fontSize);
+
         goldText.setX(10);
         goldText.setY(30);
+        goldText.setFont(font1);
 
         healthText.setX(10);
         healthText.setY(50);
+        healthText.setFont(font1);
 
         attackText.setX(10);
         attackText.setY(70);
+        attackText.setFont(font1);
 
         hud = new InventoryHUD();
         equipBlock = new ImageViewGrid(1, 2, DIMENSIONS);
@@ -72,17 +81,10 @@ public class GameScreen extends Pane {
         gameObjectGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
         effectsGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
 
-        Font font1;
-        String fontFamily = "Tw Cen MT";
-        FontWeight fontWeight = FontWeight.BOLD;
-        double fontSize = 20;
-
         BackgroundFill backgroundFillBut = new BackgroundFill(Color.MOCCASIN,
             CornerRadii.EMPTY, Insets.EMPTY);
         Background background1 = new Background(backgroundFillBut);
 
-
-        font1 = Font.font(fontFamily, fontWeight, fontSize);
         menuButton = new Button("Exit");
         menuButton.setBackground(background1);
         menuButton.setFont(font1);

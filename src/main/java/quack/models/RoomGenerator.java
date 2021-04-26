@@ -141,8 +141,6 @@ public class RoomGenerator {
                 Room challengeRoom = new Room(createRoomTemplate(), Room.RoomType.CHALLENGE);
                 connectRooms(currentRoom, challengeRoom, direction);
 
-                //directionsTowardsExit.remove(direction % directionsTowardsExit.size());
-
                 directionsTowardsExit.remove((Integer) (direction % 4));
 
             }
