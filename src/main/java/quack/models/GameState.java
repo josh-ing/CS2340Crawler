@@ -1,6 +1,7 @@
 package quack.models;
 
 import javafx.scene.input.KeyEvent;
+import quack.models.Effects.Animations;
 import quack.models.items.Inventory;
 import quack.models.items.Item;
 
@@ -13,10 +14,13 @@ public class GameState {
 
     private Player player;
     private Room currentRoom;
+    private ArrayList<Animations> effectArray = new ArrayList<>();
     private Set<Room> visitedRooms = new HashSet<>();
     private ArrayList<KeyEvent> currentInputs = new ArrayList<>();
     private Inventory inventory = new Inventory();
     private Item usedItem;
+    private int monstersKilled;
+    private int damageDealt;
 
     private GameState() {
         RoomGenerator roomGenerator = new RoomGenerator(7, 24, 18);
@@ -34,6 +38,22 @@ public class GameState {
     public void setPlayer(Player player) {
         this.player = player;
         this.currentRoom.addGameObject(player);
+    }
+
+    public int getMonstersKilled() {
+        return monstersKilled;
+    }
+
+    public int getDamageDealt() {
+        return damageDealt;
+    }
+
+    public void incrementMonstersKilled(int increment) {
+        monstersKilled = monstersKilled + increment;
+    }
+
+    public void incrementDamageDealt(int damage) {
+        damageDealt = damageDealt + damage;
     }
 
     public static void reset() {
@@ -90,6 +110,10 @@ public class GameState {
 
     public Item getUsedItem() {
         return usedItem;
+    }
+
+    public ArrayList<Animations> getEffectObjects() {
+        return effectArray;
     }
 
 }

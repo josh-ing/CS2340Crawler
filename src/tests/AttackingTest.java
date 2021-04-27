@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+import quack.models.GameState;
 import quack.models.Player;
 import quack.models.characters.HenryCharacter;
 import quack.models.characters.QuackCharacter;
@@ -22,7 +23,7 @@ public class AttackingTest {
         monster = new EasyMonster();
         Weapon weapon = new KatanaWeapon();
         QuackCharacter character = new QuackCharacter();
-        player = new Player("Quack", character, weapon, 100);
+        player = new Player("Quack", character, weapon, 100, "Easy");
 
         monster.attack(player);
 
@@ -34,7 +35,7 @@ public class AttackingTest {
         monster = new HardMonster();
         Weapon weapon = new KnifeWeapon();
         HenryCharacter character = new HenryCharacter();
-        player = new Player("Quack", character, weapon, 100);
+        player = new Player("Quack", character, weapon, 100, "Easy");
 
         int initMonsterHealth = monster.getHealth();
 
@@ -42,6 +43,22 @@ public class AttackingTest {
 
         assertEquals(monster.getHealth(), initMonsterHealth - character.getAttack()
                 - weapon.getAttack());
+    }
+
+    @Test
+    public void testMonsterGold() {
+        monster = new HardMonster();
+        Weapon weapon = new KnifeWeapon();
+        HenryCharacter character = new HenryCharacter();
+        player = new Player("Quack", character, weapon, 100, "Easy");
+        GameState.getInstance().setPlayer(player);
+        assertEquals(100, player.getGold());
+
+        while (monster.getHealth() > 0) {
+            player.attack(monster);
+        }
+
+        assertEquals(110, player.getGold());
     }
 
 }

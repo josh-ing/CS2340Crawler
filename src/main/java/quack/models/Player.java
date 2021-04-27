@@ -2,9 +2,15 @@ package quack.models;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import quack.models.Effects.KatanaAnim;
+import quack.models.Effects.KnifeAnim;
+import quack.models.Effects.SwordAnim;
 import quack.models.characters.Character;
 import quack.models.items.DroppedItem;
 import quack.models.items.Item;
+import quack.models.weapons.KatanaWeapon;
+import quack.models.weapons.KnifeWeapon;
+import quack.models.weapons.LongSwordWeapon;
 import quack.models.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -17,8 +23,13 @@ public class Player extends GameObject implements Attacker, Attackable {
     private int gold;
     private int currHealth;
     private int currAttack;
+    private String difficult;
+    private KatanaAnim katana = new KatanaAnim();
+    private KnifeAnim knife = new KnifeAnim();
+    private SwordAnim sword = new SwordAnim();
 
-    public Player(String name, Character character, Weapon weapon, int gold) {
+
+    public Player(String name, Character character, Weapon weapon, int gold, String difficult) {
         super("src/main/resources/assets/quack.gif",
                 10000000 / character.getSpeed());
         this.name = name;
@@ -27,6 +38,7 @@ public class Player extends GameObject implements Attacker, Attackable {
         this.gold = gold;
         this.weapon = weapon;
         this.currAttack = character.getAttack();
+        this.difficult = difficult;
         setPosition(new Position(9, 12));
     }
 
@@ -95,8 +107,23 @@ public class Player extends GameObject implements Attacker, Attackable {
         Room currentRoom = GameState.getInstance().getCurrentRoom();
         ArrayList<KeyEvent> inputs = GameState.getInstance().getCurrentInputs();
 
+
+
         for (KeyEvent keyEvent : inputs) {
             if (keyEvent.getCode() == KeyCode.SPACE) {
+                if (weapon instanceof KatanaWeapon) {
+                    GameState.getInstance().getEffectObjects().add(katana);
+                    katana.setPosition(this.getFacingPosition());
+                    katana.setRotation(this.getRotation());
+                } else if (weapon instanceof KnifeWeapon) {
+                    GameState.getInstance().getEffectObjects().add(knife);
+                    knife.setPosition(this.getFacingPosition());
+                    knife.setRotation(this.getRotation());
+                } else if (weapon instanceof LongSwordWeapon) {
+                    GameState.getInstance().getEffectObjects().add(sword);
+                    sword.setPosition(this.getFacingPosition());
+                    sword.setRotation(this.getRotation());
+                }
 
                 GameObject gameObjectAtPosition = currentRoom.getGameObjectAtPosition(
                         getFacingPosition());
@@ -205,8 +232,10 @@ public class Player extends GameObject implements Attacker, Attackable {
         }
 
         if (nextRoom != null) {
-            if (GameState.getInstance().getVisitedRooms()
-                    .contains(nextRoom) || currentRoom.isEmptyOfMonsters()) {
+            boolean isChallengeDone = currentRoom.getRoomType()
+                    != Room.RoomType.CHALLENGE || currentRoom.isEmptyOfMonsters();
+            if (isChallengeDone && (GameState.getInstance().getVisitedRooms()
+                    .contains(nextRoom) || currentRoom.isEmptyOfMonsters())) {
                 GameState.getInstance().setCurrentRoom(nextRoom);
                 setPosition(nextPosition);
             }
@@ -254,6 +283,7 @@ public class Player extends GameObject implements Attacker, Attackable {
     public void attack(Attackable target) {
         if (target != null) {
             target.damage(currAttack + weapon.getAttack());
+            GameState.getInstance().incrementDamageDealt(currAttack + weapon.getAttack());
         }
     }
 
@@ -264,4 +294,11 @@ public class Player extends GameObject implements Attacker, Attackable {
     public int getCurrAttack() {
         return currAttack;
     }
+
+
+    public String getDifficulty() {
+        return difficult;
+    }
+
+
 }

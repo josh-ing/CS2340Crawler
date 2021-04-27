@@ -14,6 +14,7 @@ public class RoomGenerator {
 
     static final int CLEARANCE = 5;
     static final int NUM_OBSTACLES = 4;
+    static final int NUM_CHALLENGE = 2;
 
     /**
      * Initialize the configuration for map generation.
@@ -131,24 +132,42 @@ public class RoomGenerator {
 
             directionsTowardsExit.remove((lastExit + 2) % 4);
 
-            Room.RoomCellType[][] roomArray = createRandomRoom();
-            int direction = directionsTowardsExit.get(rand.nextInt(3));
 
-            Room[] currentRoomNeighbors = currentRoom.getNeighbors();
-            Room[] newRoomNeighbors = new Room[4];
+
+            Room.RoomCellType[][] roomArray = createRandomRoom();
+
+            if (3 == i || 5 == i) {
+                int randomInt = rand.nextInt(directionsTowardsExit.size());
+                int direction = directionsTowardsExit.get(randomInt);
+                Room challengeRoom = new Room(createRoomTemplate(), Room.RoomType.CHALLENGE);
+                connectRooms(currentRoom, challengeRoom, direction);
+
+                directionsTowardsExit.remove((Integer) (direction % 4));
+
+            }
+
+            int direction = directionsTowardsExit.get(rand.nextInt(directionsTowardsExit.size()));
+
             Room newRoom = new Room(roomArray, Room.RoomType.MONSTER);
-            currentRoomNeighbors[direction] = newRoom;
-            newRoomNeighbors[(direction + 2) % 4] = currentRoom;
-            currentRoom.setNeighbors(currentRoomNeighbors);
-            newRoom.setNeighbors(newRoomNeighbors);
-            currentRoom.setMap(addExitsToRoomArray(currentRoom));
-            newRoom.setMap(addExitsToRoomArray(newRoom));
+            connectRooms(currentRoom, newRoom, direction);
+
             lastExit = direction;
             currentRoom = newRoom;
 
         }
         addBossRoom(currentRoom, lastExit);
         return newStartRoom;
+    }
+
+    public void connectRooms(Room currentRoom, Room newRoom, int direction) {
+        Room[] currentRoomNeighbors = currentRoom.getNeighbors();
+        Room[] newRoomNeighbors = newRoom.getNeighbors();
+        currentRoomNeighbors[direction] = newRoom;
+        newRoomNeighbors[(direction + 2) % 4] = currentRoom;
+        currentRoom.setNeighbors(currentRoomNeighbors);
+        newRoom.setNeighbors(newRoomNeighbors);
+        currentRoom.setMap(addExitsToRoomArray(currentRoom));
+        newRoom.setMap(addExitsToRoomArray(newRoom));
     }
 
     /**

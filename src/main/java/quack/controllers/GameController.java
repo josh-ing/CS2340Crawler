@@ -1,11 +1,14 @@
 package quack.controllers;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import quack.models.*;
+import quack.models.Effects.Animations;
 import quack.views.GameScreen;
 
+import java.io.FileNotFoundException;
 import java.util.ConcurrentModificationException;
 
 /**
@@ -30,6 +33,15 @@ public class GameController extends Controller {
         gameScreen.setMinWidth(1200);
         gameScreen.setMinHeight(900);
         //gameScreen.getGoldText().setText("Gold: " + player.getGold());
+        Button getBackMenu = gameScreen.getBackMenu();
+        getBackMenu.setFocusTraversable(false);
+        getBackMenu.setOnAction(e -> {
+            try {
+                toMenuScreen();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
 
         this.stage.setScene(new Scene(gameScreen));
         gameScreen.updateRoomGrid(GameState.getInstance().getCurrentRoom().getMap());
@@ -40,12 +52,14 @@ public class GameController extends Controller {
             @Override
             public void handle(long l) {
                 updateGameObjects(l);
+                updateEffectObjects(l);
                 checkPlayerDeath();
                 checkWin();
                 updateHUD();
 
                 gameScreen.updateGameObjectGrid(GameState.getInstance().getCurrentRoom().
                         getGameObjects());
+                gameScreen.updateEffectsGrid(GameState.getInstance().getEffectObjects());
                 gameScreen.updateRoomGrid(GameState.getInstance().getCurrentRoom().getMap());
                 gameScreen.updateEquipGrid();
                 gameScreen.updateInventoryGrid();
@@ -64,6 +78,16 @@ public class GameController extends Controller {
         try {
             for (GameObject go: GameState.getInstance().getCurrentRoom().getGameObjects()) {
                 go.update(l);
+            }
+        } catch (ConcurrentModificationException e) {
+
+        }
+    }
+
+    private void updateEffectObjects(long l) {
+        try {
+            for (Animations effects: GameState.getInstance().getEffectObjects()) {
+                effects.update(l);
             }
         } catch (ConcurrentModificationException e) {
 
@@ -93,4 +117,13 @@ public class GameController extends Controller {
         gameScreen.updateInventoryGrid();
         gameScreen.updateEquipGrid();
     }
+    /**
+     * Goes back to the menu screen.
+     * @throws FileNotFoundException if the file is not found.
+     */
+    public void toMenuScreen() throws FileNotFoundException {
+        MainMenuController mainMenu = new MainMenuController(stage);
+        mainMenu.initMainMenu();
+    }
+
 }

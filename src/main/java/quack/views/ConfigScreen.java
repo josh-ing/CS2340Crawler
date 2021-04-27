@@ -2,9 +2,14 @@ package quack.views;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import quack.views.components.SelectCharacterWrapper;
+import quack.views.components.SelectWeaponWrapper;
+
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 /**
@@ -25,10 +30,29 @@ public class ConfigScreen extends VBox {
     public ConfigScreen() throws FileNotFoundException {
         super();
 
+        //Text formatting
+        Font font1;
+        String fontFamily = "Tw Cen MT";
+        FontWeight fontWeight = FontWeight.BOLD;
+        double fontSize = 20;
+
+        font1 = Font.font(fontFamily, fontWeight, fontSize);
+
+        //Background image
+        String input = "src/main/resources/assets/tiles/";
+        Image image = new Image(new FileInputStream(input + "backgroundConfig.png"));
+
+        BackgroundSize size = new BackgroundSize(BackgroundSize.AUTO,
+            BackgroundSize.AUTO, false, false, true, false);
+        Background background = new Background(new BackgroundImage(image,
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER, size));
+
         //Name Field
         nameField = new TextField();
         nameField.setText("Quacky");
         Label nameLabel = new Label("Enter your name!");
+        nameLabel.setFont(font1);
         HBox nameWrapper = new HBox(nameLabel, nameField);
         nameWrapper.setAlignment(Pos.CENTER);
         nameWrapper.setSpacing(10);
@@ -36,10 +60,14 @@ public class ConfigScreen extends VBox {
         //Difficulty Field
         HBox difficultySelection = new HBox();
         Label difficultyLabel = new Label("Select Difficulty");
+        difficultyLabel.setFont(font1);
         difficultyGroup = new ToggleGroup();
         RadioButton difficultyEasy = new RadioButton("Easy");
+        difficultyEasy.setFont(font1);
         RadioButton difficultyMedium = new RadioButton("Medium");
+        difficultyMedium.setFont(font1);
         RadioButton difficultyHard = new RadioButton("Hard");
+        difficultyHard.setFont(font1);
         difficultyEasy.setToggleGroup(difficultyGroup);
         difficultyMedium.setToggleGroup(difficultyGroup);
         difficultyHard.setToggleGroup(difficultyGroup);
@@ -50,27 +78,37 @@ public class ConfigScreen extends VBox {
 
         //Start Game Button
         startButton = new Button("Start Game");
+        startButton.setFont(font1);
         HBox startWrapper = new HBox(startButton);
-        startWrapper.setAlignment(Pos.CENTER);
+        startWrapper.setAlignment(Pos.BOTTOM_CENTER);
+        startWrapper.setTranslateY(200);
 
 
-        //Select Weapon Button
-        HBox weaponSelection = new HBox();
+
+        //select weapon label
+        HBox selectWeapon = new HBox();
         Label weaponLabel = new Label("Choose your weapon");
+        weaponLabel.setFont(font1);
+        selectWeapon.getChildren().addAll(weaponLabel);
+        selectWeapon.setAlignment(Pos.CENTER);
+
+        //Weapon images
+        HBox imageWrapperWeapon = new HBox();
         weaponGroup = new ToggleGroup();
-        RadioButton weaponKatana = new RadioButton("Katana");
-        RadioButton weaponKnife = new RadioButton("Knife");
-        RadioButton weaponSword = new RadioButton("Sword");
-        weaponKatana.setToggleGroup(weaponGroup);
-        weaponKnife.setToggleGroup(weaponGroup);
-        weaponSword.setToggleGroup(weaponGroup);
-        weaponSelection.getChildren().addAll(weaponLabel, weaponKatana, weaponKnife, weaponSword);
-        weaponSelection.setAlignment(Pos.CENTER);
-        weaponSelection.setSpacing(15);
+        SelectWeaponWrapper katana = new SelectWeaponWrapper(
+            "src/main/resources/assets/weapons/katana.png", "Katana", weaponGroup);
+        SelectWeaponWrapper knife = new SelectWeaponWrapper(
+            "src/main/resources/assets/weapons/knife.png", "Knife", weaponGroup);
+        SelectWeaponWrapper sword = new SelectWeaponWrapper(
+            "src/main/resources/assets/weapons/sword.png", "Sword", weaponGroup);
+
+        imageWrapperWeapon.getChildren().addAll(katana, knife, sword);
+        imageWrapperWeapon.setAlignment(Pos.CENTER);
 
         //select character label
         HBox select = new HBox();
         Label selection = new Label("Choose your character!");
+        selection.setFont(font1);
         select.getChildren().addAll(selection);
         select.setAlignment(Pos.CENTER);
 
@@ -81,15 +119,16 @@ public class ConfigScreen extends VBox {
                 "src/main/resources/assets/quack.gif", "Quack", duckGroup);
         SelectCharacterWrapper henry = new SelectCharacterWrapper(
                 "src/main/resources/assets/henry.gif", "Henry", duckGroup);
-        SelectCharacterWrapper pelican = new SelectCharacterWrapper(
-                "src/main/resources/assets/chicken.gif", "Pelican", duckGroup);
+        SelectCharacterWrapper chicken = new SelectCharacterWrapper(
+                "src/main/resources/assets/chicken.gif", "Chicken", duckGroup);
 
-        imageWrapperTotal.getChildren().addAll(quack, henry, pelican);
+        imageWrapperTotal.getChildren().addAll(quack, henry, chicken);
         imageWrapperTotal.setAlignment(Pos.CENTER);
 
         this.getChildren().addAll(nameWrapper, difficultySelection,
-                weaponSelection, select, imageWrapperTotal, startWrapper);
-        this.setSpacing(10);
+                selectWeapon, imageWrapperWeapon, select, imageWrapperTotal, startWrapper);
+        this.setBackground(background);
+        this.setSpacing(20);
     }
 
     /**

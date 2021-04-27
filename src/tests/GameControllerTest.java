@@ -29,7 +29,7 @@ public class GameControllerTest extends ApplicationTest {
         TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
         clickOn("Easy");
-        clickOn("Wand");
+        clickOn("Katana");
         clickOn("Henry");
         clickOn("Start Game");
         TimeUnit.SECONDS.sleep(2);
@@ -47,7 +47,7 @@ public class GameControllerTest extends ApplicationTest {
         TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
         clickOn("Easy");
-        clickOn("Wand");
+        clickOn("Katana");
         clickOn("Henry");
         clickOn("Start Game");
         TimeUnit.SECONDS.sleep(2);
@@ -66,7 +66,7 @@ public class GameControllerTest extends ApplicationTest {
         TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
         clickOn("Easy");
-        clickOn("Wand");
+        clickOn("Katana");
         clickOn("Henry");
         clickOn("Start Game");
         TimeUnit.SECONDS.sleep(2);
@@ -84,7 +84,7 @@ public class GameControllerTest extends ApplicationTest {
         TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
         clickOn("Easy");
-        clickOn("Wand");
+        clickOn("Katana");
         clickOn("Henry");
         clickOn("Start Game");
         TimeUnit.SECONDS.sleep(2);
@@ -102,7 +102,7 @@ public class GameControllerTest extends ApplicationTest {
         TimeUnit.SECONDS.sleep(1);
         write("Sample Text");
         clickOn("Easy");
-        clickOn("Wand");
+        clickOn("Katana");
         clickOn("Henry");
         clickOn("Start Game");
         TimeUnit.SECONDS.sleep(2);

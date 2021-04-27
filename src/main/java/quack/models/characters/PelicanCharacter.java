@@ -4,7 +4,7 @@ public class PelicanCharacter extends Character {
     private String asset;
 
     public PelicanCharacter() {
-        super(2000, 10, 10, "src/main/resources/assets/chicken.gif");
+        super(300, 10, 10, "src/main/resources/assets/chicken.gif");
         this.asset = "src/main/resources/assets/chicken.gif";
     }
 

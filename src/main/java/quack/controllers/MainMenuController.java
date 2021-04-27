@@ -30,15 +30,25 @@ public class MainMenuController extends Controller {
         mainMenuScreen.setMinHeight(900);
         this.stage.setScene(new Scene(mainMenuScreen));
         Button newGameButton = mainMenuScreen.getNewGameButton();
+        Button instructPageButton = mainMenuScreen.getInstructPageButton();
         newGameButton.setOnAction(e -> {
             try {
                 toConfigScreen();
             } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
+
+        });
+        instructPageButton.setOnAction(e -> {
+            try {
+                toInstructScreen();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
         });
         stage.show();
     }
+
     /**
      * Initializes app to show win screen. Just for testing
      * @throws FileNotFoundException if the file is not found.
@@ -67,6 +77,16 @@ public class MainMenuController extends Controller {
         ConfigController configControl = new ConfigController(stage);
         configControl.initConfig();
     }
+
+    /**
+     * Goes to the instruction screen.
+     * @throws FileNotFoundException if the file is not found.
+     */
+    public void toInstructScreen() throws FileNotFoundException {
+        InstructScreenController toInstructScreen = new InstructScreenController(stage);
+        toInstructScreen.initInstructScreen();
+    }
+
     /**
      * Goes to the win screen. Just for testing
      * @throws FileNotFoundException if the file is not found.

@@ -24,8 +24,10 @@ public class WinScreenController extends Controller {
         WinScreen winScreen = new WinScreen();
         winScreen.setMinWidth(1200);
         winScreen.setMinHeight(900);
+
         this.stage.setScene(new Scene(winScreen));
         Button newGameButton = winScreen.getMenuButton();
+        newGameButton.setFocusTraversable(false);
         newGameButton.setOnAction(e -> {
             try {
                 toMenuScreen();

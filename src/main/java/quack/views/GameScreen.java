@@ -1,7 +1,17 @@
 package quack.views;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import quack.models.Effects.Animations;
 import quack.models.GameObject;
 import quack.models.GameState;
 import quack.models.Room;
@@ -23,10 +33,12 @@ public class GameScreen extends Pane {
     private ImageViewGrid roomGrid;
     private ImageViewGrid gameObjectGrid;
     private ImageViewGrid inventoryGrid;
+    private ImageViewGrid effectsGrid;
     private ImageViewGrid equipBlock;
     private ImageViewGrid inventoryBlock;
     private InventoryHUD hud;
     private TileSet currentTileSet = new OutsideTileSet();
+    private Button menuButton;
 
     static final int ROWS = 18;
     static final int COLUMNS = 24;
@@ -35,14 +47,23 @@ public class GameScreen extends Pane {
 
     public GameScreen() {
         super();
+        Font font1;
+        String fontFamily = "Tw Cen MT";
+        FontWeight fontWeight = FontWeight.BOLD;
+        double fontSize = 20;
+        font1 = Font.font(fontFamily, fontWeight, fontSize);
+
         goldText.setX(10);
         goldText.setY(30);
+        goldText.setFont(font1);
 
         healthText.setX(10);
         healthText.setY(50);
+        healthText.setFont(font1);
 
         attackText.setX(10);
         attackText.setY(70);
+        attackText.setFont(font1);
 
         hud = new InventoryHUD();
         equipBlock = new ImageViewGrid(1, 2, DIMENSIONS);
@@ -58,8 +79,22 @@ public class GameScreen extends Pane {
         equipGrid.toFront();
         roomGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
         gameObjectGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
-        this.getChildren().addAll(roomGrid, gameObjectGrid, inventoryBlock,
-                inventoryGrid, equipBlock, equipGrid, goldText, healthText, attackText);
+        effectsGrid = new ImageViewGrid(ROWS, COLUMNS, DIMENSIONS);
+
+        BackgroundFill backgroundFillBut = new BackgroundFill(Color.MOCCASIN,
+            CornerRadii.EMPTY, Insets.EMPTY);
+        Background background1 = new Background(backgroundFillBut);
+
+        menuButton = new Button("Exit");
+        menuButton.setBackground(background1);
+        menuButton.setFont(font1);
+        menuButton.setTranslateY(850);
+        menuButton.setTranslateX(1130);
+        menuButton.setBackground(background1);
+        menuButton.setAlignment(Pos.BOTTOM_RIGHT);
+
+        this.getChildren().addAll(roomGrid, effectsGrid, gameObjectGrid, inventoryBlock,
+                inventoryGrid, equipBlock, equipGrid, goldText, healthText, attackText, menuButton);
     }
 
     public void updateRoomGrid(Room.RoomCellType[][] map) {
@@ -115,6 +150,19 @@ public class GameScreen extends Pane {
         equipGrid.toFront();
     }
 
+    public void updateEffectsGrid(ArrayList<Animations> effectObjects) {
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLUMNS; c++) {
+                effectsGrid.setImage(null, r, c);
+            }
+        }
+
+        for (Animations eo: effectObjects) {
+            effectsGrid.setImage(eo.getSprite(),
+                    eo.getPosition().getRow(), eo.getPosition().getCol());
+        }
+    }
+
     public void setHealth(int health) {
         healthText.setText("HEALTH: " + health);
     }
@@ -125,5 +173,11 @@ public class GameScreen extends Pane {
 
     public void setAttack(int attack) {
         attackText.setText("ATTACK: " + attack);
+    }
+    public Button getBackMenu() {
+        return menuButton;
+    }
+    public void setBackMenu(Button newGameButton) {
+        this.menuButton = menuButton;
     }
 }

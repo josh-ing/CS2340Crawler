@@ -58,7 +58,7 @@ public class ConfigController extends Controller {
 
 
                 Player player = new Player(configure.getPlayerName(),
-                        character, weapon, getGold());
+                        character, weapon, getGold(), configure.getDifficulty());
 
                 player.setImageAsset(character.getSprite());
                 GameState.reset();
